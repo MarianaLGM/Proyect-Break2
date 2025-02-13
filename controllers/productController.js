@@ -1,19 +1,23 @@
 
 const Product = require("../models/Product.js");
 
-/*Las funciones principales del controlador serán:
+//showProducts: Devuelve la vista con todos los productos.
+const showProducts = async (req, res) => {
+    const products = await Product.find();
+    const productCards = getProductCards(products);
+    const html = baseHtml + getNavBar() + productCards;
+    res.send(html);
+  };
 
-showProductById: Devuelve la vista con el detalle de un producto.
-showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
-createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-showEditProduct: Devuelve la vista con el formulario para editar un producto.
-updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
+//showProductById: Devuelve la vista con el detalle de un producto.
+// showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
+// createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+// showEditProduct: Devuelve la vista con el formulario para editar un producto.
+// updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+// deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
+  
 
-Las funciones showProducts y showProductById pueden devolver respuestas ligeramente distintas si se llega desde el dashboard o desde la vista principal. Por ejemplo, si se llega desde el dashboard, 
-se mostrará un enlace para editar o eliminar el producto. Para ello podemos utilizar la url de la petición o pasar al controlador un parámetro extra que indique si se llega desde el dashboard o no
-*/
-
+////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
 
 //getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
 function getProductCards(products) {
@@ -34,27 +38,6 @@ function getProductCards(products) {
     return html;
   }
 
-  //showProducts: Devuelve la vista con todos los productos.
-  const showProducts = async (req, res) => {
-    const products = await Product.find();
-    const productCards = getProductCards(products);
-    const html = baseHtml + getNavBar() + productCards;
-    res.send(html);
-  };
-
-
-  module.exports = {
-    showProducts,
-    showProductById,
-    showNewProduct,
-    createProduct,
-    showEditProduct,
-    updateProduct,
-    deleteProduct
-  };
-
-////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
-
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml = () => {
     return `
@@ -74,10 +57,18 @@ function getNavBar(products) {
      
     }
 
-  
-
-
-module.exports = { baseHtml, getNavBar, getProductCards, showProducts, getProductForm };
+module.exports = { 
+    showProductById,
+    showNewProduct,
+    createProduct,
+    showEditProduct,
+    updateProduct,
+    deleteProduct,
+    getProductCards,
+    baseHtml, 
+    getNavBar, 
+    showProducts
+  };
       
 
 
