@@ -18,13 +18,14 @@ const ProductSchema = new mongoose.Schema({
         required: true
 
     },
-    Descripción: {
+    Descripcion: {
         type: String,
         required: true
     },
     Imagen: String, //Ver esto
-    Categoría: {
+    Categoria: {
         type: String,
+        enum: ['Camisetas', 'Pantalones', 'Zapatos', 'Accesorios'],
         required: true
     },
     Talla: {
@@ -33,10 +34,11 @@ const ProductSchema = new mongoose.Schema({
     },
     Precio: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
     },
 }, { timestamps: true });
 
-const User = mongoose.model('User', UserSchema);
+const Product = mongoose.model('Product', UserSchema);
 
-module.exports = User;
+module.exports = Product;
