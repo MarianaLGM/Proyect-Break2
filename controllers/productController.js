@@ -7,7 +7,7 @@ const showProducts = async (req, res) => {
     try {
         const products = await Product.find();
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml() + getNavBar() + productCards;
         res.send(html);
 
     } catch (error) {
@@ -24,6 +24,7 @@ const showProducts = async (req, res) => {
 const showProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
+        //console.log(product)
         const productCards = getProductCards(product);
         const html = baseHtml + getNavBar() + productCards;
         res.send(html);
@@ -59,7 +60,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml() + getNavBar() + productCards;
         res
         .status(201)
         .send(html);
@@ -77,14 +78,14 @@ const createProduct = async (req, res) => {
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 const showEditProduct = async (req, res) => {    
     try {
-        const product = await Product.findByIdAndUpdate(req.params.productId);
+        const product = await Product.findById(req.params.productId);
         const msg = 'Producto no encontrado'
 
         if (!product) {
             return res.status(404).send(baseHtml() + getNavBar() + msg);
         }
         
-        const html = baseHtml() + getNavBar() + formEditProduct();
+        const html = baseHtml() + getNavBar() + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -134,7 +135,7 @@ const deleteProduct = async (req, res) => {
             return res.status(404).json({ message: "Product not found" });
         }
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml() + getNavBar() + productCards;
 
         res.json({ message: "product deleted", product });
 
@@ -190,7 +191,7 @@ const baseHtml = () => {
         <head>
         <meta charset="UTF-8">
         <title>Tienda de ropa online</title>
-        <link rel="stylesheet" href="./public/styles.css">
+        <link rel="stylesheet" href="../public/style.css">
         </head>
     `;
 };
@@ -221,13 +222,13 @@ function getNavBar() {
             <form action='/dashboard'>
 
                     <label for="productImg">Select files:</label>
-                    <input type="file" id="productImg" name="productImg" required>
+                    <input type="file" id="productImg" name="productImg" required><br>
                     
                     <label for='productName'>Nombre del producto: </label>
-                    <input id='productName' type='text' name='productName' required>
+                    <input id='productName' type='text' name='productName' required><br>
                     
                     <label for='productDescription'>Descripción del producto: </label>
-                    <input id='productDescription' type='text' name='productDescription' required>
+                    <textarea id='productDescription' type='text' name='productDescription' required>Descripción del producto:</textarea><br>
                     
                     <label for='productCategory'>Categoría del producto: </label>
                     <select id="productCategory" name="productCategory" required>
@@ -235,7 +236,7 @@ function getNavBar() {
                         <option value="pantalones">Pantalones</option>
                         <option value="zapatos">Zapatos</option>
                         <option value="accesorios">Accesorios</option>
-                    </select>
+                    </select><br>
                     
                     <label for='productSize'>Talla del producto: </label>
                     <select id="productSize" name="productSize" required>
@@ -244,10 +245,10 @@ function getNavBar() {
                         <option value="m">M</option>
                         <option value="l">L</option>
                         <option value="xl">XL</option>
-                    </select>
+                    </select><br>
 
                     <label for='productPrice'>Precio del producto: </label>
-                    <input id='productPrice' type='number' name='productPrice' min='0' required>
+                    <input id='productPrice' type='number' name='productPrice' min='0' required><br>
 
                     <button id=newProductBtn type='submit'>Enviar</button>
 
@@ -256,19 +257,19 @@ function getNavBar() {
         `;
     };
 
-    const formEditProduct = () => {
+    const formEditProduct = (product) => {
         return `
         <body>
             <form action='/dashboard/:productId'>
 
                     <label for="productImg">Select files:</label>
-                    <input type="file" id="productImg" name="productImg">
+                    <input type="file" id="productImg" name="productImg"><br>
                     
                     <label for='productName'>Nombre del producto: </label>
-                    <input id='productName' type='text' name='productName'>
+                    <input id='productName' type='text' name='productName' value='${product.Nombre}'><br>
                     
                     <label for='productDescription'>Descripción del producto: </label>
-                    <input id='productDescription' type='text' name='productDescription'>
+                    <textarea id='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
                     
                     <label for='productCategory'>Categoría del producto: </label>
                     <select id="productCategory" name="productCategory">
@@ -276,7 +277,7 @@ function getNavBar() {
                         <option value="pantalones">Pantalones</option>
                         <option value="zapatos">Zapatos</option>
                         <option value="accesorios">Accesorios</option>
-                    </select>
+                    </select><br>
                     
                     <label for='productSize'>Talla del producto: </label>
                     <select id="productSize" name="productSize">
@@ -285,10 +286,10 @@ function getNavBar() {
                         <option value="m">M</option>
                         <option value="l">L</option>
                         <option value="xl">XL</option>
-                    </select>
+                    </select><br>
 
                     <label for='productPrice'>Precio del producto: </label>
-                    <input id='productPrice' type='number' name='productPrice' min='0'>
+                    <input id='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
                     <button id=newProductBtn type='submit'>Enviar</button>
 
