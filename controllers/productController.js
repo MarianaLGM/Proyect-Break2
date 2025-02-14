@@ -2,20 +2,47 @@
 const Product = require("../models/Product.js");
 
 //showProducts: Devuelve la vista con todos los productos.
+//GET /products: Devuelve todos los productos.
 const showProducts = async (req, res) => {
     const products = await Product.find();
     const productCards = getProductCards(products);
     const html = baseHtml + getNavBar() + productCards;
     res.send(html);
-  };
+};
 
 //showProductById: Devuelve la vista con el detalle de un producto.
-// showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
-// createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-// showEditProduct: Devuelve la vista con el formulario para editar un producto.
-// updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
-// deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
-  
+//GET /products/:productId: Devuelve el detalle de un producto.
+const showProductById = async (req, res) => {
+    const product = await Product.findById(req.params.productId);
+    const productCards = getProductCards(product);
+    const html = baseHtml + getNavBar() + productCards;
+    res.send(html);
+};
+
+//showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
+//GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+const showNewProduct = async (req, res) => {
+};
+
+//createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+//POST /dashboard: Crea un nuevo producto.
+const createProduct = async (req, res) => {
+};
+
+//showEditProduct: Devuelve la vista con el formulario para editar un producto.
+//GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+const showEditProduct = async (req, res) => {
+};
+
+//updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+//PUT /dashboard/:productId: Actualiza un producto.
+const deleteProduct = async (req, res) => {
+};
+
+//deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
+//DELETE /dashboard/:productId/delete: Elimina un producto.
+const deleteProduct = async (req, res) => {
+};
 
 ////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
 
@@ -23,38 +50,53 @@ const showProducts = async (req, res) => {
 function getProductCards(products) {
     let html = '';
     for (let product of products) {
-      html += `
+    html += `
         <div class="product-card">
-          <img src="${product.imagen}" alt="${product.nombre}">
-          <h2>${product.nombre}</h2>
-          <p>${product.descripcion}</p>
-          <p>${product.precio}€</p>
-          <a href="/products/${product._id}">Ver detalle</a>
-          <a href="/products/${product._id}/edit">Editar</a>
-          <a href="/products/${product._id}/delete">Eliminar</a>
+        <img src="${product.imagen}" alt="${product.nombre}">
+        <h2>${product.nombre}</h2>
+        <p>${product.descripcion}</p>
+        <p>${product.precio}€</p>
+        <a href="/products/${product._id}">Ver detalle</a>
+        <a href="/products/${product._id}/edit">Editar</a>
+        <a href="/products/${product._id}/delete">Eliminar</a>
         </div>
-      `;
+    `;
     }
     return html;
-  }
+}
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml = () => {
     return `
-      <!DOCTYPE html>
-      <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
         <head>
-          <meta charset="UTF-8">
-          <title>Tienda de ropa online</title>
-          <link rel="stylesheet" href="/styles.css">
+        <meta charset="UTF-8">
+        <title>Tienda de ropa online</title>
+        <link rel="stylesheet" href="/styles.css">
         </head>
         <body>
     `;
 };
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-function getNavBar(products) {
-     
+function getNavBar() { 
+    return `
+    <header class="header"> 
+    <nav>
+        <div class="container">
+            <ul class="nav1"> 
+                <li><a href="#"class="navigation">Productos</a></li>
+                <li><a href="#"class="navigation">Camisetas</a></li>
+                <li><a href="#"class="navigation">Pantalones</a></li>
+                <li><a href="#"class="navigation">Zapatos</a></li>
+                <li><a href="#"class="navigation">Accesorios</a></li>
+                <li><a href="#"class="navigation">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    </header>
+    `;
     }
 
 module.exports = { 
@@ -68,8 +110,8 @@ module.exports = {
     baseHtml, 
     getNavBar, 
     showProducts
-  };
-      
+};
+
 
 
 
