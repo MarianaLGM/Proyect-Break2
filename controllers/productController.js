@@ -27,6 +27,7 @@ const showNewProduct = async (req, res) => {
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
 const createProduct = async (req, res) => {
+
 };
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
@@ -37,11 +38,18 @@ const showEditProduct = async (req, res) => {
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
 const updateProduct = async (req, res) => {
+    const product = await Product.findByIdAndUpdate(
+        req.params.productId, 
+        { new: true }
+    )
+    res.send(showProducts())
 };
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto.
 const deleteProduct = async (req, res) => {
+    const product = await Product.findByIdAndDelete(req.params.productId);
+    res.send(showProducts())
 };
 
 ////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
@@ -116,7 +124,7 @@ module.exports = {
 
 
 
-/*
+
 
   //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get("/products", async(req, res) => {
@@ -263,7 +271,6 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
             .json({ message: "There was a problem trying to delete a product" });
     }
 });
-*/
 
 module.exports = {
     showProducts,  };
