@@ -22,11 +22,13 @@ const showProductById = async (req, res) => {
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
+
 };
 
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
 const createProduct = async (req, res) => {
+
 };
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
@@ -73,7 +75,7 @@ const baseHtml = () => {
         <head>
         <meta charset="UTF-8">
         <title>Tienda de ropa online</title>
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" href="./public/styles.css">
         </head>
         <body>
     `;
