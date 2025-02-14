@@ -196,8 +196,8 @@ module.exports = {
 
 
 
-/*
 
+/*
   //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get("/products", async(req, res) => {
     try {
@@ -346,5 +346,4 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
 
 module.exports = {
     showProducts,  };
-
-    */
+*/
