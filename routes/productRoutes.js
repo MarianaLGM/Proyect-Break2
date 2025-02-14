@@ -14,5 +14,3 @@ router.put("/dashboard/:productId", productController.updateProduct);//PUT /dash
 router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
 
 module.exports = router;
-
-

@@ -22,6 +22,18 @@ const showProductById = async (req, res) => {
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
+
+    try{         
+        const html = baseHtml() + getNavBar() + form();
+        
+        res.status(200).send(html);
+
+    }  catch (error) {
+        console.error(error);
+        res
+            .status(500)
+            .json({ message: "There was a problem getting the form" });
+    }
 };
 
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
@@ -75,7 +87,6 @@ const baseHtml = () => {
         <title>Tienda de ropa online</title>
         <link rel="stylesheet" href="/styles.css">
         </head>
-        <body>
     `;
 };
 
@@ -99,6 +110,46 @@ function getNavBar() {
     `;
     }
 
+    const form = () => {
+        return `
+        <body>
+            <form action='/dashboard'>
+
+                    <label for="productImg">Select files:</label>
+                    <input type="file" id="productImg" name="productImg" required>
+                    
+                    <label for='productName'>Nombre del producto: </label>
+                    <input id='productName' type='text' name='productName' required>
+                    
+                    <label for='productDescription'>Descripción del producto: </label>
+                    <input id='productDescription' type='text' name='productDescription' required>
+                    
+                    <label for='productCategory'>Categoría del producto: </label>
+                    <select id="productCategory" name="productCategory" required>
+                        <option value="camisetas">Camisetas</option>
+                        <option value="pantalones">Pantalones</option>
+                        <option value="zapatos">Zapatos</option>
+                        <option value="accesorios">Accesorios</option>
+                    </select>
+                    
+                    <label for='productSize'>Talla del producto: </label>
+                    <select id="productSize" name="productSize" required>
+                        <option value="xs">XS</option>
+                        <option value="s">S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                        <option value="xl">XL</option>
+                    </select>
+
+                    <label for='productPrice'>Precio del producto: </label>
+                    <input id='productPrice' type='number' name='productPrice' min='0' required>
+
+                    <button id=newProductBtn type='submit'>Enviar</button>
+
+                </form>
+            </body>
+        `;
+    };
 module.exports = { 
     showProductById,
     showNewProduct,
@@ -265,5 +316,3 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
 });
 */
 
-module.exports = {
-    showProducts,  };
