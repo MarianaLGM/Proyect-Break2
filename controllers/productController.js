@@ -36,7 +36,7 @@ const showEditProduct = async (req, res) => {
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
-const deleteProduct = async (req, res) => {
+const updateProduct = async (req, res) => {
 };
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
