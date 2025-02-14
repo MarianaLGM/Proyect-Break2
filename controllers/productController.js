@@ -4,19 +4,35 @@ const Product = require("../models/Product.js");
 //showProducts: Devuelve la vista con todos los productos.
 //GET /products: Devuelve todos los productos.
 const showProducts = async (req, res) => {
-    const products = await Product.find();
-    const productCards = getProductCards(products);
-    const html = baseHtml + getNavBar() + productCards;
-    res.send(html);
+    try {
+        const products = await Product.find();
+        const productCards = getProductCards(products);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting all products'})
+    }
 };
+
 
 //showProductById: Devuelve la vista con el detalle de un producto.
 //GET /products/:productId: Devuelve el detalle de un producto.
 const showProductById = async (req, res) => {
-    const product = await Product.findById(req.params.productId);
-    const productCards = getProductCards(product);
-    const html = baseHtml + getNavBar() + productCards;
-    res.send(html);
+    try {
+        const product = await Product.findById(req.params.productId);
+        const productCards = getProductCards(product);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting the product'})
+    }
 };
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
@@ -28,8 +44,8 @@ const showNewProduct = async (req, res) => {
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
 const createProduct = async (req, res) => {
-
 };
+
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
@@ -38,14 +54,53 @@ const showEditProduct = async (req, res) => {
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
+
 const updateProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(
+            req.params.productId, 
+            req.body,
+            { new: true }
+        );
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.json({ message: "Product successfully updated", product });
+
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({
+            message: `There was a problem trying to update a product with productId: ${req.params.productId}`
+        })
+    }
 };
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto.
-const deleteProduct = async (req, res) => {
-};
 
+const deleteProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.productId);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        const productCards = getProductCards(product);
+        const html = baseHtml + getNavBar() + productCards;
+
+        res.json({ message: "product deleted", product });
+
+    } catch (error) {
+        console.error(error);
+        res
+            .status(500)
+            .json({ message: "There was a problem trying to delete a product" });
+    }
+};
 ////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
 
 //getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -256,7 +311,7 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
-        res.json({ message: "product deleted", task });
+        res.json({ message: "product deleted", product });
 
     } catch (error) {
         console.error(error);
@@ -265,7 +320,8 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
             .json({ message: "There was a problem trying to delete a product" });
     }
 });
-*/
 
 module.exports = {
     showProducts,  };
+
+    */
