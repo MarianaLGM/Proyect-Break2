@@ -32,10 +32,11 @@ const ProductSchema = new mongoose.Schema({
     },
     Precio: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
     },
 }, { timestamps: true });
 
-const User = mongoose.model('User', UserSchema);
+const Product = mongoose.model('Product', UserSchema);
 
-module.exports = User;
+module.exports = Product;
