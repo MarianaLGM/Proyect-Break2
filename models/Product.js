@@ -16,13 +16,17 @@ const ProductSchema = new mongoose.Schema({
     Nombre: {
         type: String,
         required: true
+
     },
     Descripcion: {
         type: String,
         required: true
     },
-    Imagen: String, //Ver esto
-    Categoria: {
+    Imagen:{
+        type: String,
+        required: true
+    },
+    Categoría:{
         type: String,
         enum: ['Camisetas', 'Pantalones', 'Zapatos', 'Accesorios'],
         required: true
@@ -38,6 +42,6 @@ const ProductSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Product = mongoose.model('Product', UserSchema);
+const Product = mongoose.model('Product', ProductSchema);
 
 module.exports = Product;
