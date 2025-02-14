@@ -1,1 +1,30 @@
 /*STYLO CSS*/
+
+
+/*formato barra navegador*/
+.container{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgb(219, 205, 233);
+}
+
+nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 50px;
+} 
+
+/*Formato Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
+.navigation{
+    font-size: 18px;
+    color: rgb(61, 61, 61);
+    font-family: "Futura", sans-serif;
+    text-decoration: none;
+    margin-right: 35px;
+}
+
+/*quitar los puntos de la lista Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
+ul{
+    list-style-type:none;
+}
