@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema({
         required: true
 
     },
-    Descripcion: {
+    Descripción: {
         type: String,
         required: true
     },
@@ -33,6 +33,7 @@ const ProductSchema = new mongoose.Schema({
     },
     Talla: {
         type: String,
+        enum: ['XS', 'S', 'M', 'L', 'XL'],
         required: true
     },
     Precio: {

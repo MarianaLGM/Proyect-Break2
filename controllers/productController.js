@@ -40,7 +40,7 @@ const showProductById = async (req, res) => {
 const showNewProduct = async (req, res) => {
 
     try{         
-        const html = baseHtml() + getNavBar() + form();
+        const html = baseHtml() + getNavBar() + formCreateProduct();
         
         res.status(200).send(html);
 
@@ -75,15 +75,26 @@ const createProduct = async (req, res) => {
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+const showEditProduct = async (req, res) => {    
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.productId);
+        const msg = 'Producto no encontrado'
 
+        if (!product) {
+            return res.status(404).send(baseHtml() + getNavBar() + msg);
+        }
+        
+        const html = baseHtml() + getNavBar() + formEditProduct();
+        
+        res.status(200).send(html);
 
-
-
-
-
-
-
-
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
+    }
+};
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
@@ -139,20 +150,36 @@ const deleteProduct = async (req, res) => {
 //getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
 function getProductCards(products) {
     let html = '';
-    for (let product of products) {
-    html += `
-        <div class="product-card">
-        <img src="${product.imagen}" alt="${product.nombre}">
-        <h2>${product.nombre}</h2>
-        <p>${product.descripcion}</p>
-        <p>${product.precio}€</p>
-        <a href="/products/${product._id}">Ver detalle</a>
-        <a href="/products/${product._id}/edit">Editar</a>
-        <a href="/products/${product._id}/delete">Eliminar</a>
-        </div>
-    `;
+
+    if(products.length > 1) {
+        for (let product of products) {
+            html += `
+                <div class="product-card">
+                    <img src="${product.Imagen}" alt="${product.Nombre}">
+                    <h2>${product.Nombre}</h2>
+                    <p>${product.Descripción}</p>
+                    <p>${product.Precio}€</p>
+                    <a href="/products/${product._id}">Ver detalle</a>
+                    <a href="/products/${product._id}/edit">Editar</a>
+                    <a href="/products/${product._id}/delete">Eliminar</a>
+                </div>`
+        }
+        return html;
+    } else {
+        html = `
+            <div class="product-card">
+                <img src="${products.Imagen}" alt="${products.Nombre}">
+                <h2>${products.Nombre}</h2>
+                <p>${products.Descripción}</p>
+                <p>${products.Precio}€</p>
+                <a href="/products/${products._id}">Ver detalle</a>
+                <a href="/products/${products._id}/edit">Editar</a>
+                <a href="/products/${products._id}/delete">Eliminar</a>
+            </div>
+        `;
+        
+        return html;
     }
-    return html;
 }
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
@@ -188,7 +215,7 @@ function getNavBar() {
     `;
     }
 
-    const form = () => {
+    const formCreateProduct = () => {
         return `
         <body>
             <form action='/dashboard'>
@@ -228,6 +255,48 @@ function getNavBar() {
             </body>
         `;
     };
+
+    const formEditProduct = () => {
+        return `
+        <body>
+            <form action='/dashboard/:productId'>
+
+                    <label for="productImg">Select files:</label>
+                    <input type="file" id="productImg" name="productImg">
+                    
+                    <label for='productName'>Nombre del producto: </label>
+                    <input id='productName' type='text' name='productName'>
+                    
+                    <label for='productDescription'>Descripción del producto: </label>
+                    <input id='productDescription' type='text' name='productDescription'>
+                    
+                    <label for='productCategory'>Categoría del producto: </label>
+                    <select id="productCategory" name="productCategory">
+                        <option value="camisetas">Camisetas</option>
+                        <option value="pantalones">Pantalones</option>
+                        <option value="zapatos">Zapatos</option>
+                        <option value="accesorios">Accesorios</option>
+                    </select>
+                    
+                    <label for='productSize'>Talla del producto: </label>
+                    <select id="productSize" name="productSize">
+                        <option value="xs">XS</option>
+                        <option value="s">S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                        <option value="xl">XL</option>
+                    </select>
+
+                    <label for='productPrice'>Precio del producto: </label>
+                    <input id='productPrice' type='number' name='productPrice' min='0'>
+
+                    <button id=newProductBtn type='submit'>Enviar</button>
+
+                </form>
+            </body>
+        `;
+    };
+
 module.exports = { 
     showProductById,
     showNewProduct,
@@ -391,5 +460,4 @@ router.delete("/dashboard/:productId/delete", async(req, res) => {
             .status(500)
             .json({ message: "There was a problem trying to delete a product" });
     }
-});
-
+}); */
