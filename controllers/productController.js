@@ -37,8 +37,12 @@ const showProductById = async (req, res) => {
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
-const showNewProduct = async (req, res) => {
-};
+
+
+
+
+
+
 
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
@@ -63,8 +67,13 @@ const createProduct = async (req, res) => {
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
-const showEditProduct = async (req, res) => {
-};
+
+
+
+
+
+
+
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
