@@ -4,7 +4,8 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 
 router.get("/products", productController.showProducts); //GET /products: Devuelve todos los productos.
-router.get("/products/:id", productController.showProductById);//GET /products/:productId: Devuelve el detalle de un producto.
+router.get("/products/:productId", productController.showProductById);//GET /products/:productId: Devuelve el detalle de un producto.(ADMI)
+router.get("/products/:id", productController.showProductByIdClient);//GET /products/:productId: Devuelve el detalle de un producto.);//(CLIENTE)
 router.get("/dashboard");//GET /dashboard: Devuelve el dashboard del administrador.
 router.get("/dashboard/new",productController.showNewProduct);//GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.post("/dashboard", productController.createProduct);//POST /dashboard: Crea un nuevo producto.
