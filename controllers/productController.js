@@ -1,6 +1,46 @@
 
 const Product = require("../models/Product.js");
+const User = require("../models/User.js");
 
+/*******************************CLIENTE************************************/
+
+//showProductsClient: Devuelve la vista con todos los productos.
+//GET /products: Devuelve todos los productos.
+
+const showProductsClient = async (req, res) => {
+    try {
+        const products = await Product.find();
+        const productCards = getProductCardsClient(products);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting all products'})
+    }
+};
+
+
+//showProductByIdClient: Devuelve la vista con el detalle de un producto.
+//GET /products/:id: Devuelve el detalle de un producto.
+const showProductByIdClient = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        const productCards = getProductCardsClient(product);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting the product'})
+    }
+};
+
+
+/******************************ADMINISTRADOR*********************************/
 //showProducts: Devuelve la vista con todos los productos.
 //GET /products: Devuelve todos los productos.
 const showProducts = async (req, res) => {
@@ -19,7 +59,7 @@ const showProducts = async (req, res) => {
 };
 
 
-//showProductById: Devuelve la vista con el detalle de un producto.(ADMI)
+//showProductById: Devuelve la vista con el detalle de un producto.
 //GET /products/:productId: Devuelve el detalle de un producto.
 const showProductById = async (req, res) => {
     try {
@@ -34,23 +74,6 @@ const showProductById = async (req, res) => {
         .json({ message: 'Error getting the product'})
     }
 };
-
-//showProductById: Devuelve la vista con el detalle de un producto.(CLIENTE)
-//GET /products/:id: Devuelve el detalle de un producto.
-const showProductByIdClient = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        const productCards = getProductCardsClient(product);
-        const html = baseHtml + getNavBar() + productCards;
-        res.send(html);
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting the product'})
-    }
-};
-
 
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
@@ -241,7 +264,7 @@ const baseHtml = () => {
         <head>
         <meta charset="UTF-8">
         <title>Tienda de ropa online</title>
-        <link rel="stylesheet" href="./public/styles.css">
+        <link rel="stylesheet" href="public/style.css">
         </head>
     `;
 };
@@ -253,12 +276,12 @@ function getNavBar() {
     <nav>
         <div class="container">
             <ul class="nav1"> 
-                <li><a href="#"class="navigation">Productos</a></li>
-                <li><a href="#"class="navigation">Camisetas</a></li>
-                <li><a href="#"class="navigation">Pantalones</a></li>
-                <li><a href="#"class="navigation">Zapatos</a></li>
-                <li><a href="#"class="navigation">Accesorios</a></li>
-                <li><a href="#"class="navigation">Login</a></li>
+                <li><a href="/products"class="navigation">Productos</a></li>
+                <li><a href="/camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/accesorios"class="navigation">Accesorios</a></li>
+                <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
     </nav>
@@ -266,47 +289,48 @@ function getNavBar() {
     `;
     }
 
-    const formCreateProduct = () => {
-        return `
-        <body>
-            <form action='/dashboard'>
-
-                    <label for="productImg">Select files:</label>
-                    <input type="file" id="productImg" name="productImg" required>
+//VISTA DASHBOARD formCreateProduct, formulario para crear producto:
+const formCreateProduct = () => {
+    return `
+    <body>
+        <form action='/dashboard'>
+            <label for="productImg">Select files:</label>
+            <input type="file" id="productImg" name="productImg" required>
                     
-                    <label for='productName'>Nombre del producto: </label>
-                    <input id='productName' type='text' name='productName' required>
+            <label for='productName'>Nombre del producto: </label>
+            <input id='productName' type='text' name='productName' required>
                     
-                    <label for='productDescription'>Descripción del producto: </label>
-                    <input id='productDescription' type='text' name='productDescription' required>
+            <label for='productDescription'>Descripción del producto: </label>
+            <input id='productDescription' type='text' name='productDescription' required>
                     
-                    <label for='productCategory'>Categoría del producto: </label>
-                    <select id="productCategory" name="productCategory" required>
-                        <option value="camisetas">Camisetas</option>
-                        <option value="pantalones">Pantalones</option>
-                        <option value="zapatos">Zapatos</option>
-                        <option value="accesorios">Accesorios</option>
-                    </select>
+            <label for='productCategory'>Categoría del producto: </label>
+            <select id="productCategory" name="productCategory" required>
+                <option value="camisetas">Camisetas</option>
+                <option value="pantalones">Pantalones</option>
+                <option value="zapatos">Zapatos</option>
+                <option value="accesorios">Accesorios</option>
+            </select>
                     
-                    <label for='productSize'>Talla del producto: </label>
-                    <select id="productSize" name="productSize" required>
-                        <option value="xs">XS</option>
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
-                    </select>
+            <label for='productSize'>Talla del producto: </label>
+            <select id="productSize" name="productSize" required>
+                <option value="xs">XS</option>
+                <option value="s">S</option>
+                <option value="m">M</option>
+                <option value="l">L</option>
+                <option value="xl">XL</option>
+            </select>
 
-                    <label for='productPrice'>Precio del producto: </label>
-                    <input id='productPrice' type='number' name='productPrice' min='0' required>
+                <label for='productPrice'>Precio del producto: </label>
+                <input id='productPrice' type='number' name='productPrice' min='0' required>
 
-                    <button id=newProductBtn type='submit'>Enviar</button>
+                <button id=newProductBtn type='submit'>Enviar</button>
 
-                </form>
-            </body>
-        `;
-    };
+            </form>
+        </body>
+    `;
+};
 
+//VISTA DASHBOARD formEditProduct, formulario para editar producto:
     const formEditProduct = () => {
         return `
         <body>
@@ -348,19 +372,91 @@ function getNavBar() {
         `;
     };
 
+
+
+//NUEVOS CONTROLADORES//
+
+
+//showPantalones: Devuelve la vista pantalones
+//GET /products/categoria: Devuelve todos los pantalones.
+const showTrousers = async (req, res) => {
+    try {
+        const products = await Product.find(req.params.categoria);
+        const productCards = getProductCards(products);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting all trousers'})
+    }
+};
+
+
+const verifyLoginClient = (req, res) => {
+    const { email, password } = req.body;
+    req.session.user = email; // Guarda en sesión
+        return res.redirect("/login"); 
+} 
+
+
+const loginClient = () => {
+    return `
+    <body>
+        <form method="post"action='/login'>
+            <div class="loginUser">
+                <label for="email">Correo electrónico o Usuario</label>
+                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo o usuario">
+                    
+                <form method="post" action="/logout">
+
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
+
+                <button type="submit">Iniciar sesión</button>
+            </div> 
+        </form>
+    </body>    
+    `;
+};
+
+const logoutClient =()=>{
+    return `
+    <body>
+        <form method="post" action="/logout">
+            <button type="submit">Cerrar sesión</button>
+            </form>
+    </body>
+    `
+}
+/*
+const logoutClient = (req, res) => {
+    req.session.destroy((err) => {  // Eliminar la sesión
+        if (err) {
+            return res.status(500).send("No se pudo cerrar sesión.");
+        }
+        res.redirect("/login"); // Redirigir al login después de cerrar sesión
+    });
+};*/
+
 module.exports = { 
-    showProductById,
+    showProductsClient,
     showProductByIdClient,
+    loginClient,
+    verifyLoginClient,
+    logoutClient,
+
+    showProducts,
     showNewProduct,
     createProduct,
+    showProductById,
     showEditProduct,
     updateProduct,
     deleteProduct,
-    getProductCards,
-    getProductCardsClient,
-    baseHtml, 
-    getNavBar, 
-    showProducts
+
+    showTrousers
 };
 
 
