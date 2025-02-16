@@ -320,10 +320,10 @@ const formCreateProduct = () => {
                 <option value="xl">XL</option>
             </select>
 
-                <label for='productPrice'>Precio del producto: </label>
-                <input id='productPrice' type='number' name='productPrice' min='0' required>
+            <label for='productPrice'>Precio del producto: </label>
+            <input id='productPrice' type='number' name='productPrice' min='0' required>
 
-                <button id=newProductBtn type='submit'>Enviar</button>
+            <button id=newProductBtn type='submit'>Enviar</button>
 
             </form>
         </body>
