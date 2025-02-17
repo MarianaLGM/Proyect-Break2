@@ -2,46 +2,9 @@
 const Product = require("../models/Product.js");
 const User = require("../models/User.js");
 
-/*******************************CLIENTE************************************/
+/**************************************VISTA GENERAL***************************************/
 
-//showProductsClient: Devuelve la vista con todos los productos.
-//GET /products: Devuelve todos los productos.
-
-const showProductsClient = async (req, res) => {
-    try {
-        const products = await Product.find();
-        const productCards = getProductCardsClient(products);
-        const html = baseHtml + getNavBar() + productCards;
-        res.send(html);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting all products'})
-    }
-};
-
-
-//showProductByIdClient: Devuelve la vista con el detalle de un producto.
-//GET /products/:id: Devuelve el detalle de un producto.
-const showProductByIdClient = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        const productCards = getProductCardsClient(product);
-        const html = baseHtml + getNavBar() + productCards;
-        res.send(html);
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting the product'})
-    }
-};
-
-
-/******************************ADMINISTRADOR*********************************/
-//showProducts: Devuelve la vista con todos los productos.
+//showProducts: Devuelve la vista con todos los productos
 //GET /products: Devuelve todos los productos.
 const showProducts = async (req, res) => {
     try {
@@ -59,7 +22,7 @@ const showProducts = async (req, res) => {
 };
 
 
-//showProductById: Devuelve la vista con el detalle de un producto.
+//showProductById: Devuelve la vista con el detalle de un producto
 //GET /products/:productId: Devuelve el detalle de un producto.
 const showProductById = async (req, res) => {
     try {
@@ -67,6 +30,31 @@ const showProductById = async (req, res) => {
         const productCards = getProductCards(product);
         const html = baseHtml + getNavBar() + productCards;
         res.send(html);
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting the product'})
+    }
+};
+
+/**************************************VISTA DASHBOARD***************************************/
+
+//showProductById: Devuelve la vista con el detalle de un producto.
+//GET /dashboard/:productId: Devuelve el detalle de un producto.
+const showProductByIdDashboard = async (req, res) => {    
+    try {
+        const product = await Product.findById(req.params.productId);
+        const msg = 'Product not found'
+
+        if (!product) {
+            return res.status(404).send(baseHtml() + getNavBar() + msg);
+        }
+        const productCardsDashboard = getProductCardsDashboard(product);
+        const html = baseHtml() + getNavBar() + productCardsDashboard;
+        
+        res.status(200).send(html);
+
     } catch (error) {
         console.error(error);
         res
@@ -99,8 +87,8 @@ const createProduct = async (req, res) => {
     try {
         const product = await Product.create({...req.body});
         
-        const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar() + productCards;
+        const productCardsDashboard = getProductCardsDashboard(product);
+        const html = baseHtml + getNavBar() + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -139,7 +127,6 @@ const showEditProduct = async (req, res) => {
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
-
 const updateProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndUpdate(
@@ -166,7 +153,6 @@ const updateProduct = async (req, res) => {
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto.
-
 const deleteProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.productId);
@@ -174,10 +160,10 @@ const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
-        const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar() + productCards;
+        const productCardsDashboard = getProductCardsDashboard(product);
+        const html = baseHtml + getNavBar() + productCardsDashboard; 
 
-        res.json({ message: "product deleted", product });
+        res.json({ message: "product deleted", html });
 
     } catch (error) {
         console.error(error);
@@ -189,7 +175,7 @@ const deleteProduct = async (req, res) => {
 ////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
-function getProductCards(products) {
+function getProductCardsDashboard(products) {
     let html = '';
 
     if(products.length > 0) { 
@@ -223,8 +209,8 @@ function getProductCards(products) {
     }
 }
 
-// VISTA CLIENTE getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
-function getProductCardsClient(products) {
+//VISTA GENERAL getProductCards Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
+function getProductCards(products) {
     let html = '';
 
     if(products.length > 0) { 
@@ -373,9 +359,9 @@ const formCreateProduct = () => {
 
 
 
-//NUEVOS CONTROLADORES//
 
 
+/*
 //showPantalones: Devuelve la vista pantalones
 //GET /products/categoria: Devuelve todos los pantalones.
 const showTrousers = async (req, res) => {
@@ -392,13 +378,6 @@ const showTrousers = async (req, res) => {
         .json({ message: 'Error getting all trousers'})
     }
 };
-
-
-const verifyLogin = (req, res) => {
-    const { email, password } = req.body;
-    req.session.user = email; // Guarda en sesión
-        return res.redirect("/login"); 
-} 
 
 
 const login = () => {
@@ -430,7 +409,7 @@ const logout =()=>{
     </body>
     `
 }
-/*
+
 const logout = (req, res) => {
     req.session.destroy((err) => {  // Eliminar la sesión
         if (err) {
@@ -445,6 +424,7 @@ module.exports = {
     showNewProduct,
     createProduct,
     showProductById,
+    showProductByIdDashboard,
     showEditProduct,
     updateProduct,
     deleteProduct,
