@@ -17,15 +17,16 @@ router.put("/dashboard/:productId", productController.updateProduct);//PUT /dash
 router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
 
 
-/*
-//router.get('/productos/:categoria', productController.showTrousers)
+
+
+
 
 router.get("/camisetas",productController.showProducts)
 router.get("/pantalones",productController.showProducts)
 router.get("/zapatos",productController.showProducts)
 router.get("/accesorios",productController.showProducts)
 
-*/
+
 
 
 module.exports = router;

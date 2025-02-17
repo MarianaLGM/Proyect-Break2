@@ -372,24 +372,24 @@ const formEditProduct = (product) => {
 
 
 /*
-//showPantalones: Devuelve la vista pantalones
-//GET /products/categoria: Devuelve todos los pantalones.
-const showTrousers = async (req, res) => {
+//showProductsBy: Devuelve la vista pantalones
+//GET /products/:categoria Devuelve productos según categoría
+const showProductsBy = async (req, res) => {
     try {
-        const products = await Product.find(req.params.categoria);
+        const products = await Product.find(req.params.categoría);
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml + getNavBar + productCards;
         res.send(html);
 
     } catch (error) {
         console.error(error);
         res
         .status(500)
-        .json({ message: 'Error getting all trousers'})
+        .json({ message: 'Error getting this category'})
     }
-};
+};*/
 
-
+/*
 const login = () => {
     return `
     <body>
@@ -429,6 +429,10 @@ const logout = (req, res) => {
     });
 };*/
 
+
+
+
+
 module.exports = { 
     showProducts,
     showNewProduct,
@@ -438,6 +442,7 @@ module.exports = {
     showEditProduct,
     updateProduct,
     deleteProduct,
+
 };
 
 
