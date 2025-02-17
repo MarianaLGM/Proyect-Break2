@@ -10,7 +10,7 @@ const showProducts = async (req, res) => {
     try {
         const products = await Product.find();
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml + getNavBar + productCards;
         res.send(html);
 
     } catch (error) {
@@ -28,7 +28,7 @@ const showProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar() + productCards;
+        const html = baseHtml + getNavBar + productCards;
         res.send(html);
     } catch (error) {
         console.error(error);
@@ -51,7 +51,7 @@ const showProductByIdDashboard = async (req, res) => {
             return res.status(404).send(baseHtml() + getNavBar() + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml() + getNavBar() + productCardsDashboard;
+        const html = baseHtml + getNavBar + productCardsDashboard;
         
         res.status(200).send(html);
 
@@ -69,7 +69,7 @@ const showProductByIdDashboard = async (req, res) => {
 const showNewProduct = async (req, res) => {
 
     try{         
-        const html = baseHtml() + getNavBar() + formCreateProduct();
+        const html = baseHtml + getNavBar + formCreateProduct;
         
         res.status(200).send(html);
 
@@ -88,7 +88,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar() + productCardsDashboard;
+        const html = baseHtml + getNavBar + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -106,14 +106,14 @@ const createProduct = async (req, res) => {
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 const showEditProduct = async (req, res) => {    
     try {
-        const product = await Product.findByIdAndUpdate(req.params.productId);
+        const product = await Product.findById(req.params.productId);
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml() + getNavBar() + msg);
+            return res.status(404).send(baseHtml + getNavBar + msg);
         }
         
-        const html = baseHtml() + getNavBar() + formEditProduct();
+        const html = baseHtml + getNavBar + formEditProduct();
         
         res.status(200).send(html);
 
@@ -160,10 +160,9 @@ const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
-        const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar() + productCardsDashboard; 
-
-        res.json({ message: "product deleted", html });
+        res
+            .send({ message: "product deleted"})
+            .redirect ("/dashboard");
 
     } catch (error) {
         console.error(error);
@@ -209,7 +208,7 @@ function getProductCardsDashboard(products) {
     }
 }
 
-//VISTA GENERAL getProductCards Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
+//VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
     let html = '';
 
@@ -241,8 +240,8 @@ function getProductCards(products) {
 }
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
-const baseHtml = () => {
-    return `
+const baseHtml =
+`
     <!DOCTYPE html>
     <html lang="es">
         <head>
@@ -250,13 +249,13 @@ const baseHtml = () => {
         <title>Tienda de ropa online</title>
         <link rel="stylesheet" href="./public/style.css">
         </head>
-    `;
-};
+`;
+
 
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-const getNavBar= () => {
-    return `
+const getNavBar= 
+`
     <header class="header"> 
     <nav>
         <div class="container">
@@ -272,11 +271,11 @@ const getNavBar= () => {
     </nav>
     </header>
     `;
-    }
+
 
 //VISTA DASHBOARD formCreateProduct, formulario para crear producto:
-const formCreateProduct = () => {
-    return `
+const formCreateProduct = 
+`
     <body>
         <form action='/dashboard'>
             <label for="productImg">Select files:</label>
@@ -313,50 +312,49 @@ const formCreateProduct = () => {
             </form>
         </body>
     `;
-};
+
 
 //VISTA DASHBOARD formEditProduct, formulario para editar producto:
-    const formEditProduct = () => {
-        return `
-        <body>
-            <form action='/dashboard/:productId'>
+const formEditProduct = (product) => {
+    return `
+    <body>
+        <form action='/dashboard/:productId' method='post'>
 
-                    <label for="productImg">Select files:</label>
-                    <input type="file" id="productImg" name="productImg">
-                    
-                    <label for='productName'>Nombre del producto: </label>
-                    <input id='productName' type='text' name='productName'>
-                    
-                    <label for='productDescription'>Descripción del producto: </label>
-                    <input id='productDescription' type='text' name='productDescription'>
-                    
-                    <label for='productCategory'>Categoría del producto: </label>
-                    <select id="productCategory" name="productCategory">
-                        <option value="camisetas">Camisetas</option>
-                        <option value="pantalones">Pantalones</option>
-                        <option value="zapatos">Zapatos</option>
-                        <option value="accesorios">Accesorios</option>
-                    </select>
-                    
-                    <label for='productSize'>Talla del producto: </label>
-                    <select id="productSize" name="productSize">
-                        <option value="xs">XS</option>
-                        <option value="s">S</option>
-                        <option value="m">M</option>
-                        <option value="l">L</option>
-                        <option value="xl">XL</option>
-                    </select>
+                <label for="productImg">Select files:</label>
+                <input type="file" id="productImg" name="productImg"><br>
+                
+                <label for='productName'>Nombre del producto: </label>
+                <input id='productName' type='text' name='productName' value='${product.Nombre}'><br>
+                
+                <label for='productDescription'>Descripción del producto: </label>
+                <textarea id='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
+                
+                <label for='productCategory'>Categoría del producto: </label>
+                <select id="productCategory" name="productCategory">
+                    <option value="camisetas">Camisetas</option>
+                    <option value="pantalones">Pantalones</option>
+                    <option value="zapatos">Zapatos</option>
+                    <option value="accesorios">Accesorios</option>
+                </select><br>
+                
+                <label for='productSize'>Talla del producto: </label>
+                <select id="productSize" name="productSize">
+                    <option value="xs">XS</option>
+                    <option value="s">S</option>
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                </select><br>
 
-                    <label for='productPrice'>Precio del producto: </label>
-                    <input id='productPrice' type='number' name='productPrice' min='0'>
+                <label for='productPrice'>Precio del producto: </label>
+                <input id='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-                    <button id=newProductBtn type='submit'>Enviar</button>
+                <button id=newProductBtn type='submit'>Enviar</button>
 
-                </form>
-            </body>
-        `;
-    };
-
+            </form>
+        </body>
+    `;
+};
 
 
 
