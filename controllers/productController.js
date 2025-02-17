@@ -236,7 +236,6 @@ function getProductCardsClient(products) {
                     <p>${product.Descripción}</p>
                     <p>${product.Precio}€</p>
                     <a href="/products/${products._id}">Ver detalle</a>
-                    <a href="/products/${products._id}/edit">Añadir al carrito</a>
                 </div>`
         }
         return html;
@@ -248,7 +247,6 @@ function getProductCardsClient(products) {
                 <p>${products.Descripción}</p>
                 <p>${products.Precio}€</p>
                 <a href="/products/${products._id}">Ver detalle</a>
-                <a href="/products/${products._id}/edit">Añadir al carrito</a>
             </div>
         `;
         
@@ -264,13 +262,14 @@ const baseHtml = () => {
         <head>
         <meta charset="UTF-8">
         <title>Tienda de ropa online</title>
-        <link rel="stylesheet" href="public/style.css">
+        <link rel="stylesheet" href="./public/style.css">
         </head>
     `;
 };
 
+
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-function getNavBar() { 
+const getNavBar= () => {
     return `
     <header class="header"> 
     <nav>
@@ -305,19 +304,19 @@ const formCreateProduct = () => {
                     
             <label for='productCategory'>Categoría del producto: </label>
             <select id="productCategory" name="productCategory" required>
-                <option value="camisetas">Camisetas</option>
-                <option value="pantalones">Pantalones</option>
-                <option value="zapatos">Zapatos</option>
-                <option value="accesorios">Accesorios</option>
+                <option value="Camisetas">Camisetas</option>
+                <option value="Pantalones">Pantalones</option>
+                <option value="Zapatos">Zapatos</option>
+                <option value="Accesorios">Accesorios</option>
             </select>
                     
             <label for='productSize'>Talla del producto: </label>
             <select id="productSize" name="productSize" required>
-                <option value="xs">XS</option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
             </select>
 
             <label for='productPrice'>Precio del producto: </label>
@@ -395,14 +394,14 @@ const showTrousers = async (req, res) => {
 };
 
 
-const verifyLoginClient = (req, res) => {
+const verifyLogin = (req, res) => {
     const { email, password } = req.body;
     req.session.user = email; // Guarda en sesión
         return res.redirect("/login"); 
 } 
 
 
-const loginClient = () => {
+const login = () => {
     return `
     <body>
         <form method="post"action='/login'>
@@ -422,7 +421,7 @@ const loginClient = () => {
     `;
 };
 
-const logoutClient =()=>{
+const logout =()=>{
     return `
     <body>
         <form method="post" action="/logout">
@@ -432,7 +431,7 @@ const logoutClient =()=>{
     `
 }
 /*
-const logoutClient = (req, res) => {
+const logout = (req, res) => {
     req.session.destroy((err) => {  // Eliminar la sesión
         if (err) {
             return res.status(500).send("No se pudo cerrar sesión.");
@@ -442,12 +441,6 @@ const logoutClient = (req, res) => {
 };*/
 
 module.exports = { 
-    showProductsClient,
-    showProductByIdClient,
-    loginClient,
-    verifyLoginClient,
-    logoutClient,
-
     showProducts,
     showNewProduct,
     createProduct,
@@ -455,8 +448,6 @@ module.exports = {
     showEditProduct,
     updateProduct,
     deleteProduct,
-
-    showTrousers
 };
 
 
