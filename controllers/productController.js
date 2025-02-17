@@ -27,9 +27,16 @@ const showProducts = async (req, res) => {
 const showProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
+        const msg = 'Product not found'
+
+        if (!product) {
+            return res.status(404).send(baseHtml + getNavBar + msg);
+        }
         const productCards = getProductCards(product);
         const html = baseHtml + getNavBar + productCards;
-        res.send(html);
+        
+        res.status(200).send(html);
+
     } catch (error) {
         console.error(error);
         res
@@ -48,7 +55,7 @@ const showProductByIdDashboard = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml() + getNavBar() + msg);
+            return res.status(404).send(baseHtml + getNavBar + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
         const html = baseHtml + getNavBar + productCardsDashboard;
@@ -67,7 +74,6 @@ const showProductByIdDashboard = async (req, res) => {
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
-
     try{         
         const html = baseHtml + getNavBar + formCreateProduct;
         
@@ -134,12 +140,13 @@ const updateProduct = async (req, res) => {
             req.body,
             { new: true }
         );
+        const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).send(baseHtml + getNavBar + msg);
         }
-
-        res.json({ message: "Product successfully updated", product });
+        const html = baseHtml + getNavBar + successfullyUpdated;
+        res.send(html);
 
     } catch (error) {
         console.error(error);
@@ -156,9 +163,10 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.productId);
+        const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).send(baseHtml + getNavBar + msg);
         }
         res
             .send({ message: "product deleted"})
@@ -251,6 +259,10 @@ const baseHtml =
         </head>
 `;
 
+const successfullyUpdated=
+`
+    <h2>Product successfully updated</h2>
+`;
 
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
