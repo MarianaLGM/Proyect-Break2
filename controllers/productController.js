@@ -1,6 +1,6 @@
 
 const Product = require("../models/Product.js");
-const User = require("../models/User.js");
+
 
 
 ////////////////////////////////Funciones para generar el HTML/////////////////////////////////////////
@@ -71,16 +71,18 @@ function getProductCards(products) {
     }
 }
 
+
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
 `
     <!DOCTYPE html>
     <html lang="es">
         <head>
-        <meta charset="UTF-8">
-        <title>Tienda de ropa online</title>
-        <link rel="stylesheet" href="./public/style.css">
+            <meta charset="UTF-8">
+            <title>Tienda de ropa online</title>
+            <link rel="stylesheet" href="/style.css">
         </head>
+    </html>
 `;
 
 const successfullyUpdated=
