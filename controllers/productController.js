@@ -18,7 +18,8 @@ function getProductCardsDashboard(products) {
 
                     <a href="/dashboard/${product._id}">Ver detalle</a>
                     <a href="/dashboard/${product._id}/edit">Editar</a>
-                    <a href="/dashboard/${product._id}/delete">Eliminar</a>
+                    
+                    <button onclick="deleteProduct('${product._id}')">Eliminar</button>
                 </div>`
         }
 
@@ -26,20 +27,22 @@ function getProductCardsDashboard(products) {
     } else {
         html = `
             <div class="product-card">
-                    <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
-                    <h2 class="productNombre">${products.Nombre}</h2>
-                    <p class="productDescripcion">${products.Descripción}</p>
-                    <p class="productPrecio">${products.Precio}€</p>
+                <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
+                <h2 class="productNombre">${products.Nombre}</h2>
+                <p class="productDescripcion">${products.Descripción}</p>
+                <p class="productPrecio">${products.Precio}€</p>
 
-                    <a href="/dashboard/${products._id}">Ver detalle</a>
-                    <a href="/dashboard/${products._id}/edit">Editar</a>
-                    <a href="/dashboard/${products._id}/delete">Eliminar</a>
-                </div>
+                <a href="/dashboard/${products._id}">Ver detalle</a>
+                <a href="/dashboard/${products._id}/edit">Editar</a>
+                <button onclick="deleteProduct('${products._id}')">Eliminar</button>
+            </div>
         `;
         
         return html;
     }
 }
+
+
 
 //VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
@@ -53,6 +56,7 @@ function getProductCards(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
+                    <p class="productCategory">${product.Categoría}€</p>
 
                     <a href="/products/${product._id}">Ver detalle</a>
                 </div>`
@@ -65,6 +69,7 @@ function getProductCards(products) {
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
                 <p class="productPrecio">${products.Precio}€</p>
+                <p class="productCategory">${products.Categoría}€</p>
 
                 <a href="/products/${products._id}">Ver detalle</a>
             </div>
@@ -73,6 +78,8 @@ function getProductCards(products) {
         return html;
     }
 }
+
+
 
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
@@ -108,10 +115,10 @@ const getNavBar=
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
-                <li><a href="/camisetas"class="navigation">Camisetas</a></li>
-                <li><a href="/pantalones"class="navigation">Pantalones</a></li>
-                <li><a href="/zapatos"class="navigation">Zapatos</a></li>
-                <li><a href="/accesorios"class="navigation">Accesorios</a></li>
+                <li><a href="/products/camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/accesorios"class="navigation">Accesorios</a></li>
                 <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
@@ -178,10 +185,10 @@ const formEditProduct = (product) => {
                 
             <label for='productCategory'>Categoría del producto: </label>
             <select id="productCategory" name="productCategory">
-                <option value="camisetas">Camisetas</option>
-                <option value="pantalones">Pantalones</option>
-                <option value="zapatos">Zapatos</option>
-                <option value="accesorios">Accesorios</option>
+                <option value="Camisetas">Camisetas</option>
+                <option value="Pantalones">Pantalones</option>
+                <option value="Zapatos">Zapatos</option>
+                <option value="Accesorios">Accesorios</option>
             </select><br>
                 
             <label for='productSize'>Talla del producto: </label>
@@ -295,7 +302,6 @@ const showProductByIdDashboard = async (req, res) => {
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
-<<<<<<< HEAD
 const showNewProduct = async (req, res) => {
     try{         
         const html = baseHtml + getNavBar + formCreateProduct;
@@ -309,14 +315,7 @@ const showNewProduct = async (req, res) => {
             .json({ message: "There was a problem getting a form" });
     }
 };
-=======
 
-
-
-
-
-
->>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
 
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
@@ -341,7 +340,6 @@ const createProduct = async (req, res) => {
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
-<<<<<<< HEAD
 const showEditProduct = async (req, res) => {    
     try {
         const product = await Product.findById(req.params.productId);
@@ -362,15 +360,6 @@ const showEditProduct = async (req, res) => {
         .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
     }
 };
-=======
-
-
-
-
-
-
-
->>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
@@ -424,11 +413,32 @@ const deleteProduct = async (req, res) => {
             .status(500)
             .json({ message: "There was a problem trying to delete a product" });
     }
+
+};
+
+//showProductByCategory Clasificar productos por su categoría
+//GET /:categoria Clasificar productos por su categoría
+const showProductByCategory = async (req, res) => {
+    const categoria = req.params.categoria;
+
+    try {
+        const productCategory = await Product.find({ "Categoría": categoria });  // Suponiendo que tienes un campo "categoria" en tu modelo
+
+        if (!productCategory || productCategory.length === 0) {
+            return res.status(404).send('Categoría no encontrada');
+        }
+
+        res.render('products', { categoria, products: productCategory });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Error al obtener los productos', err);
+    }
 };
 
 module.exports = { 
     showProducts,
     showProductById,
+    showProductByCategory,
     showProductsDashboard,
     showProductByIdDashboard,
     showNewProduct,
@@ -439,7 +449,6 @@ module.exports = {
 
 };
 
-<<<<<<< HEAD
 /*
 const login = () => {
     return `
@@ -453,86 +462,14 @@ const login = () => {
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
-=======
-
-
-
-
-
-/*
-  //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
-router.get("/products", async(req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
->>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
-
-                <button type="submit">Iniciar sesión</button>
-            </div> 
-        </form>
-    </body>    
-    `;
-};
-
-const logout =()=>{
-    return `
-    <body>
-        <form method="post" action="/logout">
-            <button type="submit">Cerrar sesión</button>
-            </form>
-    </body>
-    `
-}
-
-const logout = (req, res) => {
-    req.session.destroy((err) => {  // Eliminar la sesión
-        if (err) {
-            return res.status(500).send("No se pudo cerrar sesión.");
-        }
-        res.redirect("/login"); // Redirigir al login después de cerrar sesión
-    });
-};*/
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-=======
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({
-            message: `There was a problem trying to update a product with productId: ${req.params.productId}`
-        })
-    }
-});
-
-//DELETE /dashboard/:productId/delete: Elimina un producto.
-router.delete("/dashboard/:productId/delete", async(req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params._id);
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-        res.json({ message: "product deleted", product });
-
-    } catch (error) {
-        console.error(error);
-        res
-            .status(500)
-            .json({ message: "There was a problem trying to delete a product" });
-    }
-});
-
-module.exports = {
-    showProducts,  };
 */
->>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
+
+
+
+
+
+
+
+
+
+
