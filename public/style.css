@@ -27,10 +27,23 @@ nav ul{
     background-color: rgb(219, 205, 233);   
 } 
 
-/*contenedor detalles producto (imagen, nombre, precio)
+/*contenedor detalles producto (imagen, nombre, precio)*/
 .product-card{
-    
+    background-color: rgb(245, 241, 249); ;
 }
+
+/*imagenes productos*/
+.productImagen{
+    height: 220px;
+    width: 190px;
+}
+
+.productNombre{
+    color: rgb(61, 61, 61);
+    font-family: "Futura", sans-serif;
+    font-size: 19px;
+}
+
 
 
 

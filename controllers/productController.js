@@ -48,10 +48,10 @@ function getProductCards(products) {
         for (let product of products) {
             html += `
                 <div class="product-card">
-                    <img src="${product.Imagen}" alt="${product.Nombre}">
-                    <h2>${product.Nombre}</h2>
-                    <p>${product.Descripción}</p>
-                    <p>${product.Precio}€</p>
+                    <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
+                    <h2 class="productNombre">${product.Nombre}</h2>
+                    <p class="productDescripcion">${product.Descripción}</p>
+                    <p class="productPrecio">${product.Precio}€</p>
                     <a href="/products/${products._id}">Ver detalle</a>
                 </div>`
         }
