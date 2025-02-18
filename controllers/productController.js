@@ -422,8 +422,8 @@ const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria;
 
     try {
-        const productCategory = await Product.find({ "Categoría": categoria });  // Suponiendo que tienes un campo "categoria" en tu modelo
-
+        const productCategory = await Product.find({ "Categoría": categoria });  
+        
         if (!productCategory || productCategory.length === 0) {
             return res.status(404).send('Categoría no encontrada');
         }
