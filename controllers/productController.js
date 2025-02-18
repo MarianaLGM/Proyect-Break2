@@ -15,9 +15,10 @@ function getProductCardsDashboard(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
-                    <a href="/products/${product._id}">Ver detalle</a>
-                    <a href="/products/${product._id}/edit">Editar</a>
-                    <a href="/products/${product._id}/delete">Eliminar</a>
+                    
+                    <a href="/dashboard/${product._id}">Ver detalle</a>
+                    <a href="/dashboard/${product._id}/edit">Editar</a>
+                    <a href="/dashboard/${product._id}/delete">Eliminar</a>
                 </div>`
         }
 
@@ -29,9 +30,10 @@ function getProductCardsDashboard(products) {
                     <h2 class="productNombre">${products.Nombre}</h2>
                     <p class="productDescripcion">${products.Descripción}</p>
                     <p class="productPrecio">${products.Precio}€</p>
-                    <a href="/products/${products._id}">Ver detalle</a>
-                    <a href="/products/${products._id}/edit">Editar</a>
-                    <a href="/products/${products._id}/delete">Eliminar</a>
+
+                    <a href="/dashboard/${products._id}">Ver detalle</a>
+                    <a href="/dashboard/${products._id}/edit">Editar</a>
+                    <a href="/dashboard/${products._id}/delete">Eliminar</a>
                 </div>
         `;
         
@@ -51,6 +53,7 @@ function getProductCards(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
+
                     <a href="/products/${product._id}">Ver detalle</a>
                 </div>`
         }
@@ -62,6 +65,7 @@ function getProductCards(products) {
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
                 <p class="productPrecio">${products.Precio}€</p>
+
                 <a href="/products/${products._id}">Ver detalle</a>
             </div>
         `;
@@ -392,25 +396,18 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+module.exports = { 
+    showProducts,
+    showProductById,
+    showProductsDashboard,
+    showProductByIdDashboard,
+    showNewProduct,
+    createProduct,
+    showEditProduct,
+    updateProduct,
+    deleteProduct,
 
-
-/*
-//showProductsBy: Devuelve la vista pantalones
-//GET /products/:categoria Devuelve productos según categoría
-const showProductsBy = async (req, res) => {
-    try {
-        const products = await Product.find(req.params.categoría);
-        const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar + productCards;
-        res.send(html);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting this category'})
-    }
-};*/
+};
 
 /*
 const login = () => {
@@ -456,18 +453,7 @@ const logout = (req, res) => {
 
 
 
-module.exports = { 
-    showProducts,
-    showProductById,
-    showProductsDashboard,
-    showProductByIdDashboard,
-    showNewProduct,
-    createProduct,
-    showEditProduct,
-    updateProduct,
-    deleteProduct,
 
-};
 
 
 
