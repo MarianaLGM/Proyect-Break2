@@ -22,7 +22,7 @@ router.put("/dashboard/:productId", productController.updateProduct);//PUT /dash
 router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
 
 
-router.get("/:categoria",productController.showProductByCategory)
+router.get("/products/:categoria",productController.showProductByCategory)
 //router.get("/products/pantalones",productController.showProducts)
 //router.get("/products/zapatos",productController.showProducts)
 //router.get("/products/accesorios",productController.showProducts)

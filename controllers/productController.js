@@ -56,7 +56,6 @@ function getProductCards(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
-                    <p class="productCategory">${product.Categoría}€</p>
 
                     <a href="/products/${product._id}">Ver detalle</a>
                 </div>`
@@ -69,7 +68,6 @@ function getProductCards(products) {
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
                 <p class="productPrecio">${products.Precio}€</p>
-                <p class="productCategory">${products.Categoría}€</p>
 
                 <a href="/products/${products._id}">Ver detalle</a>
             </div>
@@ -115,10 +113,10 @@ const getNavBar=
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
-                <li><a href="/products/camisetas"class="navigation">Camisetas</a></li>
-                <li><a href="/products/pantalones"class="navigation">Pantalones</a></li>
-                <li><a href="/products/zapatos"class="navigation">Zapatos</a></li>
-                <li><a href="/products/accesorios"class="navigation">Accesorios</a></li>
+                <li><a href="/products/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/Accesorios"class="navigation">Accesorios</a></li>
                 <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
@@ -419,19 +417,20 @@ const deleteProduct = async (req, res) => {
 //showProductByCategory Clasificar productos por su categoría
 //GET /:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
-    const categoria = req.params.categoria;
+    const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        const productCategory = await Product.find({ "Categoría": categoria });  
-        
-        if (!productCategory || productCategory.length === 0) {
+        // Asegúrate de que usas el nombre exacto del campo en la base de datos ("Categoría")
+        const productsCategory = await Product.find({ "Categoría": categoria });
+
+        if (!productsCategory || productsCategory.length === 0) {
             return res.status(404).send('Categoría no encontrada');
         }
 
-        res.render('products', { categoria, products: productCategory });
+        res.render('products', { categoria, products: productsCategory });
     } catch (err) {
-        console.error(err);
-        return res.status(500).send('Error al obtener los productos', err);
+        console.error('Error al obtener productos:', err); // Ver detalles del error
+        return res.status(500).json({ message: 'Error al obtener productos', error: err });
     }
 };
 
