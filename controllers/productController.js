@@ -1,3 +1,6 @@
+//controllers/productController.js: Archivo que contendrá la lógica para manejar las solicitudes CRUD de los productos. 
+// Devolverá las respuestas en formato HTML.
+
 
 const Product = require("../models/Product.js");
 
@@ -19,7 +22,7 @@ const showProducts = async (req, res) => {
 };
 
 
-//showProductById: Devuelve la vista con el detalle de un producto.
+//showProductById: Devuelve la vista con el detalle de un producto.(ADMI)
 //GET /products/:productId: Devuelve el detalle de un producto.
 const showProductById = async (req, res) => {
     try {
@@ -35,6 +38,24 @@ const showProductById = async (req, res) => {
         .json({ message: 'Error getting the product'})
     }
 };
+
+//showProductById: Devuelve la vista con el detalle de un producto.(CLIENTE)
+//GET /products/:id: Devuelve el detalle de un producto.
+const showProductByIdClient = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        const productCards = getProductCardsClient(product);
+        const html = baseHtml + getNavBar() + productCards;
+        res.send(html);
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting the product'})
+    }
+};
+
+
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
@@ -78,8 +99,8 @@ const createProduct = async (req, res) => {
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 const showEditProduct = async (req, res) => {    
     try {
-        const product = await Product.findById(req.params.productId);
-        const msg = 'Producto no encontrado'
+        const product = await Product.findByIdAndUpdate(req.params.productId);
+        const msg = 'Product not found'
 
         if (!product) {
             return res.status(404).send(baseHtml() + getNavBar() + msg);
@@ -148,11 +169,11 @@ const deleteProduct = async (req, res) => {
 };
 ////////////////////////////////Funciones auxiliares para generar el HTML/////////////////////////////////////////
 
-//getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
+// VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
 function getProductCards(products) {
     let html = '';
 
-    if(products.length > 1) {
+    if(products.length > 0) { 
         for (let product of products) {
             html += `
                 <div class="product-card">
@@ -176,6 +197,39 @@ function getProductCards(products) {
                 <a href="/products/${products._id}">Ver detalle</a>
                 <a href="/products/${products._id}/edit">Editar</a>
                 <a href="/products/${products._id}/delete">Eliminar</a>
+            </div>
+        `;
+        
+        return html;
+    }
+}
+
+// VISTA CLIENTE getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
+function getProductCardsClient(products) {
+    let html = '';
+
+    if(products.length > 0) { 
+        for (let product of products) {
+            html += `
+                <div class="product-card">
+                    <img src="${product.Imagen}" alt="${product.Nombre}">
+                    <h2>${product.Nombre}</h2>
+                    <p>${product.Descripción}</p>
+                    <p>${product.Precio}€</p>
+                    <a href="/products/${products._id}">Ver detalle</a>
+                    <a href="/products/${products._id}/edit">Añadir al carrito</a>
+                </div>`
+        }
+        return html;
+    } else {
+        html = `
+            <div class="product-card">
+                <img src="${products.Imagen}" alt="${products.Nombre}">
+                <h2>${products.Nombre}</h2>
+                <p>${products.Descripción}</p>
+                <p>${products.Precio}€</p>
+                <a href="/products/${products._id}">Ver detalle</a>
+                <a href="/products/${products._id}/edit">Añadir al carrito</a>
             </div>
         `;
         
@@ -219,7 +273,7 @@ function getNavBar() {
     const formCreateProduct = () => {
         return `
         <body>
-            <form action='/dashboard'>
+            <form action='/dashboard' method='post'>
 
                     <label for="productImg">Select files:</label>
                     <input type="file" id="productImg" name="productImg" required><br>
@@ -260,7 +314,7 @@ function getNavBar() {
     const formEditProduct = (product) => {
         return `
         <body>
-            <form action='/dashboard/:productId'>
+            <form action='/dashboard/:productId' method='post'>
 
                     <label for="productImg">Select files:</label>
                     <input type="file" id="productImg" name="productImg"><br>
@@ -300,12 +354,14 @@ function getNavBar() {
 
 module.exports = { 
     showProductById,
+    showProductByIdClient,
     showNewProduct,
     createProduct,
     showEditProduct,
     updateProduct,
     deleteProduct,
     getProductCards,
+    getProductCardsClient,
     baseHtml, 
     getNavBar, 
     showProducts
@@ -314,151 +370,3 @@ module.exports = {
 
 
 
-
-/*
-
-  //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
-router.get("/products", async(req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting all products'})
-    }
-});
-
-
-//GET /products/:productId: Devuelve el detalle de un producto.
-router.get("/products/:productId", async(req, res) => {
-    try {
-        const product = await Product.findById(req.params.productId);
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.json(product);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
-    }
-});
-
-//GET /dashboard: Devuelve el dashboard del administrador. 
-//En el dashboard aparecerán todos los artículos que se hayan subido. 
-//Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
-
-router.get("/dashboard", async(req, res) => {
-    res.send("Administrator dashboard");
-});
-
-//GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
-router.get("/dashboard/new", async(req, res) => {
-    res.send("Form to add a new article");
-});
-
-//POST /dashboard: Crea un nuevo producto.
-router.post("/dashboard", async(req, res) => {
-    try {
-        const product = await Product.create({...req.body});
-        res
-        .status(201)
-        .json({ message: "Product successfully created", product });
-
-    } catch (error) {
-        console.error(error);
-        res
-            .status(500)
-            .json({ message: "There was a problem trying to create a product" });
-    }
-});
-
-//GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
-router.get("/dashboard/:productId", async(req, res) => {
-    try {
-        const product = await Product.findById(req.params.productId);
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.json(product);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
-    }
-});
-
-
-//GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.///DUDA///
-router.get("/dashboard/:productId/edit", async(req, res) => {
-    try {
-        const product = await Product.findById(req.params.productId);
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.json(product);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
-    }
-});
-
-//PUT /dashboard/:productId: Actualiza un producto.
-//UPDATE TASK
-
-router.put("/dashboard/:productId", async(req, res) => {
-    try {
-        const product = await Product.findByIdAndUpdate(
-            req.params.productId, 
-            { new: true }
-        );
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.json({ message: "Product successfully updated", product });
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({
-            message: `There was a problem trying to update a product with productId: ${req.params.productId}`
-        })
-    }
-});
-
-//DELETE /dashboard/:productId/delete: Elimina un producto.
-router.delete("/dashboard/:productId/delete", async(req, res) => {
-    try {
-        const product = await Product.findByIdAndDelete(req.params._id);
-
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-        res.json({ message: "product deleted", product });
-
-    } catch (error) {
-        console.error(error);
-        res
-            .status(500)
-            .json({ message: "There was a problem trying to delete a product" });
-    }
-}); */
