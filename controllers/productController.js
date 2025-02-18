@@ -23,7 +23,6 @@ function getProductCardsDashboard(products) {
                 </div>
                 `
         }
-
         return html;
     } else {
         html = `
@@ -36,10 +35,10 @@ function getProductCardsDashboard(products) {
                 <a href="/dashboard/${products._id}">Ver detalle</a>
                 <a href="/dashboard/${products._id}/edit">Editar</a>
                 <button onclick="deleteProduct('${products._id}')">Eliminar</button>
-                
-            </div>
-        `;
-        
+            </div> 
+                `;
+
+            
         return html;
     }
 }
@@ -60,7 +59,9 @@ function getProductCards(products) {
                     <p class="productPrecio">${product.Precio}€</p>
 
                     <a href="/products/${product._id}">Ver detalle</a>
-                </div>`
+                </div>
+
+                `
         }
         return html;
     } else {
@@ -73,6 +74,7 @@ function getProductCards(products) {
 
                 <a href="/products/${products._id}">Ver detalle</a>
             </div>
+
         `;
         
         return html;
@@ -416,13 +418,14 @@ const deleteProduct = async (req, res) => {
 
 };
 
+
+
 //showProductByCategory Clasificar productos por su categoría
 //GET /:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        // Asegúrate de que usas el nombre exacto del campo en la base de datos ("Categoría")
         const productsCategory = await Product.find({ "Categoría": categoria });
 
         if (!productsCategory || productsCategory.length === 0) {
