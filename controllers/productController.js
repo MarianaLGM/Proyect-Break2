@@ -15,7 +15,7 @@ function getProductCardsDashboard(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
-                    
+
                     <a href="/dashboard/${product._id}">Ver detalle</a>
                     <a href="/dashboard/${product._id}/edit">Editar</a>
                     <a href="/dashboard/${product._id}/delete">Eliminar</a>
@@ -88,11 +88,17 @@ const baseHtml =
     </html>
 `;
 
+//Mensaje se ha eliminado correctamente
 const successfullyUpdated=
 `
     <h2>Product successfully updated</h2>
 `;
 
+//Mensaje se ha eliminado correctamente
+const deletedSuccessfully=
+`
+    <h2>Product successfully deleted</h2>
+`
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
 const getNavBar= 
@@ -118,7 +124,7 @@ const getNavBar=
 const formCreateProduct = 
 `
     <body>
-        <form action='/dashboard'>
+        <form class="formCreateProduct" action='/dashboard'>
             <label for="productImg">Select files:</label>
             <input type="file" id="productImg" name="productImg" required>
                     
@@ -148,7 +154,7 @@ const formCreateProduct =
             <label for='productPrice'>Precio del producto: </label>
             <input id='productPrice' type='number' name='productPrice' min='0' required>
 
-            <button id=newProductBtn type='submit'>Enviar</button>
+            <button class="newProductBtn" type='submit'>Enviar</button>
 
             </form>
         </body>
@@ -159,41 +165,41 @@ const formCreateProduct =
 const formEditProduct = (product) => {
     return `
     <body>
-        <form action='/dashboard/:productId' method='post'>
+        <form class="formEditProduct" action='/dashboard/:productId' method='post'>
 
-                <label for="productImg">Select files:</label>
-                <input type="file" id="productImg" name="productImg"><br>
+            <label for="productImg">Select files:</label>
+            <input type="file" id="productImg" name="productImg"><br>
                 
-                <label for='productName'>Nombre del producto: </label>
-                <input id='productName' type='text' name='productName' value='${product.Nombre}'><br>
+            <label for='productName'>Nombre del producto: </label>
+            <input id='productName' type='text' name='productName' value='${product.Nombre}'><br>
                 
-                <label for='productDescription'>Descripción del producto: </label>
-                <textarea id='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
+            <label for='productDescription'>Descripción del producto: </label>
+            <textarea id='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
                 
-                <label for='productCategory'>Categoría del producto: </label>
-                <select id="productCategory" name="productCategory">
-                    <option value="camisetas">Camisetas</option>
-                    <option value="pantalones">Pantalones</option>
-                    <option value="zapatos">Zapatos</option>
-                    <option value="accesorios">Accesorios</option>
-                </select><br>
+            <label for='productCategory'>Categoría del producto: </label>
+            <select id="productCategory" name="productCategory">
+                <option value="camisetas">Camisetas</option>
+                <option value="pantalones">Pantalones</option>
+                <option value="zapatos">Zapatos</option>
+                <option value="accesorios">Accesorios</option>
+            </select><br>
                 
-                <label for='productSize'>Talla del producto: </label>
-                <select id="productSize" name="productSize">
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                </select><br>
+            <label for='productSize'>Talla del producto: </label>
+            <select id="productSize" name="productSize">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select><br>
 
-                <label for='productPrice'>Precio del producto: </label>
-                <input id='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
+            <label for='productPrice'>Precio del producto: </label>
+            <input id='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-                <button id=newProductBtn type='submit'>Enviar</button>
+            <button class="newProductBtn" type='submit'>Enviar</button>
 
-            </form>
-        </body>
+        </form>
+    </body>
     `;
 };
 
@@ -238,7 +244,7 @@ const showProductById = async (req, res) => {
         console.error(error);
         res
         .status(500)
-        .json({ message: 'Error getting the product'})
+        .json({ message: 'Error getting a product'})
     }
 };
 
@@ -282,7 +288,7 @@ const showProductByIdDashboard = async (req, res) => {
         console.error(error);
         res
         .status(500)
-        .json({ message: 'Error getting the product'})
+        .json({ message: 'Error getting a product'})
     }
 };
 
@@ -299,7 +305,7 @@ const showNewProduct = async (req, res) => {
         console.error(error);
         res
             .status(500)
-            .json({ message: "There was a problem getting the form" });
+            .json({ message: "There was a problem getting a form" });
     }
 };
 
@@ -335,7 +341,7 @@ const showEditProduct = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         
-        const html = baseHtml + getNavBar + formEditProduct();
+        const html = baseHtml + getNavBar + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -384,9 +390,14 @@ const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
+        const html = baseHtml + getNavBar + deletedSuccessfully;
         res
-            .send({ message: "product deleted"})
-            .redirect ("/dashboard");
+            .send(html)
+
+    setTimeout(() => {
+            res.redirect("/dashboard"); // Redirige a los 3seg
+            }, 3000); 
+    
 
     } catch (error) {
         console.error(error);

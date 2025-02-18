@@ -5,7 +5,7 @@ const productController = require('../controllers/productController');
 const path = require('path');
 
 router.get('/', (req, res) => { //// Ruta que envía el archivo index.html
-    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../public'));
 });
 
 /*****************************************DESDE PRODUCTS********************************************************/
@@ -22,7 +22,7 @@ router.put("/dashboard/:productId", productController.updateProduct);//PUT /dash
 router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
 
 
-router.get("/camisetas",productController.showProducts)
+router.get("/camisetas",productController.showProducts)//habría que hacer un showProductsBy (categorías)
 router.get("/pantalones",productController.showProducts)
 router.get("/zapatos",productController.showProducts)
 router.get("/accesorios",productController.showProducts)
