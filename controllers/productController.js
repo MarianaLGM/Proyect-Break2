@@ -18,9 +18,10 @@ function getProductCardsDashboard(products) {
 
                     <a href="/dashboard/${product._id}">Ver detalle</a>
                     <a href="/dashboard/${product._id}/edit">Editar</a>
-                    
                     <button onclick="deleteProduct('${product._id}')">Eliminar</button>
-                </div>`
+            
+                </div>
+                `
         }
 
         return html;
@@ -35,6 +36,7 @@ function getProductCardsDashboard(products) {
                 <a href="/dashboard/${products._id}">Ver detalle</a>
                 <a href="/dashboard/${products._id}/edit">Editar</a>
                 <button onclick="deleteProduct('${products._id}')">Eliminar</button>
+                
             </div>
         `;
         
