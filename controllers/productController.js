@@ -1,8 +1,6 @@
 
 const Product = require("../models/Product.js");
 
-
-
 ////////////////////////////////Funciones para generar el HTML/////////////////////////////////////////
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -13,27 +11,28 @@ function getProductCardsDashboard(products) {
         for (let product of products) {
             html += `
                 <div class="product-card">
-                    <img src="${product.Imagen}" alt="${product.Nombre}">
-                    <h2>${product.Nombre}</h2>
-                    <p>${product.Descripción}</p>
-                    <p>${product.Precio}€</p>
+                    <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
+                    <h2 class="productNombre">${product.Nombre}</h2>
+                    <p class="productDescripcion">${product.Descripción}</p>
+                    <p class="productPrecio">${product.Precio}€</p>
                     <a href="/products/${product._id}">Ver detalle</a>
                     <a href="/products/${product._id}/edit">Editar</a>
                     <a href="/products/${product._id}/delete">Eliminar</a>
                 </div>`
         }
+
         return html;
     } else {
         html = `
             <div class="product-card">
-                <img src="${products.Imagen}" alt="${products.Nombre}">
-                <h2>${products.Nombre}</h2>
-                <p>${products.Descripción}</p>
-                <p>${products.Precio}€</p>
-                <a href="/products/${products._id}">Ver detalle</a>
-                <a href="/products/${products._id}/edit">Editar</a>
-                <a href="/products/${products._id}/delete">Eliminar</a>
-            </div>
+                    <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
+                    <h2 class="productNombre">${products.Nombre}</h2>
+                    <p class="productDescripcion">${products.Descripción}</p>
+                    <p class="productPrecio">${products.Precio}€</p>
+                    <a href="/products/${products._id}">Ver detalle</a>
+                    <a href="/products/${products._id}/edit">Editar</a>
+                    <a href="/products/${products._id}/delete">Eliminar</a>
+                </div>
         `;
         
         return html;
@@ -52,17 +51,17 @@ function getProductCards(products) {
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
-                    <a href="/products/${products._id}">Ver detalle</a>
+                    <a href="/products/${product._id}">Ver detalle</a>
                 </div>`
         }
         return html;
     } else {
         html = `
             <div class="product-card">
-                <img src="${products.Imagen}" alt="${products.Nombre}">
-                <h2>${products.Nombre}</h2>
-                <p>${products.Descripción}</p>
-                <p>${products.Precio}€</p>
+                <img class="productImagen" src="${products.Imagen}" alt="${products.Nombre}">
+                <h2 class="productNombre">${products.Nombre}</h2>
+                <p class="productDescripcion">${products.Descripción}</p>
+                <p class="productPrecio">${products.Precio}€</p>
                 <a href="/products/${products._id}">Ver detalle</a>
             </div>
         `;
@@ -240,6 +239,25 @@ const showProductById = async (req, res) => {
 };
 
 /**************************************VISTA DASHBOARD***************************************/
+//
+
+//showProductsDashboard: Devuelve la vista con todos los productos pero incluyendo opción de eliminar y editar
+//GET /dashboard
+const showProductsDashboard = async (req, res) => {
+    try {
+        const products = await Product.find();
+        const productCardsDashboard = getProductCardsDashboard(products);
+        const html = baseHtml + getNavBar + productCardsDashboard;
+        res.send(html);
+
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({ message: 'Error getting all products'})
+    }
+};
+
 
 //showProductById: Devuelve la vista con el detalle de un producto.
 //GET /dashboard/:productId: Devuelve el detalle de un producto.
@@ -440,10 +458,11 @@ const logout = (req, res) => {
 
 module.exports = { 
     showProducts,
+    showProductById,
+    showProductsDashboard,
+    showProductByIdDashboard,
     showNewProduct,
     createProduct,
-    showProductById,
-    showProductByIdDashboard,
     showEditProduct,
     updateProduct,
     deleteProduct,

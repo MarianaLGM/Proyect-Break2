@@ -13,7 +13,7 @@ router.get("/products", productController.showProducts); //GET /products: Devuel
 router.get("/products/:productId", productController.showProductById);//GET /products/:productId: Devuelve el detalle de un producto.;
 
 /*****************************************DESDE DASHBOARD******************************************************/
-router.get("/dashboard", productController.showProducts);//GET /dashboard: Devuelve el dashboard del administrador.
+router.get("/dashboard", productController.showProductsDashboard);//GET /dashboard: Devuelve el dashboard del administrador.
 router.get("/dashboard/new",productController.showNewProduct);//GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.post("/dashboard", productController.createProduct);//POST /dashboard: Crea un nuevo producto.
 router.get("/dashboard/:productId", productController.showProductByIdDashboard);//GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.

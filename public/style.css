@@ -44,6 +44,12 @@ nav ul{
     font-size: 19px;
 }
 
+.productDescripcion, .productPrecio{
+    color: rgb(61, 61, 61);
+    font-family: "Futura", sans-serif;
+    font-size: 15px;
+}
+
 
 
 
