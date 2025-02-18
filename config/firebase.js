@@ -1,5 +1,6 @@
 //BONUS
 require('dotenv').config();
+console.log("FIREBASE_PROJECT_ID:", process.env.FIREBASE_PROJECT_ID);
 
 const serviceAccount = {
     "type": process.env.FIREBASE_TYPE,
