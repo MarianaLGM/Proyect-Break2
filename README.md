@@ -10,3 +10,7 @@
 Bonus 1 - Tests
 Bonus 2 - Autenticación con Firebase
 Bonus 3 - API y documentación con Swagger
+
+
+
+https://documenter.getpostman.com/view/40898562/2sAYXFhHDT

@@ -10,6 +10,7 @@ Precio
 La categoría será un string que podrá ser "Camisetas", "Pantalones", "Zapatos", "Accesorios".
 
 La talla será un string que podrá ser "XS", "S", "M", "L", "XL". */
+
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
@@ -18,18 +19,22 @@ const ProductSchema = new mongoose.Schema({
         required: true
 
     },
-    Descripcion: {
+    Descripción: {
         type: String,
         required: true
     },
-    Imagen: String, //Ver esto
-    Categoria: {
+    Imagen:{
+        type: String,
+        required: true
+    },
+    Categoría:{
         type: String,
         enum: ['Camisetas', 'Pantalones', 'Zapatos', 'Accesorios'],
         required: true
     },
     Talla: {
         type: String,
+        enum: ['XS', 'S', 'M', 'L', 'XL'],
         required: true
     },
     Precio: {
@@ -39,6 +44,6 @@ const ProductSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Product = mongoose.model('Product', UserSchema);
+const Product = mongoose.model('Product', ProductSchema);
 
 module.exports = Product;
