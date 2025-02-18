@@ -295,6 +295,7 @@ const showProductByIdDashboard = async (req, res) => {
 
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+<<<<<<< HEAD
 const showNewProduct = async (req, res) => {
     try{         
         const html = baseHtml + getNavBar + formCreateProduct;
@@ -308,6 +309,14 @@ const showNewProduct = async (req, res) => {
             .json({ message: "There was a problem getting a form" });
     }
 };
+=======
+
+
+
+
+
+
+>>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
 
 //createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //POST /dashboard: Crea un nuevo producto.
@@ -332,6 +341,7 @@ const createProduct = async (req, res) => {
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+<<<<<<< HEAD
 const showEditProduct = async (req, res) => {    
     try {
         const product = await Product.findById(req.params.productId);
@@ -352,6 +362,15 @@ const showEditProduct = async (req, res) => {
         .json({ message: `There was a problem with the productId number: ${req.params.productId}` });
     }
 };
+=======
+
+
+
+
+
+
+
+>>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
 
 //updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 //PUT /dashboard/:productId: Actualiza un producto.
@@ -420,6 +439,7 @@ module.exports = {
 
 };
 
+<<<<<<< HEAD
 /*
 const login = () => {
     return `
@@ -433,6 +453,19 @@ const login = () => {
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
+=======
+
+
+
+
+
+/*
+  //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
+router.get("/products", async(req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+>>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
 
                 <button type="submit">Iniciar sesión</button>
             </div> 
@@ -469,3 +502,37 @@ const logout = (req, res) => {
 
 
 
+<<<<<<< HEAD
+=======
+    } catch (error) {
+        console.error(error);
+        res
+        .status(500)
+        .json({
+            message: `There was a problem trying to update a product with productId: ${req.params.productId}`
+        })
+    }
+});
+
+//DELETE /dashboard/:productId/delete: Elimina un producto.
+router.delete("/dashboard/:productId/delete", async(req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params._id);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.json({ message: "product deleted", product });
+
+    } catch (error) {
+        console.error(error);
+        res
+            .status(500)
+            .json({ message: "There was a problem trying to delete a product" });
+    }
+});
+
+module.exports = {
+    showProducts,  };
+*/
+>>>>>>> 2a991fe6d57f76510df20c3e08967a5e213e368f
