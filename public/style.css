@@ -1,23 +1,9 @@
-/*STYLO CSS*/
 
 
-/*formato barra navegador*/
-.container{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background-color: rgb(219, 205, 233);
-}
-
-nav ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 50px;
-} 
-
-/*Formato Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
+/*Formato categorías navegador Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
 .navigation{
-    font-size: 18px;
+    align-items: center;
+    font-size: 17px;
     color: rgb(61, 61, 61);
     font-family: "Futura", sans-serif;
     text-decoration: none;
@@ -25,6 +11,76 @@ nav ul{
 }
 
 /*quitar los puntos de la lista Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
-ul{
+.nav1{
     list-style-type:none;
 }
+
+/*formato contendor barra navegador*/
+nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgb(219, 205, 233);   
+} 
+
+/*formato contenedor detalles producto (imagen, nombre, precio)*/
+.product-card{
+    background-color: rgb(245, 241, 249); 
+
+
+
+}
+
+/*formato imagenes productos*/
+.productImagen{
+    height: 220px;
+    width: 200px;
+    
+}
+/*formato nombre productos*/
+.productNombre{
+    color: rgb(61, 61, 61);
+    font-family: "Futura", sans-serif;
+    font-size: 19px;
+}
+/*formato descripción y precio productos*/
+.productDescripcion, .productPrecio{
+    color: rgb(61, 61, 61);
+    font-family: "Futura", sans-serif;
+    font-size: 15px;
+}
+
+
+/*formulario editar producto*/
+.formEditProduct{
+    font-family: "Futura", sans-serif;
+    font-size: 15px;
+}
+/*botón enviar*/
+.newProductBtn{ 
+    border-radius: 15px;
+    background-color: rgb(219, 205, 233);  
+}
+
+
+/*formulario crear producto*/
+.formCreateProduct{
+        font-family: "Futura", sans-serif;
+        font-size: 15px;
+}
+/*botón enviar*/
+.newProductBtn{
+    border-radius: 15px;
+    background-color: rgb(219, 205, 233); 
+}
+
+
+
+
+
+
+
