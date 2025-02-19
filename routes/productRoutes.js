@@ -4,7 +4,7 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 const path = require('path');
 
-router.get('/', (req, res) => { //// Ruta que envía el archivo index.html
+router.get('/', (req, res) => { //Ruta que envía el archivo index.html
     res.sendFile(path.join(__dirname, '../public'));
 });
 
@@ -20,12 +20,9 @@ router.get("/dashboard/:productId", productController.showProductByIdDashboard);
 router.get("/dashboard/:productId/edit",productController.showEditProduct );//GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 router.put("/dashboard/:productId", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
 router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
-
+//router.post("/dashboard/:productId/delete", productController.deleteProduct)
 
 router.get("/products/:categoria",productController.showProductByCategory)
-//router.get("/products/pantalones",productController.showProducts)
-//router.get("/products/zapatos",productController.showProducts)
-//router.get("/products/accesorios",productController.showProducts)
 
 
 module.exports = router;

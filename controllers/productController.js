@@ -1,6 +1,7 @@
 
 const Product = require("../models/Product.js");
 
+
 ////////////////////////////////Funciones para generar el HTML/////////////////////////////////////////
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -18,8 +19,12 @@ function getProductCardsDashboard(products) {
 
                     <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
                     <a class="editar" href="/dashboard/${product._id}/edit">Editar</a>
-                    <button class="btnEliminar" onclick="deleteProduct('${product._id}')">Eliminar</button>
-            
+
+                    <form action="/dashboard/${product._id}/delete" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btnEliminar" type="submit">Eliminar</button>
+                    </form>
+
                 </div>
                 `
         }
@@ -33,17 +38,22 @@ function getProductCardsDashboard(products) {
                 <p class="productPrecio">${products.Precio}€</p>
 
                 <a class="verDetalle" href="/dashboard/${products._id}">Ver detalle</a>
+                
                 <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
-                <button class="btnEliminar" onclick="deleteProduct('${products._id}')">Eliminar</button>
+
+                <form action="/dashboard/${products._id}/delete" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btnEliminar" type="submit">Eliminar</button>
+                </form>
+                
             </div> 
                 `;
-
-            
         return html;
     }
 }
-
-
+/*NOTA DELETE: No ponemos ?_method=DELETE en la URL, porque el campo oculto _method en el formulario se encargará de la conversión.
+Con esto, el formulario envía un POST, pero methodOverride lo convierte en un DELETE gracias al campo oculto.*/
+//SSR Frontend desde el backend
 
 //VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
@@ -391,10 +401,12 @@ const updateProduct = async (req, res) => {
 };
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
-//DELETE /dashboard/:productId/delete: Elimina un producto.
+//DELETE /dashboard/:productId/delete: Elimina un producto. NECESITAREMOS INSTALAR method-override
 const deleteProduct = async (req, res) => {
+    console.log('Method:', req.method);
     try {
-        const product = await Product.findByIdAndDelete(req.params.productId);
+        const productId = req.params.productId;
+        const product = await Product.findByIdAndDelete(productId);
         const msg = 'Product not found'
 
         if (!product) {
@@ -415,8 +427,9 @@ const deleteProduct = async (req, res) => {
             .status(500)
             .json({ message: "There was a problem trying to delete a product" });
     }
-
 };
+
+
 
 //showProductByCategory Clasificar productos por su categoría
 //GET /:categoria Clasificar productos por su categoría
