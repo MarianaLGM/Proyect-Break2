@@ -196,7 +196,7 @@ const formEditProduct = (product) => {
             <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea class='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
+            <textarea class='productDescription' type='text' name='productDescription' value='${product.Descripción}'></textarea><br>
                 
             <label for='productCategory'>Categoría del producto: </label>
             <select class="productCategory" name="productCategory">
@@ -218,7 +218,7 @@ const formEditProduct = (product) => {
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-            <button class="editProductBtn" type='submit'>Enviar</button>
+            <button class="editProductBtn" type='submit'>Modificar</button>
 
         </form>
     </body>
@@ -440,20 +440,20 @@ const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        const productsCategory = await Product.find({ "Categoría": categoria });
+        const productsCategory = await Product.find({ Categoría: categoria });
 
         if (!productsCategory || productsCategory.length === 0) {
             return res.status(404).send('Category not found');
         }
 
-        res.render('products', { categoria, products: productsCategory });
+        const html = baseHtml + getNavBar + getProductCards(productsCategory)
+        res.send(html)
+
     } catch (err) {
         console.error('Error getting products:', err); // Ver detalles del error
         return res.status(500).json({ message: 'Error getting products', error: err });
     }
 };
-
-
 
 
 

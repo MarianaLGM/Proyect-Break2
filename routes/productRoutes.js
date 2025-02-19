@@ -4,9 +4,6 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 const path = require('path');
 
-router.get('/', (req, res) => { //Ruta que envía el archivo index.html
-    res.sendFile(path.join(__dirname, '../public'));
-});
 
 /*****************************************DESDE PRODUCTS********************************************************/
 router.get("/products", productController.showProducts); //GET /products: Devuelve todos los productos.
