@@ -6,7 +6,6 @@ const methodOverride = require('method-override');//methodOverride nos permite h
 const dbConnection = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
-const path = require('path');
 const admin = require('firebase-admin');
 const serviceAccount = require('./config/firebase');
 const cookieParser = require('cookie-parser');
