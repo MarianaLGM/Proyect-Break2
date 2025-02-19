@@ -19,13 +19,13 @@ function getProductCardsDashboard(products) {
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
 
-                    <a href="/dashboard/${product._id}">Ver detalle</a>
-                    <a href="/dashboard/${product._id}/edit">Editar</a>
-                    
-                    <button onclick="deleteProduct('${product._id}')">Eliminar</button>
-                </div>`
+                    <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
+                    <a class="editar" href="/dashboard/${product._id}/edit">Editar</a>
+                    <button class="btnEliminar" onclick="deleteProduct('${product._id}')">Eliminar</button>
+            
+                </div>
+                `
         }
-
         return html;
     } else {
         html = `
@@ -35,12 +35,13 @@ function getProductCardsDashboard(products) {
                 <p class="productDescripcion">${products.Descripción}</p>
                 <p class="productPrecio">${products.Precio}€</p>
 
-                <a href="/dashboard/${products._id}">Ver detalle</a>
-                <a href="/dashboard/${products._id}/edit">Editar</a>
-                <button onclick="deleteProduct('${products._id}')">Eliminar</button>
-            </div>
-        `;
-        
+                <a class="verDetalle" href="/dashboard/${products._id}">Ver detalle</a>
+                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
+                <button class="btnEliminar" onclick="deleteProduct('${products._id}')">Eliminar</button>
+            </div> 
+                `;
+
+            
         return html;
     }
 }
@@ -60,8 +61,10 @@ function getProductCards(products) {
                     <p class="productDescripcion">${product.Descripción}</p>
                     <p class="productPrecio">${product.Precio}€</p>
 
-                    <a href="/products/${product._id}">Ver detalle</a>
-                </div>`
+                    <a class="verDetalle" href="/products/${product._id}">Ver detalle</a>
+                </div>
+
+                `
         }
         return html;
     } else {
@@ -72,8 +75,9 @@ function getProductCards(products) {
                 <p class="productDescripcion">${products.Descripción}</p>
                 <p class="productPrecio">${products.Precio}€</p>
 
-                <a href="/products/${products._id}">Ver detalle</a>
+                <a class="verDetalle" href="/products/${products._id}">Ver detalle</a>
             </div>
+
         `;
         
         return html;
@@ -137,13 +141,13 @@ const formCreateProduct =
             <input type="file" id="productImg" name="productImg" required>
                     
             <label for='productName'>Nombre del producto: </label>
-            <input id='productName' type='text' name='productName' required>
+            <input class='productName' type='text' name='productName' required>
                     
             <label for='productDescription'>Descripción del producto: </label>
-            <input id='productDescription' type='text' name='productDescription' required>
+            <input class='productDescription' type='text' name='productDescription' required>
                     
             <label for='productCategory'>Categoría del producto: </label>
-            <select id="productCategory" name="productCategory" required>
+            <select class="productCategory" name="productCategory" required>
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -151,7 +155,7 @@ const formCreateProduct =
             </select>
                     
             <label for='productSize'>Talla del producto: </label>
-            <select id="productSize" name="productSize" required>
+            <select class="productSize" name="productSize" required>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -160,7 +164,7 @@ const formCreateProduct =
             </select>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input id='productPrice' type='number' name='productPrice' min='0' required>
+            <input class='productPrice' type='number' name='productPrice' min='0' required>
 
             <button class="newProductBtn" type='submit'>Enviar</button>
 
@@ -179,13 +183,13 @@ const formEditProduct = (product) => {
             <input type="file" id="productImg" name="productImg"><br>
                 
             <label for='productName'>Nombre del producto: </label>
-            <input id='productName' type='text' name='productName' value='${product.Nombre}'><br>
+            <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea id='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
+            <textarea class='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
                 
             <label for='productCategory'>Categoría del producto: </label>
-            <select id="productCategory" name="productCategory">
+            <select class="productCategory" name="productCategory">
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -193,7 +197,7 @@ const formEditProduct = (product) => {
             </select><br>
                 
             <label for='productSize'>Talla del producto: </label>
-            <select id="productSize" name="productSize">
+            <select class="productSize" name="productSize">
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -202,9 +206,9 @@ const formEditProduct = (product) => {
             </select><br>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input id='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
+            <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-            <button class="newProductBtn" type='submit'>Enviar</button>
+            <button class="editProductBtn" type='submit'>Enviar</button>
 
         </form>
     </body>
@@ -423,19 +427,22 @@ const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        // Asegúrate de que usas el nombre exacto del campo en la base de datos ("Categoría")
         const productsCategory = await Product.find({ "Categoría": categoria });
 
         if (!productsCategory || productsCategory.length === 0) {
-            return res.status(404).send('Categoría no encontrada');
+            return res.status(404).send('Category not found');
         }
 
         res.render('products', { categoria, products: productsCategory });
     } catch (err) {
-        console.error('Error al obtener productos:', err); // Ver detalles del error
-        return res.status(500).json({ message: 'Error al obtener productos', error: err });
+        console.error('Error getting products:', err); // Ver detalles del error
+        return res.status(500).json({ message: 'Error getting products', error: err });
     }
 };
+
+
+
+
 
 module.exports = { 
     showProducts,

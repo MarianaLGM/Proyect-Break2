@@ -31,15 +31,13 @@ nav ul{
 .product-card{
     background-color: rgb(245, 241, 249); 
 
-
-
 }
 
 /*formato imagenes productos*/
 .productImagen{
     height: 220px;
     width: 200px;
-    
+
 }
 /*formato nombre productos*/
 .productNombre{
@@ -54,29 +52,41 @@ nav ul{
     font-size: 15px;
 }
 
+/*formulario para crear producto*/
+.formCreateProduct{
+    font-family: "Futura", sans-serif;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    gap: 10px;
+}
 
-/*formulario editar producto*/
+/*formulario para editar producto*/
 .formEditProduct{
     font-family: "Futura", sans-serif;
     font-size: 15px;
-}
-/*botón enviar*/
-.newProductBtn{ 
-    border-radius: 15px;
-    background-color: rgb(219, 205, 233);  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 320px;
+    
 }
 
-
-/*formulario crear producto*/
-.formCreateProduct{
-        font-family: "Futura", sans-serif;
-        font-size: 15px;
-}
-/*botón enviar*/
-.newProductBtn{
-    border-radius: 15px;
+/*botón enviar y eliminar producto*/
+.newProductBtn,.editProductBtn, .btnEliminar{ 
+    border-radius: 5px;
     background-color: rgb(219, 205, 233); 
+    font-family: "Futura", sans-serif;
+    font-size: 13px; 
 }
+
+/*enlace ver detalle y editar producto*/
+.verDetalle, .editar{ 
+    font-family: "Futura", sans-serif;
+    font-size: 13px; 
+}
+
 
 
 
