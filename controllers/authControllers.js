@@ -64,17 +64,18 @@ const loginPost = async (req, res) => {
 //Formulario de Register
 const registerForm = `
 <body>
-  <h1>Register</h1>
-  <form id='registerForm' action='/register' method='post'>
-    <label for='email'>Introduce tu correo electrónico: </label>
-    <input type='email' name='email' id='email' required>
+  <div class="register">
+    <h2>Register</h2>
+      <form id='registerForm' action='/register' method='post'>
+        <label for='email'>Introduce tu correo electrónico: </label>
+        <input type='email' name='email' id='email' required>
 
-    <label for='password'>Introduce tu correo contraseña: </label>
-    <input type='password' name='password' id='password' required>
+        <label for='password'>Introduce tu correo contraseña: </label>
+        <input type='password' name='password' id='password' required>
 
-    <button type='submit' id='loginButton'>Registrar</button>
-  </form>
-
+        <button type='submit' id='loginButton'>Registrar</button>
+      </form>
+    </div>
   <script type='module' src='../config/configLogin.js'></script>
 </body>
 
@@ -82,17 +83,18 @@ const registerForm = `
 //Formulario de Login
 const loginForm = `
   <body>
-    <h1>Login</h1>
-    <form id='loginForm' method='post'>
-      <label for='email'>Introduce tu correo electrónico: </label>
-      <input type='email' name='email' id='email' required>
+    <div class="login">
+      <h2>Login</h2>
+        <form id='loginForm' method='post'>
+          <label for='email'>Introduce tu correo electrónico: </label>
+          <input type='email' name='email' id='email' required>
 
-      <label for='password'>Introduce tu correo contraseña: </label>
-      <input type='password' name='password' id='password' required>
+          <label for='password'>Introduce tu correo contraseña: </label>
+          <input type='password' name='password' id='password' required>
 
-      <button type='submit' id='loginButton'>Iniciar sesión</button>
-    </form>
-
+          <button type='submit' id='loginButton'>Iniciar sesión</button>
+        </form>
+      </div>
     <div id='mensajeLogin'>
         
       <!--Mensaje de cuando iniciamos sesión -->

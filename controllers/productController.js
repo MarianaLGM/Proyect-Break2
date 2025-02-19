@@ -106,6 +106,7 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>
 `;
@@ -127,6 +128,10 @@ const getNavBar=
 `
     <header class="header"> 
     <nav>
+        <div class="containerLogin">
+                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>                
+                <a href="" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+        </div>
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
@@ -134,9 +139,9 @@ const getNavBar=
                 <li><a href="/products/categoria/Pantalones"class="navigation">Pantalones</a></li>
                 <li><a href="/products/categoria/Zapatos"class="navigation">Zapatos</a></li>
                 <li><a href="/products/categoria/Accesorios"class="navigation">Accesorios</a></li>
-                <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
+        
     </nav>
     </header>
     `;
@@ -455,12 +460,34 @@ const showProductByCategory = async (req, res) => {
     }
 };
 
+//showProductByCategory Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
+const showProductByCategoryDashboard = async (req, res) => {
+    const categoria = req.params.categoria; // Obtiene la categoría de la URL
+
+    try {
+        const productsCategory = await Product.find({ Categoría: categoria });
+
+        if (!productsCategory || productsCategory.length === 0) {
+            return res.status(404).send('Category not found');
+        }
+
+        const html = baseHtml + getNavBar + getProductCardsDashboard(productsCategory)
+        res.send(html)
+
+    } catch (err) {
+        console.error('Error getting products:', err); // Ver detalles del error
+        return res.status(500).json({ message: 'Error getting products', error: err });
+    }
+};
+
 
 
 module.exports = { 
     showProducts,
     showProductById,
     showProductByCategory,
+    showProductByCategoryDashboard,
     showProductsDashboard,
     showProductByIdDashboard,
     showNewProduct,
@@ -471,20 +498,6 @@ module.exports = {
 
 };
 
-/*
-const login = () => {
-    return `
-    <body>
-        <form method="post"action='/login'>
-            <div class="loginUser">
-                <label for="email">Correo electrónico o Usuario</label>
-                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo o usuario">
-                    
-                <form method="post" action="/logout">
-
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
-*/
 
 
 
