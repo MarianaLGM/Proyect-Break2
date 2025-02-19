@@ -41,7 +41,7 @@ function getProductCardsDashboard(products) {
                 <p class="productPrecio">${products.Precio}€</p>
 
                 <a class="verDetalle" href="/dashboard/${products._id}">Ver detalle</a>
-                
+
                 <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
@@ -130,10 +130,10 @@ const getNavBar=
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
-                <li><a href="/products/Camisetas"class="navigation">Camisetas</a></li>
-                <li><a href="/products/Pantalones"class="navigation">Pantalones</a></li>
-                <li><a href="/products/Zapatos"class="navigation">Zapatos</a></li>
-                <li><a href="/products/Accesorios"class="navigation">Accesorios</a></li>
+                <li><a href="/products/categoria/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/categoria/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/categoria/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/categoria/Accesorios"class="navigation">Accesorios</a></li>
                 <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
@@ -435,7 +435,7 @@ const deleteProduct = async (req, res) => {
 
 
 //showProductByCategory Clasificar productos por su categoría
-//GET /:categoria Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
