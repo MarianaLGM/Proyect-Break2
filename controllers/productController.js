@@ -222,7 +222,7 @@ const formEditProduct = (product) => {
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-            <form action="/dashboard/${product._id}?_method=PUT" method="POST">
+            <form action="/dashboard/${product._id}" method="POST">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
 
@@ -392,28 +392,32 @@ const updateProduct = async (req, res) => {
             req.body,
             { new: true }
         );
-        const msg = 'Product not found'
+        console.log(req.body);
 
         if (!product) {
+            const msg = 'Product not found';
+            // Si no se encuentra el producto, enviamos el mensaje de error
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
-        const html = baseHtml + getNavBar + successfullyUpdated;
-        res.send(html);
+
+        // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
+        setTimeout(() => {
+            res.redirect("/dashboard");
+        }, 3000);
 
     } catch (error) {
         console.error(error);
-        res
-        .status(500)
-        .json({
+        res.status(500).json({
             message: `There was a problem trying to update a product with productId: ${req.params.productId}`
-        })
+        });
     }
 };
+
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto. NECESITAREMOS INSTALAR method-override
 const deleteProduct = async (req, res) => {
-    console.log('Method:', req.method);
+
     try {
         const productId = req.params.productId;
         const product = await Product.findByIdAndDelete(productId);
