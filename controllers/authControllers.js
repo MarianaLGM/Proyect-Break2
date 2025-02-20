@@ -7,7 +7,6 @@ const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
 const admin = require('firebase-admin');
 admin.initializeApp()
 const auth = admin.auth();
-const baseHtml = require('./productController');
 require('dotenv').config();
 
 const firebaseConfig = {
