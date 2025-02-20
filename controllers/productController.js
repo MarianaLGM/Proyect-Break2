@@ -4,6 +4,7 @@
 
 const Product = require("../models/Product.js");
 
+
 ////////////////////////////////Funciones para generar el HTML/////////////////////////////////////////
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -21,8 +22,12 @@ function getProductCardsDashboard(products) {
 
                     <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
                     <a class="editar" href="/dashboard/${product._id}/edit">Editar</a>
-                    <button class="btnEliminar" onclick="deleteProduct('${product._id}')">Eliminar</button>
-            
+
+                    <form action="/dashboard/${product._id}/delete" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btnEliminar" type="submit">Eliminar</button>
+                    </form>
+
                 </div>
                 `
         }
@@ -36,17 +41,22 @@ function getProductCardsDashboard(products) {
                 <p class="productPrecio">${products.Precio}€</p>
 
                 <a class="verDetalle" href="/dashboard/${products._id}">Ver detalle</a>
+
                 <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
-                <button class="btnEliminar" onclick="deleteProduct('${products._id}')">Eliminar</button>
+
+                <form action="/dashboard/${products._id}/delete" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btnEliminar" type="submit">Eliminar</button>
+                </form>
+                
             </div> 
                 `;
-
-            
         return html;
     }
 }
-
-
+/*NOTA DELETE: No ponemos ?_method=DELETE en la URL, porque el campo oculto _method en el formulario se encargará de la conversión.
+Con esto, el formulario envía un POST, pero methodOverride lo convierte en un DELETE gracias al campo oculto.*/
+//SSR Frontend desde el backend
 
 //VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
@@ -96,6 +106,7 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>
 `;
@@ -117,16 +128,20 @@ const getNavBar=
 `
     <header class="header"> 
     <nav>
+        <div class="containerLogin">
+                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>                
+                <a href="" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+        </div>
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
-                <li><a href="/products/Camisetas"class="navigation">Camisetas</a></li>
-                <li><a href="/products/Pantalones"class="navigation">Pantalones</a></li>
-                <li><a href="/products/Zapatos"class="navigation">Zapatos</a></li>
-                <li><a href="/products/Accesorios"class="navigation">Accesorios</a></li>
-                <li><a href="/login"class="navigation">Login</a></li>
+                <li><a href="/products/categoria/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/categoria/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/categoria/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/categoria/Accesorios"class="navigation">Accesorios</a></li>
             </ul>
         </div>
+        
     </nav>
     </header>
     `;
@@ -186,8 +201,8 @@ const formEditProduct = (product) => {
             <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea class='productDescription' type='text' name='productDescription' required value='${product.Descripción}'></textarea><br>
-                
+            <textarea class='productDescription' type='text' name='productDescription'>${product.Descripción}</textarea><br>
+
             <label for='productCategory'>Categoría del producto: </label>
             <select class="productCategory" name="productCategory">
                 <option value="Camisetas">Camisetas</option>
@@ -208,7 +223,7 @@ const formEditProduct = (product) => {
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-            <button class="editProductBtn" type='submit'>Enviar</button>
+            <button class="editProductBtn" type='submit'>Modificar</button>
 
         </form>
     </body>
@@ -394,10 +409,12 @@ const updateProduct = async (req, res) => {
 };
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
-//DELETE /dashboard/:productId/delete: Elimina un producto.
+//DELETE /dashboard/:productId/delete: Elimina un producto. NECESITAREMOS INSTALAR method-override
 const deleteProduct = async (req, res) => {
+    console.log('Method:', req.method);
     try {
-        const product = await Product.findByIdAndDelete(req.params.productId);
+        const productId = req.params.productId;
+        const product = await Product.findByIdAndDelete(productId);
         const msg = 'Product not found'
 
         if (!product) {
@@ -418,22 +435,46 @@ const deleteProduct = async (req, res) => {
             .status(500)
             .json({ message: "There was a problem trying to delete a product" });
     }
-
 };
 
+
+
 //showProductByCategory Clasificar productos por su categoría
-//GET /:categoria Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        const productsCategory = await Product.find({ "Categoría": categoria });
+        const productsCategory = await Product.find({ Categoría: categoria });
 
         if (!productsCategory || productsCategory.length === 0) {
             return res.status(404).send('Category not found');
         }
 
-        res.render('products', { categoria, products: productsCategory });
+        const html = baseHtml + getNavBar + getProductCards(productsCategory)
+        res.send(html)
+
+    } catch (err) {
+        console.error('Error getting products:', err); // Ver detalles del error
+        return res.status(500).json({ message: 'Error getting products', error: err });
+    }
+};
+
+//showProductByCategory Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
+const showProductByCategoryDashboard = async (req, res) => {
+    const categoria = req.params.categoria; // Obtiene la categoría de la URL
+
+    try {
+        const productsCategory = await Product.find({ Categoría: categoria });
+
+        if (!productsCategory || productsCategory.length === 0) {
+            return res.status(404).send('Category not found');
+        }
+
+        const html = baseHtml + getNavBar + getProductCardsDashboard(productsCategory)
+        res.send(html)
+
     } catch (err) {
         console.error('Error getting products:', err); // Ver detalles del error
         return res.status(500).json({ message: 'Error getting products', error: err });
@@ -442,12 +483,11 @@ const showProductByCategory = async (req, res) => {
 
 
 
-
-
 module.exports = { 
     showProducts,
     showProductById,
     showProductByCategory,
+    showProductByCategoryDashboard,
     showProductsDashboard,
     showProductByIdDashboard,
     showNewProduct,
@@ -458,20 +498,6 @@ module.exports = {
 
 };
 
-/*
-const login = () => {
-    return `
-    <body>
-        <form method="post"action='/login'>
-            <div class="loginUser">
-                <label for="email">Correo electrónico o Usuario</label>
-                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo o usuario">
-                    
-                <form method="post" action="/logout">
-
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
-*/
 
 
 
