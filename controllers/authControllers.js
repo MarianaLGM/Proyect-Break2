@@ -97,28 +97,32 @@ const loginPost = async (req, res) => {
 
 //Formulario de Register
 const registerForm = `
-  <body>
-    <h1>Register</h1>
-    <form id='registerForm' action='/register' method='post'>
-      <label for='email'>Introduce tu correo electrónico: </label>
-      <input type='email' name='email' id='email' required>
+<body>
+  <div class="register">
+    <h2>Crea tu cuenta</h2>
+      <form class='registerForm' action='/register' method='post'>
+        <label for='email'></label>
+        <input type='email' name='email' class='email' placeholder='Correo electrónico' required>
 
-      <label for='password'>Introduce tu correo contraseña: </label>
-      <input type='password' name='password' id='password' required>
+        <label for='password'></label>
+        <input type='password' name='password' class='password' placeholder="Contraseña" required>
+      </form>
 
-      <button type='submit' id='loginButton'>Registrar</button>
-    </form>
+      <button type='submit' class='registerButton'>Crear cuenta</button>
+      
+    </div>
+  <script type='module' src='../config/configLogin.js'></script>
+</body>
 
-    <script type='module' src='../config/configLogin1.js'></script>
-  </body>
-  `
+`
 //Formulario de Login
 const loginForm = `
   <body>
-    <h1>Login</h1>
-    <form id='loginForm' action='/login' method='post'>
-      <label for='email'>Introduce tu correo electrónico: </label>
-      <input type='email' name='email' id='email' required>
+    <div class="login">
+      <h2>Iniciar sesión</h2>
+        <form class='loginForm' method='post'>
+          <label for='email'</label>
+          <input type='email' name='email' class='email' placeholder='Correo electrónico' required>
 
           <label for='password'></label>
           <input type='password' name='password' class='password'  placeholder="Contraseña" required>
@@ -136,7 +140,7 @@ const loginForm = `
       
     </div>
 
-    <script type='module' src='/authControllers.js'></script>
+    <script type='module' src='../config/configLogin.js'></script>
   </body>
 
 `
