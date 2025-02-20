@@ -443,6 +443,7 @@ const deleteProduct = async (req, res) => {
 
 //showProductByCategory Clasificar productos por su categoría
 //GET /categoria/:categoria Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
