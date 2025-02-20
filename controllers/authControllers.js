@@ -95,16 +95,17 @@ const loginPost = async (req, res) => {
   }
 }
 
-const logoutPost= (req, res) => {
+/*const logoutPost= (req, res) => {
   console.log('Ruta /logout registrada');
   req.session.destroy((err) => {
     if (err) {
       console.error('Error al cerrar sesión:', err);
     }
-    res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token
+    res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token-entorno desarrollo secure: false
+    
     res.redirect('/login');
   });
-};
+};*/
 
 
 //Formulario de Register
@@ -179,5 +180,5 @@ module.exports = {
   registerPost,
   login,
   loginPost,
-  logoutPost
+  //logoutPost
 }
