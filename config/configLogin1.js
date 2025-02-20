@@ -24,6 +24,7 @@ const login = async (event) => {
 
     try {
         const email = document.getElementById('email').value;
+        console.log(email)
         const password = document.getElementById('password').value;
 
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -35,7 +36,7 @@ const login = async (event) => {
 
         const response = await fetch('/login', {
           method: 'POST',
-          header: {
+          headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({idToken})
@@ -55,4 +56,4 @@ const login = async (event) => {
     }
 }
 
-document.getElementById('loginButton').addEventListener('submit', login);
+document.getElementById('loginForm').addEventListener('submit', login);
