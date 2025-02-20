@@ -42,12 +42,12 @@ nav ul{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: rgb(219, 205, 233);   
     height: 35px;
+
 } 
 
 /*formato contenedor detalles producto (imagen, nombre, precio)*/
 .productCard{
     background-color: rgb(245, 241, 249); 
-
 }
 
 /*formato imagenes productos*/

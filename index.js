@@ -21,14 +21,14 @@ if (admin.apps.length === 0) {
         credential : admin.credential.cert(serviceAccount),
     });
 }
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser())
 
+app.use('/', authRoutes);
 app.use('/', productRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', authRoutes);
+
 
 app.use("*", (req, res, next) => {
     const error = new Error("Route not found");

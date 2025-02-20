@@ -16,9 +16,13 @@ router.get("/dashboard/new",productController.showNewProduct);//GET /dashboard/n
 router.post("/dashboard", productController.createProduct);//POST /dashboard: Crea un nuevo producto.
 router.get("/dashboard/:productId", productController.showProductByIdDashboard);//GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
 router.get("/dashboard/:productId/edit",productController.showEditProduct );//GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
-router.put("/dashboard/:productId", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
+
+//router.put("/dashboard/:productId", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
+router.post("/dashboard/:productId/edit", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
+
 //router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
-router.post("/dashboard/:productId/delete", productController.deleteProduct)
+//router.post("/dashboard/:productId/delete", productController.deleteProduct)
+
 router.get("/dashboard/categoria/:categoria",productController.showProductByCategoryDashboard)////GET /dashboard/categoria/:categoria filtra por categoría
 
 module.exports = router;

@@ -187,10 +187,11 @@ const formCreateProduct =
 
 
 //VISTA DASHBOARD formEditProduct, formulario para editar producto:
+
 const formEditProduct = (product) => {
     return `
     <body>
-        <form class="formEditProduct" action='/dashboard/:productId' method='post'>
+        <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
             <label for="productImg">Select files:</label>
             <input type="file" id="productImg" name="productImg"><br>
@@ -221,7 +222,10 @@ const formEditProduct = (product) => {
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
 
-            <button class="editProductBtn" type='submit'>Modificar</button>
+            <form action="/dashboard/${product._id}?_method=PUT" method="POST">
+                <button class="editProductBtn" type="submit">Actualizar producto</button>
+            </form>
+
 
         </form>
     </body>
