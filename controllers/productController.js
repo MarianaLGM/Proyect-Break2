@@ -14,7 +14,7 @@ function getProductCardsDashboard(products) {
     if(products.length > 0) { 
         for (let product of products) {
             html += `
-                <div class="product-card">
+                <div class="productCard">
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
@@ -34,7 +34,7 @@ function getProductCardsDashboard(products) {
         return html;
     } else {
         html = `
-            <div class="product-card">
+            <div class="productCard">
                 <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
@@ -65,7 +65,7 @@ function getProductCards(products) {
     if(products.length > 0) { 
         for (let product of products) {
             html += `
-                <div class="product-card">
+                <div class="productCard">
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
                     <p class="productDescripcion">${product.Descripción}</p>
@@ -79,7 +79,7 @@ function getProductCards(products) {
         return html;
     } else {
         html = `
-            <div class="product-card">
+            <div class="productCard">
                 <img class="productImagen" src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
@@ -93,9 +93,6 @@ function getProductCards(products) {
         return html;
     }
 }
-
-
-
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
@@ -128,9 +125,10 @@ const getNavBar=
 `
     <header class="header"> 
     <nav>
-        <div class="containerLogin">
-                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>                
-                <a href="" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+        <div class="containerSuperior">
+                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>              
+                <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+                <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>
         <div class="container">
             <ul class="nav1"> 
@@ -181,7 +179,7 @@ const formCreateProduct =
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='productPrice' min='0' required>
 
-            <button class="newProductBtn" type='submit'>Enviar</button>
+            <button class="newProductBtn" type='submit'>Subir nuevo producto</button>
 
             </form>
         </body>
