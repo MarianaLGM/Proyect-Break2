@@ -201,8 +201,8 @@ const formEditProduct = (product) => {
             <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea class='productDescription' type='text' name='productDescription' value='${product.Descripción}'></textarea><br>
-                
+            <textarea class='productDescription' type='text' name='productDescription'>${product.Descripción}</textarea><br>
+
             <label for='productCategory'>Categoría del producto: </label>
             <select class="productCategory" name="productCategory">
                 <option value="Camisetas">Camisetas</option>

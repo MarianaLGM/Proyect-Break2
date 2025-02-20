@@ -1,4 +1,5 @@
 
+/**********************FORMATO PRODUCTCONTROLLERS.JS****************************
 
 /*Formato categorías navegador Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
 .navigation{
@@ -39,7 +40,6 @@ nav ul{
 /*formato contenedor detalles producto (imagen, nombre, precio)*/
 .product-card{
     background-color: rgb(245, 241, 249); 
-
 }
 
 /*formato imagenes productos*/
@@ -82,7 +82,7 @@ nav ul{
     
 }
 
-/*botón enviar y eliminar producto*/
+/*botón enviar y eliminar producto así como registrar*/
 .newProductBtn,.editProductBtn, .btnEliminar{ 
     border-radius: 5px;
     background-color: rgb(219, 205, 233); 
@@ -96,15 +96,55 @@ nav ul{
     font-size: 13px; 
 }
 
-/*formato formulario registro, login y logout*/
+/**********************FORMATO AUTHCONTROLLERS.JS****************************
+
+/*formato contenedor formulario registro, login y logout*/
 .register, .login, .logout{
     font-family: "Futura", sans-serif;
     font-size: 15px;
+    color: rgb(61, 61, 61);
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 320px;
 }
+
+/*formato campo para introducir mail y contraseña*/
+.email, .password{
+    width: 220px;
+    margin-bottom: 15px;
+}
+
+/*formato botones login y register*/
+.loginButton, .registerButton{
+    border-radius: 5px;
+    background-color: rgb(219, 205, 233); 
+    font-family: "Futura", sans-serif;
+    font-size: 13px; 
+    width: 120px;
+}
+
+/*Título iniciar sesión*/
+h2{
+    font-family: "Futura", sans-serif;
+    font-size: 17px;
+    color: rgb(84, 84, 84);
+}
+
+/*¿todavía no tienes una cuenta?*/
+h3{
+    font-family: "Futura", sans-serif;
+    font-size: 13px; 
+    color: rgb(84, 84, 84);
+}
+
+/*formato ¡regístrate!*/
+.register{
+    font-family: "Futura", sans-serif;
+    font-size: 14px; 
+    color: rgb(81, 9, 149); 
+}
+
 
 
 

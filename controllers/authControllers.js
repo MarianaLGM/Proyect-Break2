@@ -5,7 +5,7 @@
 const admin = require('firebase-admin');
 admin.initializeApp()
 const auth = admin.auth();
-const baseHtml = require('./productController');
+//const baseHtml = require('./productController');
 
 
 //Envío de formulario para register
@@ -65,16 +65,17 @@ const loginPost = async (req, res) => {
 const registerForm = `
 <body>
   <div class="register">
-    <h2>Register</h2>
-      <form id='registerForm' action='/register' method='post'>
-        <label for='email'>Introduce tu correo electrónico: </label>
-        <input type='email' name='email' id='email' required>
+    <h2>Crea tu cuenta</h2>
+      <form class='registerForm' action='/register' method='post'>
+        <label for='email'></label>
+        <input type='email' name='email' class='email' placeholder='Correo electrónico' required>
 
-        <label for='password'>Introduce tu correo contraseña: </label>
-        <input type='password' name='password' id='password' required>
-
-        <button type='submit' id='loginButton'>Registrar</button>
+        <label for='password'></label>
+        <input type='password' name='password' class='password' placeholder="Contraseña" required>
       </form>
+
+      <button type='submit' class='registerButton'>Crear cuenta</button>
+      
     </div>
   <script type='module' src='../config/configLogin.js'></script>
 </body>
@@ -84,16 +85,20 @@ const registerForm = `
 const loginForm = `
   <body>
     <div class="login">
-      <h2>Login</h2>
-        <form id='loginForm' method='post'>
-          <label for='email'>Introduce tu correo electrónico: </label>
-          <input type='email' name='email' id='email' required>
+      <h2>Iniciar sesión</h2>
+        <form class='loginForm' method='post'>
+          <label for='email'</label>
+          <input type='email' name='email' class='email' placeholder='Correo electrónico' required>
 
-          <label for='password'>Introduce tu correo contraseña: </label>
-          <input type='password' name='password' id='password' required>
-
-          <button type='submit' id='loginButton'>Iniciar sesión</button>
+          <label for='password'></label>
+          <input type='password' name='password' class='password'  placeholder="Contraseña" required>
         </form>
+
+        <button type='submit' class='loginButton'>Iniciar sesión</button>
+
+        <h3>¿Todavía no tienes una cuenta?</h3>
+        <a href="/register" class='register' >¡Regístrate!</a>
+        
       </div>
     <div id='mensajeLogin'>
         
@@ -105,6 +110,19 @@ const loginForm = `
   </body>
 
 `
+//baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
+const baseHtml =
+`
+    <!DOCTYPE html>
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <title>Tienda de ropa online</title>
+            <link rel="stylesheet" href="/style.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        </head>
+    </html>
+`;
 
 module.exports = {
   register,
