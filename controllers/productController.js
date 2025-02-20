@@ -17,16 +17,8 @@ function getProductCardsDashboard(products) {
                 <div class="productCard">
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
-                    <p class="productDescripcion">${product.Descripción}</p>
-                    <p class="productPrecio">${product.Precio}€</p>
 
-                    <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
-                    <a class="editar" href="/dashboard/${product._id}/edit">Editar</a>
-
-                    <form action="/dashboard/${product._id}/delete" method="POST">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btnEliminar" type="submit">Eliminar</button>
-                    </form>
+                    <a class="verDetalle" href="/dashboard/${product._id}">Ver</a>
 
                 </div>
                 `
@@ -38,9 +30,8 @@ function getProductCardsDashboard(products) {
                 <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
-                <p class="productPrecio">${products.Precio}€</p>
-
-                <a class="verDetalle" href="/dashboard/${products._id}">Ver detalle</a>
+                <p class="productTalla">Talla: ${products.Talla}</p>
+                <p class="productPrecio">Precio: ${products.Precio}€</p>
 
                 <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
 
@@ -65,13 +56,11 @@ function getProductCards(products) {
     if(products.length > 0) { 
         for (let product of products) {
             html += `
-                <div class="productCard">
+                <div class="productCard1">
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
-                    <p class="productDescripcion">${product.Descripción}</p>
-                    <p class="productPrecio">${product.Precio}€</p>
 
-                    <a class="verDetalle" href="/products/${product._id}">Ver detalle</a>
+                    <a class="verDetalle" href="/products/${product._id}">Ver</a>
                 </div>
 
                 `
@@ -79,13 +68,12 @@ function getProductCards(products) {
         return html;
     } else {
         html = `
-            <div class="productCard">
+            <div class="productCard2">
                 <img class="productImagen" src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
                 <p class="productDescripcion">${products.Descripción}</p>
-                <p class="productPrecio">${products.Precio}€</p>
-
-                <a class="verDetalle" href="/products/${products._id}">Ver detalle</a>
+                <p class="productTalla">Talla: ${products.Talla}</p>
+                <p class="productPrecio">Precio: ${products.Precio}€</p>
             </div>
 
         `;
@@ -93,6 +81,7 @@ function getProductCards(products) {
         return html;
     }
 }
+
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
@@ -107,18 +96,6 @@ const baseHtml =
         </head>
     </html>
 `;
-
-//Mensaje se ha eliminado correctamente
-const successfullyUpdated=
-`
-    <h2>Product successfully updated</h2>
-`;
-
-//Mensaje se ha eliminado correctamente
-const deletedSuccessfully=
-`
-    <h2>Product successfully deleted</h2>
-`
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
 const getNavBar= 
@@ -150,7 +127,7 @@ const getNavBar=
 const formCreateProduct = 
 `
     <body>
-        <form class="formCreateProduct" action='/dashboard'>
+        <form class="formCreateProduct" action='/dashboard' method="POST">
             <label for="productImg">Select files:</label>
             <input type="file" id="productImg" name="productImg" required>
                     
@@ -359,7 +336,6 @@ const createProduct = async (req, res) => {
             .json({ message: "There was a problem trying to create a product" });
     }
 };
-
 
 //showEditProduct: Devuelve la vista con el formulario para editar un producto.
 //GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.

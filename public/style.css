@@ -61,12 +61,15 @@ nav ul{
     color: rgb(61, 61, 61);
     font-family: "Futura", sans-serif;
     font-size: 19px;
+    margin-top: 0px;
+    margin-left: 50px;
 }
 /*formato descripción y precio productos*/
-.productDescripcion, .productPrecio{
+.productDescripcion, .productPrecio, .productTalla{
     color: rgb(61, 61, 61);
     font-family: "Futura", sans-serif;
     font-size: 15px;
+
 }
 
 /*formulario para crear producto*/
@@ -91,15 +94,26 @@ nav ul{
 }
 
 /*botón enviar y eliminar producto así como registrar*/
-.newProductBtn,.editProductBtn, .btnEliminar{ 
+.newProductBtn,.editProductBtn, .btnEliminar, .editar { 
     border-radius: 5px;
     background-color: rgb(219, 205, 233); 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
+    margin-bottom: 50px;
+    margin-top: 0px;
+    width: 200px;
+}
+
+.verDetalle{
+    font-family: "Futura", sans-serif;
+    font-size: 15px; 
+    margin-left: 80px;
+    width: 200px;
+    color: rgb(173, 116, 231);
 }
 
 /*enlace ver detalle y editar producto*/
-.verDetalle, .editar{ 
+.editar{ 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
 }
