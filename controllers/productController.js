@@ -120,10 +120,10 @@ const getNavBar=
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
-                <li><a href="/products/Camisetas"class="navigation">Camisetas</a></li>
-                <li><a href="/products/Pantalones"class="navigation">Pantalones</a></li>
-                <li><a href="/products/Zapatos"class="navigation">Zapatos</a></li>
-                <li><a href="/products/Accesorios"class="navigation">Accesorios</a></li>
+                <li><a href="/products/categoria/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/categoria/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/categoria/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/categoria/Accesorios"class="navigation">Accesorios</a></li>
                 <li><a href="/login"class="navigation">Login</a></li>
             </ul>
         </div>
@@ -422,18 +422,20 @@ const deleteProduct = async (req, res) => {
 };
 
 //showProductByCategory Clasificar productos por su categoría
-//GET /:categoria Clasificar productos por su categoría
+//GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
     try {
-        const productsCategory = await Product.find({ "Categoría": categoria });
+        const productsCategory = await Product.find({ Categoría: categoria });
+        //console.log(productsCategory)
 
         if (!productsCategory || productsCategory.length === 0) {
             return res.status(404).send('Category not found');
         }
 
-        res.render('products', { categoria, products: productsCategory });
+        const html = baseHtml + getNavBar + getProductCardsDashboard(productsCategory)
+        res.send(html)
     } catch (err) {
         console.error('Error getting products:', err); // Ver detalles del error
         return res.status(500).json({ message: 'Error getting products', error: err });
