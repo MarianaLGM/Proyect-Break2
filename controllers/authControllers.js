@@ -96,13 +96,15 @@ const loginPost = async (req, res) => {
 }
 
 const logoutPost= (req, res) => {
+  console.log('Ruta /logout registrada');
   req.session.destroy((err) => {
     if (err) {
       console.error('Error al cerrar sesión:', err);
     }
-    res.send("sesión cerrada con éxito");
+    res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token
+    res.redirect('/login');
   });
-};  
+};
 
 
 //Formulario de Register
