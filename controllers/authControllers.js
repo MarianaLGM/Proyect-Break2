@@ -52,6 +52,7 @@ const login = (req, res) => {
   res.send(html);
 }
 
+
 //Comprobación de auténticación para continuar al dashboard
 const loginPost = async (req, res) => {
 
@@ -93,6 +94,16 @@ const loginPost = async (req, res) => {
     res.status(401).json({success: false, message: 'Token inválido'})
   }
 }
+
+const logoutPost= (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+    res.send("sesión cerrada con éxito");
+  });
+};  
+
 
 //Formulario de Register
 const registerForm = `
@@ -143,6 +154,10 @@ const loginForm = `
   </body>
 
 `
+
+
+
+
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
 `
@@ -161,5 +176,6 @@ module.exports = {
   register,
   registerPost,
   login,
-  loginPost
+  loginPost,
+  logoutPost
 }

@@ -126,7 +126,8 @@ const getNavBar=
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
-                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>              
+                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
+                <a href="/logout" class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span>       
                 <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
                 <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>

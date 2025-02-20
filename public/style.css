@@ -3,7 +3,7 @@
 
 
 /*incono lupa y nuevo producto*/
-.nuevoProducto, .lupa, .persona{
+.nuevoProducto, .lupa, .persona, .personaLogout{
     color: rgb(177, 143, 210);
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
@@ -14,7 +14,7 @@
 }
 
 .lupa{
-    margin-left: 1330px;
+    margin-left: 1300px;
 }
 
 /*quitar los puntos de la lista Productos,Camisetas,Pantalones,Zapatos,Accesorios,Login*/
