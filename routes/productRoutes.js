@@ -17,11 +17,13 @@ router.post("/dashboard", productController.createProduct);//POST /dashboard: Cr
 router.get("/dashboard/:productId", productController.showProductByIdDashboard);//GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
 router.get("/dashboard/:productId/edit",productController.showEditProduct );//GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 
+/*ACTUALIZAR PRODUCTO DESDE POSTMAN Y DESDE NAVEGADOR*/
 //router.put("/dashboard/:productId", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
-router.post("/dashboard/:productId/edit", productController.updateProduct);//PUT /dashboard/:productId: Actualiza un producto.
+router.post("/dashboard/:productId", productController.updateProduct);
 
+/*ELIMINAR PRODUCTO DESDE POSTMAN Y DESDE NAVEGADOR*/
 //router.delete("/dashboard/:productId/delete", productController.deleteProduct);//DELETE /dashboard/:productId/delete: Elimina un producto.
-//router.post("/dashboard/:productId/delete", productController.deleteProduct)
+router.post("/dashboard/:productId/delete", productController.deleteProduct)
 
 router.get("/dashboard/categoria/:categoria",productController.showProductByCategoryDashboard)////GET /dashboard/categoria/:categoria filtra por categoría
 
