@@ -33,7 +33,7 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <form action="/dashboard/${products._id}?_method=PUT" method="POST">
+                <form action="/dashboard/${products._id}" method="POST">
                     <button class="btnEditar" type="submit">Actualizar producto</button>
                 </form>
 
@@ -170,7 +170,7 @@ const formCreateProduct =
 const formEditProduct = (product) => {
     return `
     <body>
-        <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
+        <form class="formEditProduct" action='/dashboard/${product._id}/edit>
 
             <label for="productImg">Select files:</label>
             <input type="file" id="productImg" name="productImg"><br>
