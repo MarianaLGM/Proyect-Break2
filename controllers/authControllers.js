@@ -96,24 +96,10 @@ const loginPost = async (req, res) => {
 
 //Cierre de sesión, redirige a /login
 const logoutPost= (req, res) => {
-  /* console.log('Ruta /logout registrada');
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error al cerrar sesión:', err);
-    }
-    res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token-entorno desarrollo secure: false
+  res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token-entorno desarrollo secure: false
     
-    res.redirect('/login');
-  }); */
-
-  res.clearCookie('token');
-  res.redirect('/login');
-
-  /* res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token-entorno desarrollo secure: false
-    
-  res.redirect('/login') */
+  res.redirect('/login')
 };
-
 
 //Formulario de Register
 const registerForm = `
@@ -126,12 +112,10 @@ const registerForm = `
 
         <label for='password'></label>
         <input type='password' name='password' class='password' placeholder="Contraseña" required>
-      </form>
-
-      <button type='submit' class='registerButton'>Crear cuenta</button>
-      
+        
+        <button type='submit' class='registerButton'>Crear cuenta</button>
+      </form> 
     </div>
-  <script type='module' src='../config/configLogin.js'></script>
 </body>
 
 `
@@ -154,13 +138,6 @@ const loginForm = `
         <a href="/register" class='register' >¡Regístrate!</a>
         
       </div>
-    <div id='mensajeLogin'>
-        
-      <!--Mensaje de cuando iniciamos sesión -->
-      
-    </div>
-
-    <script type='module' src='../config/configLogin.js'></script>
   </body>
 
 `

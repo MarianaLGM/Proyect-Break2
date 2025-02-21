@@ -23,6 +23,7 @@ function getProductCardsDashboard(products) {
                 </div>
                 `
         }
+        
         return html;
     } else {
         html = `
@@ -41,7 +42,7 @@ function getProductCardsDashboard(products) {
                 </form>
                 
             </div> 
-                `;
+            `;
         return html;
     }
 }
@@ -98,14 +99,15 @@ const baseHtml =
 `;
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-const getNavBar= 
+//getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
+const getNavBarLogin= 
 `
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
-                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>     
+                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
                 <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
-                <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
+
         </div>
         <div class="container">
             <ul class="nav1"> 
@@ -121,23 +123,51 @@ const getNavBar=
     </header>
     `;
 
+//getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
+const getNavBarLogout= 
+`
+    <header class="header"> 
+    <nav>      
+        <div class="containerSuperior">       
+                <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+                <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
+        </div>
+        <div class="container">
+            <ul class="nav1"> 
+                <li><a href="/dashboard"class="navigation">Productos</a></li>
+                <li><a href="/dashboard/categoria/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/dashboard/categoria/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/dashboard/categoria/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/dashboard/categoria/Accesorios"class="navigation">Accesorios</a></li>
+            </ul>
+        </div>
+        
+    </nav>
+    </header>
+    `;
+
+const formLogout = `
+    <form action='/logout' method='post'>
+        <button type='submit' class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span></button>
+    </form>
+`
 
 //VISTA DASHBOARD formCreateProduct, formulario para crear producto:
 const formCreateProduct = 
 `
     <body>
         <form class="formCreateProduct" action='/dashboard' method="POST">
-            <label for="productImg">Select files:</label>
-            <input type="file" id="productImg" name="productImg" required>
+            <label for="productImg">Enlace de la imagen:</label>
+            <input type="text" id="productImg" name="Imagen"><br>
                     
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='productName' required>
+            <input class='productName' type='text' name='Nombre' required>
                     
             <label for='productDescription'>Descripción del producto: </label>
-            <input class='productDescription' type='text' name='productDescription' required>
+            <input class='productDescription' type='text' name='Descripción' required>
                     
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="productCategory" required>
+            <select class="productCategory" name="Categoría" required>
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -145,7 +175,7 @@ const formCreateProduct =
             </select>
                     
             <label for='productSize'>Talla del producto: </label>
-            <select class="productSize" name="productSize" required>
+            <select class="productSize" name="Talla" required>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -154,7 +184,7 @@ const formCreateProduct =
             </select>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='productPrice' min='0' required>
+            <input class='productPrice' type='number' name='Precio' min='0' required>
 
             <button class="newProductBtn" type='submit'>Subir nuevo producto</button>
 
@@ -170,8 +200,13 @@ const formEditProduct = (product) => {
     <body>
         <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
+<<<<<<< HEAD
             <label for="productImg">Select files:</label>
             <input type="file" id="productImg" name="Imagen"><br>
+=======
+            <label for="productImg">Enlace de la imagen:</label>
+            <input type="text" id="productImg" name="Imagen" value='${product.Imagen}'><br>
+>>>>>>> 7414e77d898e8f1ef7d2c55e771aeece6b85e447
                 
             <label for='productName'>Nombre del producto: </label>
             <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
@@ -210,7 +245,6 @@ const formEditProduct = (product) => {
 };
 
 
-
 /**************************************VISTA GENERAL***************************************/
 
 //showProducts: Devuelve la vista con todos los productos
@@ -219,7 +253,7 @@ const showProducts = async (req, res) => {
     try {
         const products = await Product.find();
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar + productCards;
+        const html = baseHtml + getNavBarLogin + productCards;
         res.send(html);
 
     } catch (error) {
@@ -239,10 +273,10 @@ const showProductById = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogin + msg);
         }
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar + productCards;
+        const html = baseHtml + getNavBarLogin + productCards;
         
         res.status(200).send(html);
 
@@ -263,7 +297,7 @@ const showProductsDashboard = async (req, res) => {
     try {
         const products = await Product.find();
         const productCardsDashboard = getProductCardsDashboard(products);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         res.send(html);
 
     } catch (error) {
@@ -286,7 +320,7 @@ const showProductByIdDashboard = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         
         res.status(200).send(html);
 
@@ -303,7 +337,7 @@ const showProductByIdDashboard = async (req, res) => {
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
     try{         
-        const html = baseHtml + getNavBar + formCreateProduct;
+        const html = baseHtml + getNavBarLogout + formLogout + formCreateProduct;
         
         res.status(200).send(html);
 
@@ -323,7 +357,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -344,10 +378,10 @@ const showEditProduct = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
         
-        const html = baseHtml + getNavBar + formEditProduct(product);
+        const html = baseHtml + getNavBarLogout + formLogout + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -373,12 +407,14 @@ const updateProduct = async (req, res) => {
         if (!product) {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
 
         // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
         setTimeout(() => {
-            res.redirect("/dashboard");
+            res.redirect(`/dashboard/${req.params.productId}`);
+            res.redirect(`/dashboard/${req.params.productId}`);
         }, 3000);
 
     } catch (error) {
@@ -388,7 +424,6 @@ const updateProduct = async (req, res) => {
         });
     }
 };
-
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto. NECESITAREMOS INSTALAR method-override
@@ -400,9 +435,9 @@ const deleteProduct = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
-        const html = baseHtml + getNavBar + deletedSuccessfully;
+        const html = baseHtml + getNavBarLogout + deletedSuccessfully;
         res
             .send(html)
 
@@ -434,7 +469,7 @@ const showProductByCategory = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBar + getProductCards(productsCategory)
+        const html = baseHtml + getNavBarLogin + getProductCards(productsCategory)
         res.send(html)
 
     } catch (err) {
@@ -455,7 +490,7 @@ const showProductByCategoryDashboard = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBar + getProductCardsDashboard(productsCategory)
+        const html = baseHtml + getNavBarLogout + formLogout + getProductCardsDashboard(productsCategory)
         res.send(html)
 
     } catch (err) {
