@@ -6,41 +6,40 @@
 *********************************************************TIENDA DE ROPA********************************************************
 
 ÍNDICE
--Creación de base de datos
--Creación del servidor
--Creación de modelos
--Creación de rutas
--Creación de controladores
--Despliegue
--Documentación
--Bonus 1 - Tests
--Bonus 2 - Autenticación con Firebase
--Bonus 3 - API y documentación con Swagger
--Recursos
+- Creación de base de datos
+- Creación del servidor
+- Creación de modelos
+- Creación de rutas
+- Creación de controladores
+- Despliegue
+- Bonus 1 - Tests
+- Bonus 2 - Autenticación con Firebase
+- Bonus 3 - API y documentación con Swagger
+- Recursos
 
-CARACTERÍSTICAS ARCHIVOS
--config/db.js: Archivo que contendrá la configuración de la base de datos. Deberá conectarse a la base de datos de mongo en Atlas.
+*****************************************************CARACTERÍSTICAS ARCHIVOS**************************************************
 
--controllers/productController.js: Archivo que contendrá la lógica para manejar las solicitudes CRUD de los productos. Devolverá las respuestas en formato HTML.
+- config/db.js: Archivo que contendrá la configuración de la base de datos. Deberá conectarse a la base de datos de mongo en Atlas.
 
--models/Product.js: Archivo que contendrá la definición del esquema del producto utilizando Mongoose.
+- controllers/productController.js: Archivo que contendrá la lógica para manejar las solicitudes CRUD de los productos. Devolverá las respuestas en formato HTML.
 
--routes/productRoutes.js: Archivo que contendrá la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
+- models/Product.js: Archivo que contendrá la definición del esquema del producto utilizando Mongoose.
 
--index.js: Archivo principal que iniciará el servidor Express. Importa las rutas y las usa. También tiene que estar configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
+- routes/productRoutes.js: Archivo que contendrá la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
 
--public/styles.css: contiene los estilos de la aplicación.
+- index.js: Archivo principal que iniciará el servidor Express. Importa las rutas y las usa. También tiene que estar configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
 
--.env: Archivo que contendrá las variables de entorno. 
+- public/styles.css: contiene los estilos de la aplicación.
 
--package.json: Archivo que contendrá las dependencias del proyecto ----->("start": "node --watch index.js") 
+- .env: Archivo que contendrá las variables de entorno. 
+
+- package.json: Archivo que contendrá las dependencias del proyecto ----->("start": "node --watch index.js") 
 
 //BONUS//
-
--config/firebase.js: Archivo que contendrá la configuración de firebase. Deberá inicializar la conexión con firebase.
--controllers/authController.js: Archivo que contendrá la lógica para manejar las solicitudes de autenticación. Devolverá las respuestas en formato HTML.
--routes/authRoutes.js: Archivo que contendrá la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
--middlewares/authMiddleware.js: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
+- config/firebase.js: Archivo que contendrá la configuración de firebase. Deberá inicializar la conexión con firebase.
+- controllers/authController.js: Archivo que contendrá la lógica para manejar las solicitudes de autenticación. Devolverá las respuestas en formato HTML.
+- routes/authRoutes.js: Archivo que contendrá la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
+- middlewares/authMiddleware.js: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
 
 ******************************************************BBDD**********************************************************
 
@@ -50,13 +49,16 @@ Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .e
 
 MONGO_URI=<uri_bd_atlas>
 
-*****************************************************SERVIDOR*********************************************************
+****************************************************SERVIDOR*********************************************************
 - Requerimos express
 - Puerto 8080 (http://localhost:8080/)
 - Cargar puerto desde el archivo .env usando dotenv.
+- Importamos conexión bbdd Mongo (dbConnection)
 - Configurar el servidor para que sirva archivos estáticos (PATH) desde la carpeta public.
-- leer el body de las peticiones tipo post.
-- Requerir y acceder URLENCODED Y JSON:  Middleware para manejar datos de formulario y JSONmiddleware express.urlencoded
+- Leer el body de las peticiones tipo post. 
+- Importamos rutas
+- Requerir y acceder (URLENCODED Y JSON):  Middleware para manejar datos de formulario y JSONmiddleware express.urlencoded.
+- Requerimos e instalamos methodOverride nos permite hacer solicitudes put y delete, pero no nos funcionó.
 
 *******************************************************MODELOS******************************************************
 

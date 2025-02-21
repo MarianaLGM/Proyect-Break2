@@ -27,7 +27,6 @@ app.use(cookieParser())
 
 app.use('/', authRoutes);
 app.use('/', productRoutes);
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use("*", (req, res, next) => {
