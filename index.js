@@ -12,6 +12,19 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const path = require('path');// configura el servidor para que sirva archivos estáticos
 
+/*PASO 1-BIS SWAGGER
+npm i swagger-ui-express
+
+SWAGGER 3:
+a-Importamos swaggerUi
+b-Importamos el index.js de la carpeta docs
+c-Creamos una ruta para poder ver la documentación creada
+-En el navegador, abrimos nuestra página de documentación desde http://localhost:3000/api-docs.
+*/
+const swaggerUI = require('swagger-ui-express') //SWAGGER 3: a)Importamos swaggerUi
+const docs = require('./docs/index')//SWAGGER 3: b)Importamos el index.js de la carpeta docs
+
+app.use('/api-docs', swaggerUI.serve,swaggerUI.setup(docs))//SWAGGER 3: b)Importamos el index.js de la carpeta docs
 
 app.use(methodOverride('_method'));//methodOverride nos permite hacer solicitudes put y delete 
 
@@ -28,12 +41,11 @@ app.use(cookieParser())
 app.use('/', authRoutes);
 app.use('/', productRoutes);
 
-
-/* app.use("*", (req, res, next) => {
+ app.use("*", (req, res, next) => {
     const error = new Error("Route not found");
     error.status = 404;
     return next(error)
-}) */
+}) 
 
 dbConnection();
 
