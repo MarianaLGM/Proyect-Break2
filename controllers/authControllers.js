@@ -158,9 +158,6 @@ const loginForm = `
 
 `
 
-
-
-
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
 `

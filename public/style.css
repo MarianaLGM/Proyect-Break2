@@ -54,6 +54,7 @@ nav ul{
 .productImagen{
     height: 220px;
     width: 200px;
+    margin-top: 40px;
 }
 
 /*formato nombre productos*/
@@ -94,13 +95,12 @@ nav ul{
 }
 
 /*botón enviar y eliminar producto así como registrar*/
-.newProductBtn,.editProductBtn, .btnEliminar, .editar { 
+.newProductBtn,.editProductBtn, .btnEliminar, .btnEditar { 
     border-radius: 5px;
     background-color: rgb(219, 205, 233); 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
-    margin-bottom: 50px;
-    margin-top: 0px;
+    margin-bottom: 20px;
     width: 200px;
 }
 

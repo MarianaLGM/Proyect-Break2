@@ -33,7 +33,9 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
+                <form action="/dashboard/${products._id}?_method=PUT" method="POST">
+                    <button class="btnEditar" type="submit">Actualizar producto</button>
+                </form>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
