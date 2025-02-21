@@ -174,7 +174,7 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 - baseHtml: html común a todas las páginas. Contiene la importación de estilos CSS así como biblioteca para íconos.https://fonts.google.com/
 
-- getNavBar: Genera la barra de navegación con las categorías. 
+- getNavBar:barra de navegación con las categorías 
 
 - getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos (sin opción a editar/eliminar) ya que no ha iniciado sesión.
 
