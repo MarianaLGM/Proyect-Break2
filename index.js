@@ -30,11 +30,11 @@ app.use('/', productRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use("*", (req, res, next) => {
+/* app.use("*", (req, res, next) => {
     const error = new Error("Route not found");
     error.status = 404;
     return next(error)
-})
+}) */
 
 dbConnection();
 
