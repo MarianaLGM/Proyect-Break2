@@ -100,12 +100,35 @@ const baseHtml =
 `;
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-const getNavBar= 
+const getNavBarLogin= 
 `
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
                 <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
+                <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
+
+        </div>
+        <div class="container">
+            <ul class="nav1"> 
+                <li><a href="/products"class="navigation">Productos</a></li>
+                <li><a href="/products/categoria/Camisetas"class="navigation">Camisetas</a></li>
+                <li><a href="/products/categoria/Pantalones"class="navigation">Pantalones</a></li>
+                <li><a href="/products/categoria/Zapatos"class="navigation">Zapatos</a></li>
+                <li><a href="/products/categoria/Accesorios"class="navigation">Accesorios</a></li>
+            </ul>
+        </div>
+        
+    </nav>
+    </header>
+    `;
+
+//getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
+const getNavBarLogout= 
+`
+    <header class="header"> 
+    <nav>
+        <div class="containerSuperior">
                 <a href="/logout" class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span>       
                 <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
                 <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
@@ -123,6 +146,7 @@ const getNavBar=
     </nav>
     </header>
     `;
+
 
 
 //VISTA DASHBOARD formCreateProduct, formulario para crear producto:
@@ -222,7 +246,7 @@ const showProducts = async (req, res) => {
     try {
         const products = await Product.find();
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBar + productCards;
+        const html = baseHtml + getNavBarLogin + productCards;
         res.send(html);
 
     } catch (error) {
@@ -245,7 +269,7 @@ const showProductById = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBar + productCards;
+        const html = baseHtml + getNavBarLogin + productCards;
         
         res.status(200).send(html);
 
@@ -266,7 +290,7 @@ const showProductsDashboard = async (req, res) => {
     try {
         const products = await Product.find();
         const productCardsDashboard = getProductCardsDashboard(products);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + productCardsDashboard;
         res.send(html);
 
     } catch (error) {
@@ -286,10 +310,10 @@ const showProductByIdDashboard = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + productCardsDashboard;
         
         res.status(200).send(html);
 
@@ -306,7 +330,7 @@ const showProductByIdDashboard = async (req, res) => {
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
     try{         
-        const html = baseHtml + getNavBar + formCreateProduct;
+        const html = baseHtml + getNavBarLogout + formCreateProduct;
         
         res.status(200).send(html);
 
@@ -326,7 +350,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBar + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -350,7 +374,7 @@ const showEditProduct = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         
-        const html = baseHtml + getNavBar + formEditProduct(product);
+        const html = baseHtml + getNavBarLogout + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -376,7 +400,7 @@ const updateProduct = async (req, res) => {
         if (!product) {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
 
         // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
@@ -403,9 +427,9 @@ const deleteProduct = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
-        const html = baseHtml + getNavBar + deletedSuccessfully;
+        const html = baseHtml + getNavBarLogout + deletedSuccessfully;
         res
             .send(html)
 
@@ -426,7 +450,6 @@ const deleteProduct = async (req, res) => {
 
 //showProductByCategory Clasificar productos por su categoría
 //GET /categoria/:categoria Clasificar productos por su categoría
-//GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
 
@@ -437,7 +460,7 @@ const showProductByCategory = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBar + getProductCards(productsCategory)
+        const html = baseHtml + getNavBarLogin + getProductCards(productsCategory)
         res.send(html)
 
     } catch (err) {
@@ -458,7 +481,7 @@ const showProductByCategoryDashboard = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBar + getProductCardsDashboard(productsCategory)
+        const html = baseHtml + getNavBarLogout + getProductCardsDashboard(productsCategory)
         res.send(html)
 
     } catch (err) {

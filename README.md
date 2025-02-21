@@ -50,6 +50,7 @@ Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .e
 MONGO_URI=<uri_bd_atlas>
 
 ****************************************************SERVIDOR*********************************************************
+- npm install---> dependencias: cloudinary, cookie-parser,dotenv,express,firebase, firebase-admin, method-override, mongodb, mongoose. Nota: aquí indicamos no sólo las necesarias para levantar servidor, sino también aquellas requeridas durante el proyect.
 - Requerimos express
 - Puerto 8080 (http://localhost:8080/)
 - Cargar puerto desde el archivo .env usando dotenv.
@@ -58,7 +59,7 @@ MONGO_URI=<uri_bd_atlas>
 - Leer el body de las peticiones tipo post. 
 - Importamos rutas
 - Requerir y acceder (URLENCODED Y JSON):  Middleware para manejar datos de formulario y JSONmiddleware express.urlencoded.
-- Requerimos e instalamos methodOverride nos permite hacer solicitudes put y delete, pero no nos funcionó.
+- Requerimos methodOverride nos permite hacer solicitudes put y delete, pero no nos funcionó.
 
 *******************************************************MODELOS******************************************************
 
