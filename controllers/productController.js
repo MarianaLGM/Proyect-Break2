@@ -199,16 +199,15 @@ const formEditProduct = (product) => {
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
 
-        </form>
             <form action="/dashboard/${product._id}" method="POST">
-                <input type="hidden" name="_method" value="PUT">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
 
+
+        </form>
     </body>
     `;
 };
-
 
 
 /**************************************VISTA GENERAL***************************************/
@@ -373,12 +372,12 @@ const updateProduct = async (req, res) => {
         if (!product) {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
-            return res.status(404).send(baseHtml + getNavBar + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
 
         // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
         setTimeout(() => {
-            res.redirect("/dashboard");
+            res.redirect(`/dashboard/${req.params.productId}`);
         }, 3000);
 
     } catch (error) {
@@ -388,7 +387,6 @@ const updateProduct = async (req, res) => {
         });
     }
 };
-
 
 //deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 //DELETE /dashboard/:productId/delete: Elimina un producto. NECESITAREMOS INSTALAR method-override
