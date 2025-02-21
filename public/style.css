@@ -4,6 +4,8 @@
 
 /*incono lupa y nuevo producto*/
 .nuevoProducto, .lupa, .persona, .personaLogout {
+    position: relative;
+    top: 5px;
     color: rgb(177, 143, 210);
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
@@ -13,7 +15,18 @@
     border: none;
     background-color: white;
     position: absolute;
-    top: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.lupa {
+    position: relative;
+    top: -.5px;
+}
+
+.material-icons {
+   position: relative;
+    top: 5px;
 }
 
 .containerSuperior{
@@ -40,7 +53,7 @@
     margin-right: 35px;
 }
 
-/*formato contendor barra navegador*/
+/*formato contenedor barra navegador*/
 nav ul{
     display: flex;
     justify-content: center;

@@ -128,8 +128,7 @@ const getNavBarLogin=
 const getNavBarLogout= 
 `
     <header class="header"> 
-    <nav>
-        <div class="containerSuperior">       
+    <nav>      
         <div class="containerSuperior">       
                 <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
                 <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
@@ -161,19 +160,14 @@ const formCreateProduct =
         <form class="formCreateProduct" action='/dashboard' method="POST">
             <label for="productImg">Enlace de la imagen:</label>
             <input type="text" id="productImg" name="Imagen"><br>
-            <label for="productImg">Enlace de la imagen:</label>
-            <input type="text" id="productImg" name="Imagen"><br>
                     
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='Nombre' required>
             <input class='productName' type='text' name='Nombre' required>
                     
             <label for='productDescription'>Descripción del producto: </label>
             <input class='productDescription' type='text' name='Descripción' required>
-            <input class='productDescription' type='text' name='Descripción' required>
                     
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="Categoría" required>
             <select class="productCategory" name="Categoría" required>
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
@@ -183,7 +177,6 @@ const formCreateProduct =
                     
             <label for='productSize'>Talla del producto: </label>
             <select class="productSize" name="Talla" required>
-            <select class="productSize" name="Talla" required>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -192,7 +185,6 @@ const formCreateProduct =
             </select>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='Precio' min='0' required>
             <input class='productPrice' type='number' name='Precio' min='0' required>
 
             <button class="newProductBtn" type='submit'>Subir nuevo producto</button>
@@ -211,19 +203,14 @@ const formEditProduct = (product) => {
 
             <label for="productImg">Enlace de la imagen:</label>
             <input type="text" id="productImg" name="Imagen" value='${product.Imagen}'><br>
-            <label for="productImg">Enlace de la imagen:</label>
-            <input type="text" id="productImg" name="Imagen" value='${product.Imagen}'><br>
                 
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
             <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
             <textarea class='productDescription' type='text' name='Descripción'>${product.Descripción}</textarea><br>
-            <textarea class='productDescription' type='text' name='Descripción'>${product.Descripción}</textarea><br>
 
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="Categoría">
             <select class="productCategory" name="Categoría">
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
@@ -233,7 +220,6 @@ const formEditProduct = (product) => {
                 
             <label for='productSize'>Talla del producto: </label>
             <select class="productSize" name="Talla">
-            <select class="productSize" name="Talla">
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -242,7 +228,6 @@ const formEditProduct = (product) => {
             </select><br>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
 
             <form action="/dashboard/${product._id}" method="POST">
@@ -480,7 +465,7 @@ const showProductByCategory = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBarLogout + getProductCards(productsCategory)
+        const html = baseHtml + getNavBarLogin + getProductCards(productsCategory)
         res.send(html)
 
     } catch (err) {

@@ -112,12 +112,10 @@ const registerForm = `
 
         <label for='password'></label>
         <input type='password' name='password' class='password' placeholder="Contraseña" required>
-      </form>
-
-      <button type='submit' class='registerButton'>Crear cuenta</button>
-      
+        
+        <button type='submit' class='registerButton'>Crear cuenta</button>
+      </form> 
     </div>
-  <script type='module' src='../config/configLogin.js'></script>
 </body>
 
 `
@@ -140,13 +138,6 @@ const loginForm = `
         <a href="/register" class='register' >¡Regístrate!</a>
         
       </div>
-    <div id='mensajeLogin'>
-        
-      <!--Mensaje de cuando iniciamos sesión -->
-      
-    </div>
-
-    <script type='module' src='../config/configLogin.js'></script>
   </body>
 
 `
