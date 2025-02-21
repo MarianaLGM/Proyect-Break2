@@ -3,11 +3,19 @@
 
 
 /*incono lupa y nuevo producto*/
-.nuevoProducto, .lupa, .persona, .personaLogout{
+.nuevoProducto, .lupa, .persona, .personaLogout {
     color: rgb(177, 143, 210);
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
 }
+
+.personaLogout {
+    border: none;
+    background-color: white;
+    position: absolute;
+    top: 20px;
+}
+
 .containerSuperior{
     width: 1500px;
     display: flex;

@@ -23,6 +23,7 @@ function getProductCardsDashboard(products) {
                 </div>
                 `
         }
+        
         return html;
     } else {
         html = `
@@ -33,9 +34,7 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <form action="/dashboard/${products._id}?_method=PUT" method="POST">
-                    <button class="btnEditar" type="submit">Actualizar producto</button>
-                </form>
+                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
@@ -43,7 +42,7 @@ function getProductCardsDashboard(products) {
                 </form>
                 
             </div> 
-                `;
+            `;
         return html;
     }
 }
@@ -128,8 +127,7 @@ const getNavBarLogout=
 `
     <header class="header"> 
     <nav>
-        <div class="containerSuperior">
-                <a href="/logout" class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span>       
+        <div class="containerSuperior">       
                 <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
                 <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>
@@ -147,24 +145,28 @@ const getNavBarLogout=
     </header>
     `;
 
-
+const formLogout = `
+    <form action='/logout' method='post'>
+        <button type='submit' class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span></button>
+    </form>
+`
 
 //VISTA DASHBOARD formCreateProduct, formulario para crear producto:
 const formCreateProduct = 
 `
     <body>
         <form class="formCreateProduct" action='/dashboard' method="POST">
-            <label for="productImg">Select files:</label>
-            <input type="file" id="productImg" name="productImg" required>
+            <label for="productImg">Enlace de la imagen:</label>
+            <input type="text" id="productImg" name="Imagen"><br>
                     
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='productName' required>
+            <input class='productName' type='text' name='Nombre' required>
                     
             <label for='productDescription'>Descripción del producto: </label>
-            <input class='productDescription' type='text' name='productDescription' required>
+            <input class='productDescription' type='text' name='Descripción' required>
                     
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="productCategory" required>
+            <select class="productCategory" name="Categoría" required>
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -172,7 +174,7 @@ const formCreateProduct =
             </select>
                     
             <label for='productSize'>Talla del producto: </label>
-            <select class="productSize" name="productSize" required>
+            <select class="productSize" name="Talla" required>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -181,7 +183,7 @@ const formCreateProduct =
             </select>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='productPrice' min='0' required>
+            <input class='productPrice' type='number' name='Precio' min='0' required>
 
             <button class="newProductBtn" type='submit'>Subir nuevo producto</button>
 
@@ -197,17 +199,17 @@ const formEditProduct = (product) => {
     <body>
         <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
-            <label for="productImg">Select files:</label>
-            <input type="file" id="productImg" name="productImg"><br>
+            <label for="productImg">Enlace de la imagen:</label>
+            <input type="text" id="productImg" name="Imagen" value='${product.Imagen}'><br>
                 
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
+            <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea class='productDescription' type='text' name='productDescription'>${product.Descripción}</textarea><br>
+            <textarea class='productDescription' type='text' name='Descripción'>${product.Descripción}</textarea><br>
 
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="productCategory">
+            <select class="productCategory" name="Categoría">
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -215,7 +217,7 @@ const formEditProduct = (product) => {
             </select><br>
                 
             <label for='productSize'>Talla del producto: </label>
-            <select class="productSize" name="productSize">
+            <select class="productSize" name="Talla">
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -224,7 +226,7 @@ const formEditProduct = (product) => {
             </select><br>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
+            <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
 
             <form action="/dashboard/${product._id}" method="POST">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
@@ -290,7 +292,7 @@ const showProductsDashboard = async (req, res) => {
     try {
         const products = await Product.find();
         const productCardsDashboard = getProductCardsDashboard(products);
-        const html = baseHtml + getNavBarLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         res.send(html);
 
     } catch (error) {
@@ -313,7 +315,7 @@ const showProductByIdDashboard = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBarLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         
         res.status(200).send(html);
 
@@ -330,7 +332,7 @@ const showProductByIdDashboard = async (req, res) => {
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
     try{         
-        const html = baseHtml + getNavBarLogout + formCreateProduct;
+        const html = baseHtml + getNavBarLogout + formLogout + formCreateProduct;
         
         res.status(200).send(html);
 
@@ -350,7 +352,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBarLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -374,7 +376,7 @@ const showEditProduct = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         
-        const html = baseHtml + getNavBarLogout + formEditProduct(product);
+        const html = baseHtml + getNavBarLogout + formLogout + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -400,12 +402,12 @@ const updateProduct = async (req, res) => {
         if (!product) {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
-            return res.status(404).send(baseHtml + getNavBarLogout + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
 
         // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
         setTimeout(() => {
-            res.redirect("/dashboard");
+            res.redirect(`/dashboard/${req.params.productId}`);
         }, 3000);
 
     } catch (error) {
@@ -427,7 +429,7 @@ const deleteProduct = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBarLogout + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
         const html = baseHtml + getNavBarLogout + deletedSuccessfully;
         res
@@ -481,7 +483,7 @@ const showProductByCategoryDashboard = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBarLogout + getProductCardsDashboard(productsCategory)
+        const html = baseHtml + getNavBarLogout + formLogout + getProductCardsDashboard(productsCategory)
         res.send(html)
 
     } catch (err) {
