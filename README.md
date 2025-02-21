@@ -42,9 +42,8 @@ CARACTERÍSTICAS ARCHIVOS
 -routes/authRoutes.js: Archivo que contendrá la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
 -middlewares/authMiddleware.js: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
 
-*****************************************************************************************************************************
+******************************************************BBDD**********************************************************
 
-CREACIÓN BBDD
 Vamos a crear la base de datos en Atlas. Creamos un nuevo proyecto y lo desplegamos.
 
 Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env
@@ -57,7 +56,7 @@ MONGO_URI=<uri_bd_atlas>
 - Cargar puerto desde el archivo .env usando dotenv.
 - Configurar el servidor para que sirva archivos estáticos (PATH) desde la carpeta public.
 - leer el body de las peticiones tipo post.
-- middleware express.urlencoded
+- Requerir y acceder URLENCODED Y JSON:  Middleware para manejar datos de formulario y JSONmiddleware express.urlencoded
 
 *******************************************************MODELOS******************************************************
 

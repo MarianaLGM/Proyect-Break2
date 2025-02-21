@@ -21,7 +21,7 @@ if (admin.apps.length === 0) {
         credential : admin.credential.cert(serviceAccount),
     });
 }
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));////REQUERIR Y ACCEDER URLENCODED Y JSON:  Middleware para manejar datos de formulario y JSON
 app.use(express.json());
 app.use(cookieParser())
 
