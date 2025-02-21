@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const productController = require('../controllers/productController');
+const authVerification = require('../middlewares/authMiddleware')
 
 
 
@@ -11,7 +12,7 @@ router.get("/products/:productId", productController.showProductById);//GET /pro
 router.get("/products/categoria/:categoria",productController.showProductByCategory)//GET /products/categoria/:categoria filtra por categoría
 
 /*****************************************DESDE DASHBOARD******************************************************/
-router.get("/dashboard", productController.showProductsDashboard);//GET /dashboard: Devuelve el dashboard del administrador.
+router.get("/dashboard", authVerification, productController.showProductsDashboard);//GET /dashboard: Devuelve el dashboard del administrador.
 router.get("/dashboard/new",productController.showNewProduct);//GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.post("/dashboard", productController.createProduct);//POST /dashboard: Crea un nuevo producto.
 router.get("/dashboard/:productId", productController.showProductByIdDashboard);//GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
