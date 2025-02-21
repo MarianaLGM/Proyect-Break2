@@ -188,26 +188,10 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 - loginForm: formulario para iniciar sesión.
 
-
-
-
-
 ***********************************************************DESPLIEGUE******************************************************
 
-Creamos un nuevo proyecto en render y desplegamos el proyecto desde github. Recordad añadir las variables de entorno en render. Si no aparece el repositorio en render, tendremos que modificar los permisos de render para que pueda acceder al repositorio.
-
-
-
-
-
-
-
-
-
-
-
-
-
+https://proyect-break2.onrender.com/products
+https://proyect-break2.onrender.com/dashboard
 
 *********************************************************BONUS****************************************************************
 
@@ -220,9 +204,5 @@ Para poder usar la aplicación con un frontend en React, vamos a crear una API q
 Bonus 3 - Autenticación con Firebase
 Crearemos un usuario administrador para que pueda subir desde el dashboard más productos. Esas rutas deberán estar protegidas para que solo pueda entrar quien esté logado y pueda acceder a esos elementos para crearlos, verlos, actualizarlos y borrarlos. Podéis ver la manera de poder hacer esta autenticación con firebase aquí:
 
-VIDEO: https://drive.google.com/file/d/1LMYwYofSomhtgf63FhhOQNwyu6kVM24B/view
-REPO: https://github.com/CarlosDiazGirol/firebase-example-log además de todo el código está el paso a paso desde firebase
-Recordad que los datos del serviceAccountestán protegidos y debes tenerlos en el archivo .env
 
-También en este repo hay un ejemplo de viewsde como acceder a la carpeta public para hacer accesible esos archivos estáticos express.static.
 
