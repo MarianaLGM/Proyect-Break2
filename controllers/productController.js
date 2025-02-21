@@ -33,9 +33,7 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <form action="/dashboard/${products._id}" method="POST">
-                    <button class="btnEditar" type="submit">Actualizar producto</button>
-                </form>
+                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
@@ -170,19 +168,19 @@ const formCreateProduct =
 const formEditProduct = (product) => {
     return `
     <body>
-        <form class="formEditProduct" action='/dashboard/${product._id}/edit>
+        <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
             <label for="productImg">Select files:</label>
-            <input type="file" id="productImg" name="productImg"><br>
+            <input type="file" id="productImg" name="Imagen"><br>
                 
             <label for='productName'>Nombre del producto: </label>
-            <input class='productName' type='text' name='productName' value='${product.Nombre}'><br>
+            <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
                 
             <label for='productDescription'>Descripción del producto: </label>
-            <textarea class='productDescription' type='text' name='productDescription'>${product.Descripción}</textarea><br>
+            <textarea class='productDescription' type='text' name='Descripción'>${product.Descripción}</textarea><br>
 
             <label for='productCategory'>Categoría del producto: </label>
-            <select class="productCategory" name="productCategory">
+            <select class="productCategory" name="Categoría">
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
                 <option value="Zapatos">Zapatos</option>
@@ -190,7 +188,7 @@ const formEditProduct = (product) => {
             </select><br>
                 
             <label for='productSize'>Talla del producto: </label>
-            <select class="productSize" name="productSize">
+            <select class="productSize" name="Talla">
                 <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -199,14 +197,14 @@ const formEditProduct = (product) => {
             </select><br>
 
             <label for='productPrice'>Precio del producto: </label>
-            <input class='productPrice' type='number' name='productPrice' min='0' value='${product.Precio}'><br>
+            <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
 
+        </form>
             <form action="/dashboard/${product._id}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
 
-
-        </form>
     </body>
     `;
 };
