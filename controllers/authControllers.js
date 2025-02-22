@@ -27,7 +27,7 @@ const register = (req, res) => {
   res.send(html);
 }
 
-//Comprobación de auténticación para continuar al login
+//Envío de datos del administrador para crear una cuenta de usuario.
 const registerPost = async (req, res) => {
   const {email, password} = req.body;
 

@@ -1,6 +1,10 @@
 # Proyect_Break"# Proyect-Break2"  
 
-
+Encabezados
+    # A first-level heading
+    ## A second-level heading
+    ### A third-level heading
+//Al usar dos o más encabezados, GitHub genera automáticamente una tabla de contenido a la que puede acceder haciendo clic en  dentro del encabezado del archivo. Todos los títulos de encabezado aparecen en la tabla de contenido, y puede hacer clic en un título para ir a la sección seleccionada.
 
 
 *********************************************************TIENDA DE ROPA********************************************************
@@ -18,22 +22,35 @@
 - Recursos
 
 *****************************************************CARACTERÍSTICAS ARCHIVOS**************************************************
-
+# CARACTERÍSTICAS DE LOS ARCHIVOS
+## config
 - config/db.js: Archivo que contendrá la configuración de la base de datos. Deberá conectarse a la base de datos de mongo en Atlas.
+-config/firebase.js: Archivo donde se guarda la clave privada generada en la configuración del proyecto en la plataforma Firebase.
 
-- controllers/productController.js: Archivo que contendrá la lógica para manejar las solicitudes CRUD de los productos. Devolverá las respuestas en formato HTML.
+## controlllers
+- controllers/authControllers.js: Archivo que contiene la configuración de firebase y la lógica para manejar tanto la creación de usuario, como el registro, inicio y cierre de sesión del administrador utilizando Firebase. Devuelve las respuestas en formato HTML.
+- controllers/productController.js: Archivo que contiene la lógica para manejar las solicitudes CRUD de los productos. Devuelve las respuestas en formato HTML.
 
-- models/Product.js: Archivo que contendrá la definición del esquema del producto utilizando Mongoose.
+## middlewares
+- middlewares/authMiddleware.js: Archivo que contiene el middleware para comprobar si el usuario está autenticado. Este busca la sesión del usuario y, si no la encuentra, redirige al formulario de login.
 
-- routes/productRoutes.js: Archivo que contendrá la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
+## models
+- models/Product.js: Archivo que contiene la definición del esquema del producto utilizando Mongoose.
 
-- index.js: Archivo principal que iniciará el servidor Express. Importa las rutas y las usa. También tiene que estar configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
-
+## public
 - public/styles.css: contiene los estilos de la aplicación.
+
+## routes
+- routes/productRoutes.js: Archivo que contiene la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
+- routes/authRoutes.js: Archivo que contiene la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
+
+## index.js
+- index.js: Archivo principal que inicia el servidor Express. Importa las rutas y las usa. También tiene configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
 
 - .env: Archivo que contendrá las variables de entorno. 
 
-- package.json: Archivo que contendrá las dependencias del proyecto ----->("start": "node --watch index.js") 
+## package.json
+- package.json: Archivo que contendrá las dependencias del proyecto. Se debe hacer ```npm i``` para instalar todas las dependencias necesarias para que el proyecto funcione. ----->("start": "node --watch index.js") 
 
 //BONUS//
 - config/firebase.js: Archivo que contendrá la configuración de firebase. Deberá inicializar la conexión con firebase.
@@ -42,8 +59,8 @@
 - middlewares/authMiddleware.js: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
 
 ******************************************************BBDD**********************************************************
-
-Vamos a crear la base de datos en Atlas. Creamos un nuevo proyecto y lo desplegamos.
+# Base de datos
+La base de datos se gestiona mediante MongoDB Atlas.
 
 Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env
 
@@ -62,8 +79,9 @@ MONGO_URI=<uri_bd_atlas>
 - Requerimos methodOverride nos permite hacer solicitudes put y delete, pero no nos funcionó.
 
 *******************************************************MODELOS******************************************************
-
+# Modelos
 ////////////PRODUCT////////////
+## Product
 
 - Nombre, tipo STRING
 - Descripción, tipo STRING
@@ -78,10 +96,10 @@ MONGO_URI=<uri_bd_atlas>
 - Contraseña, tipo STRING
 
 *********************************************************RUTAS******************************************************
-
+# Rutas
 POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
-
+## product
 ////////////PRODUCT////////////
 
 - GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
@@ -109,24 +127,25 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 - GET /dashboard/categoria/:categoria: filtra productos por categoría.
 
 
-
+## user
 //////////////USER//////////////
 
-- GET /register: devuelve formulario para crear usuario.
+- GET /register: Devuelve formulario para crear usuario.
 
-- POST /register: Comprobación de auténticación para continuar al login.
+- POST /register: Registro de usuario para continuar al login.
 
-- GET /login: devuelve formulario para iniciar sesión.
+- GET /login: Devuelve formulario para iniciar sesión.
 
 - POST /login: Comprobación de auténticación para continuar al dashboard.
 
-- POST /logout: cierra sesión.
+- POST /logout: Cierra sesión.
 
 
 
 *********************************************************CONTROLADORES**************************************************
-
-///////Vista sin inciciar sesión /products//////// 
+# Controladores
+## productController.js
+///////Vista sin inciciar sesión ----> /products//////// 
 
 - showProducts: Devuelve la vista con todos los productos.
 
@@ -135,11 +154,11 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 - showProductByCategory: clasifica los productos por categoría.
 
 
-///////Vista iniciando sesión /dashboard////////// 
+///////Vista iniciando sesión ----> /dashboard////////// 
 
-- showProductsDashboard: Devuelve la vista con todos los productos.
+- showProductsDashboard: Devuelve la vista con todos los productos con opciones disponibles solo para el administrador, como agregar, editar o eliminar un producto.
 
-- showProductByIdDashboard: Devuelve la vista con el detalle de un producto.
+- showProductByIdDashboard: Devuelve la vista con el detalle de un producto, con opciones de editar o eliminar el producto seleccionado.
 
 - showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 
@@ -147,26 +166,25 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 - showEditProduct: Devuelve la vista con el formulario para editar un producto.
 
-- updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+- updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto.
 
 - deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 
 - showProductByCategoryDashboard: clasifica los productos por categoría.
 
 
-
+## authControllers.js
 ///////////////register, login, logout///////////// 
 
-- register: permite al administrador registrarse si no tiene cuenta.
+- register: Envío de formulario para realizar el registro de usuario si el administrador no tiene cuenta.
 
-- registerPost: permite al administrador registrarse si no tiene cuenta.
+- registerPost: Envío de datos del administrador para crear una cuenta de usuario.
 
-- login: Comprobación de auténticación para continuar al login.
+- login: Envío de formulario para realizar inicio de sesión.
 
 - loginPost: Comprobación de auténticación para continuar al dashboard.
 
-- logoutPost: cerrar sessión.
-
+- logoutPost: Cierre de sessión.
 
 
 
@@ -227,7 +245,23 @@ importaremos los diferentes archivos y los exportaremos
 
 
 ***************FIREBASE************
-Crearemos un usuario administrador para que pueda subir desde el dashboard más productos. Esas rutas deberán estar protegidas para que solo pueda entrar quien esté logado y pueda acceder a esos elementos para crearlos, verlos, actualizarlos y borrarlos. Podéis ver la manera de poder hacer esta autenticación con firebase aquí:
+Utilizamos Firebase para la autenticación del administrador o administradores del sitio web. 
 
+## Dependencias
+-npm i firebase-admin --> Para administrar usuarios y generar tokens. Nos permite la creación y el inicio de sesión de usuarios. 
 
+-npm i cookie-parser --> Guarda el token generado por Firebase en la auténticación del usuario y permite que el usuario se mantenga en la sesión el tiempo que el token exista, lo que también nos permite dar acceso al dashboard sin la necesidad de volver a iniciar sesión.
 
+## Descripción de archivos
+-config/firebase.js --> Contiene todo la clave secreta para acceder al proyecto en la plataforma de Firebase. Se importa en index.js para utilizarlo en la inicialización de Firebase.
+
+-controllers/authControllers.js --> Configuración de Firebase y la lógica para manejar tanto la creación de usuario, como el registro, inicio y cierre de sesión del administrador.
+
+-middlewares/authMiddleware.js --> Archivo que contiene el middleware para comprobar si el usuario está autenticado. Este busca la sesión del usuario y, si no la encuentra, redirige al formulario de login. Middleware utilizado en la ruta /dashboard.
+
+-routes/authRoutes --> Archivo que contiene la definición de las rutas para la autenticación.
+
+## Rutas
+- /register --> Muestra un formulario para agregar un correo y una contraseña, con mínimo 6 caracteres, para crear el usuario. Una vez creado el usuario, te redirige a /login.
+- /login --> Muestra un formulario para realizar inicio de sesión, utilizando correo electrónico y contraseña. Una vez iniciada la sesión, te redirige a /dashboard.
+- /logout --> Para realizar cierre de sesión, ir a la parte superior izquierda y dar el icono de cierre de sesión. Al cierre de sesión, te redirige a /login.

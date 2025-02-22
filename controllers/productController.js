@@ -200,13 +200,8 @@ const formEditProduct = (product) => {
     <body>
         <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
-<<<<<<< HEAD
-            <label for="productImg">Select files:</label>
-            <input type="file" id="productImg" name="Imagen"><br>
-=======
             <label for="productImg">Enlace de la imagen:</label>
             <input type="text" id="productImg" name="Imagen" value='${product.Imagen}'><br>
->>>>>>> 7414e77d898e8f1ef7d2c55e771aeece6b85e447
                 
             <label for='productName'>Nombre del producto: </label>
             <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
@@ -408,12 +403,10 @@ const updateProduct = async (req, res) => {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
             return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
-            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
         }
 
-        // Si el producto se actualizó correctamente, redirigimos después de 3 segundos
+        // Si el producto se actualizó correctamente, redirigimos después de 3 segundos al detalle del producto actualizado
         setTimeout(() => {
-            res.redirect(`/dashboard/${req.params.productId}`);
             res.redirect(`/dashboard/${req.params.productId}`);
         }, 3000);
 
@@ -442,7 +435,7 @@ const deleteProduct = async (req, res) => {
             .send(html)
 
     setTimeout(() => {
-            res.redirect("/dashboard"); // Redirige a los 3seg
+            res.redirect("/dashboard"); // Redirige a los 3seg a todos los productos del dashboard
             }, 3000); 
     
 
