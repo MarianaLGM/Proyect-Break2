@@ -12,32 +12,32 @@ module.exports = {
                         description:"Product identification number is MongoDB ProductId",
                         example:"6201064b0028de7866e2b2c4"
                     },
-                    Nombre:{
+                    name:{
                         type:'string',
                         description:"Product name",
                         example:"Pantalón"
                     },
-                    Descripción:{
+                    description:{
                         type:'string',
                         description:"Product description",
                         example: "pantalones vaqueros color azul"
                     },  
-                    Imagen:{
+                    image:{
                         type:'string',
                         description:"Product image",
                         example: "https://optica-optima.com/383127-thickbox_default/kate-spade-camryn-s-x199o.jpg"
                     },
-                    Categoría:{
+                    category:{
                         type:'string',
                         description:"Product category",
                         example: "Pantalones"
                     },
-                    Talla:{
+                    size:{
                         type:'string',
-                        description:"Product category",
+                        description:"Product size",
                         example: "XL"
                     },
-                    Precio:{
+                    price:{
                         type:'number',
                         description:"Product price",
                         example: "25"
@@ -47,32 +47,32 @@ module.exports = {
             ProductInput: {
                     type: "object",
                     properties: {
-                        Nombre:{
+                        name:{
                             type:'string',
                             description:"Product name",
                             example:"Pantalón"
                         },
-                        Descripción:{
+                        description:{
                             type:'string',
                             description:"Product description",
                             example: "pantalones vaqueros color azul"
                         },  
-                        Imagen:{
+                        image:{
                             type:'string',
                             description:"Product image",
                             example: "https://optica-optima.com/383127-thickbox_default/kate-spade-camryn-s-x199o.jpg"
                         },
-                        Categoría:{
+                        category:{
                             type:'string',
                             description:"Product category",
                             example: "Pantalones"
                         },
-                        Talla:{
+                        size:{
                             type:'string',
                             description:"Product size",
                             example: "XL"
                         },
-                        Precio:{
+                        price:{
                             type:'number',
                             description:"Product price",
                             example: "25"

@@ -32,7 +32,7 @@ module.exports = {
         },
         },
     },
-    "/dashboard": { //GET obtener todos los productos
+    "/products": { //GET obtener todos los productos
         get: {
         tags: ["Products"],
         summary: "Get all products",
