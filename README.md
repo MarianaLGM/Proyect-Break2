@@ -213,7 +213,7 @@ Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
 
 - Creamos una ruta para poder ver la documentación creada
 
-- En el navegador, abrimos nuestra página de documentación desde http://localhost:8080/api-docs.
+- En el navegador, abrimos nuestra página de documentación desde http://localhost:8080/api-docs
 
 - /docs/basicInfo: contiene información básica de la API
 

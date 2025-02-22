@@ -1,34 +1,26 @@
 //SWAGGER 7-Para documentar este endpoint, editamos el /docs/products.js archivo de la siguiente manera:
 // documentación de los diferentes endpoints
 
-const Product = require("../models/Product");
 
 module.exports = {
     paths: {
-        "/dashboard": { //POST Crear producto
-            post: {
-            tags: ["Products"],
-            summary: "Create a product",
-            description: "Creates a new product",
-            operationId: "createProduct",
-            parameters: [],
-            requestBody: {
+        "/dashboard": { //POST crear un producto
+        post: {
+        tags: {
+            Products: "Create a product",
+        },
+        description: "Create Product",
+        operationId: "createProduct",
+        parameters: [],
+        requestBody: {
             required: true,
             content: {
             "application/json": {
-            schema: {
-            type: "object",
-            properties: {
-                Nombre: { type: "string" },
-                Descripción: { type: "string" },
-                Imagen: { type: "string" },
-                Talla: { type: "string" },
-                Precio: { type: "string" }
+                schema: {
+                $ref: "#/components/schemas/ProductInput",
+                },
             },
-                required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"]
-            }
-        }
-    }
+            },
         },
         responses: {
             201: {
@@ -38,7 +30,7 @@ module.exports = {
             description: "Server error",
             },
         },
-        }
+        },
     },
     "/dashboard": { //GET obtener todos los productos
         get: {
@@ -65,7 +57,7 @@ module.exports = {
         },
         }
     },
-    "/dashboard/{_id}": { //GET obtener producto por id
+    "/dashboard/{_id}": { //PUT actualizar un producto por id
         put: {
         tags: ["Products"],
         summary: "Update a product name",

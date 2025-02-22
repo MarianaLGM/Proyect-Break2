@@ -5,7 +5,7 @@ module.exports = {
         schemas:{
             Product:{
                 type:'object',
-                required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"],
+                //required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"],
                 properties:{
                     _id:{
                         type:'string',
@@ -42,9 +42,50 @@ module.exports = {
                         description:"Product price",
                         example: "25"
                     },
-                }
-            }
-        }
-    }
+                },
+            },
+            ProductInput: {
+                    type: "object",
+                    properties: {
+                        Nombre:{
+                            type:'string',
+                            description:"Product name",
+                            example:"Pantalón"
+                        },
+                        Descripción:{
+                            type:'string',
+                            description:"Product description",
+                            example: "pantalones vaqueros color azul"
+                        },  
+                        Imagen:{
+                            type:'string',
+                            description:"Product image",
+                            example: "https://optica-optima.com/383127-thickbox_default/kate-spade-camryn-s-x199o.jpg"
+                        },
+                        Categoría:{
+                            type:'string',
+                            description:"Product category",
+                            example: "Pantalones"
+                        },
+                        Talla:{
+                            type:'string',
+                            description:"Product size",
+                            example: "XL"
+                        },
+                        Precio:{
+                            type:'number',
+                            description:"Product price",
+                            example: "25"
+                        },
+                    },
+                },
+            _id: {
+                type: "objectId",
+                description: "An id of a product",
+                example: "6201064b0028de7866e2b2c4",
+            },
+        },
+    },
 }
+
 
