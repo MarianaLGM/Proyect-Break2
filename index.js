@@ -21,18 +21,10 @@ if (admin.apps.length === 0) {
 
 app.use(methodOverride('_method'));//methodOverride nos permite hacer solicitudes put y delete 
 
-/*PASO 1-BIS SWAGGER
-npm i swagger-ui-express
-SWAGGER 3:
-a-Importamos swaggerUi
-b-Importamos el index.js de la carpeta docs
-c-Creamos una ruta para poder ver la documentación creada
--En el navegador, abrimos nuestra página de documentación desde http://localhost:8000/api-docs.
-*/
-const swaggerUI = require('swagger-ui-express') //SWAGGER 3: a)Importamos swaggerUi
-const docs = require('./docs/index')//SWAGGER 3: b)Importamos el index.js de la carpeta docs
 
-app.use('/api-docs', swaggerUI.serve,swaggerUI.setup(docs))//SWAGGER 3: b)Importamos el index.js de la carpeta docs
+const swaggerUI = require('swagger-ui-express') //SWAGGER
+const docs = require('./docs/index')//SWAGGER
+app.use('/api-docs', swaggerUI.serve,swaggerUI.setup(docs))//SWAGGER
 
 
 app.use(express.urlencoded({ extended: true }));////REQUERIR Y ACCEDER URLENCODED Y JSON:  Middleware para manejar datos de formulario y JSON

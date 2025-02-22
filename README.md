@@ -195,13 +195,38 @@ https://proyect-break2.onrender.com/dashboard
 
 *********************************************************BONUS****************************************************************
 
-Bonus 1 - Tests
+***************TEST************
 Para poder comprobar que el controlador de productos funciona correctamente, vamos a crear tests para las funciones. Para ello, necesitaremos instalar el paquete jest y crear el archivo productController.test.js en la carpeta test. En este archivo, importaremos el controlador y crearemos los tests. Podemos hacer tests tanto para las funciones que devuelven html como para las funciones que crean, actualizan o eliminan productos.
 
 Bonus 2 - API y documentación con Swagger
-Para poder usar la aplicación con un frontend en React, vamos a crear una API que haga las mismas operaciones que el controlador de productos, pero que devuelva los datos en formato JSON. Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
+Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
 
-Bonus 3 - Autenticación con Firebase
+
+
+***************SWAGGER************
+
+- npm i swagger-ui
+
+- importamos swaggerUi
+
+- Importamos el index.js de la carpeta docs
+
+- Creamos una ruta para poder ver la documentación creada
+
+- En el navegador, abrimos nuestra página de documentación desde http://localhost:8080/api-docs.
+
+- /docs/basicInfo: contiene información básica de la API
+
+- /docs/components: contiene componentes reutilizables para la documentación.
+
+- /docs/index: creamos un archivo index.js que exportará todos los archivos que vamos a ir creando en la carpeta docs
+importaremos los diferentes archivos y los exportaremos
+
+- /docs/product: contiene documentación de los diferentes endpoints
+
+
+
+***************FIREBASE************
 Crearemos un usuario administrador para que pueda subir desde el dashboard más productos. Esas rutas deberán estar protegidas para que solo pueda entrar quien esté logado y pueda acceder a esos elementos para crearlos, verlos, actualizarlos y borrarlos. Podéis ver la manera de poder hacer esta autenticación con firebase aquí:
 
 

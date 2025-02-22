@@ -1,11 +1,11 @@
-//SWAGGER 7-Para documentar este endpoint, editamos el /docs/tasks.js archivo de la siguiente manera:
+//SWAGGER 7-Para documentar este endpoint, editamos el /docs/products.js archivo de la siguiente manera:
 // documentación de los diferentes endpoints
 
 const Product = require("../models/Product");
 
 module.exports = {
     paths: {
-        "/dashboard": {
+        "/dashboard": { //POST Crear producto
             post: {
             tags: ["Products"],
             summary: "Create a product",
@@ -19,7 +19,11 @@ module.exports = {
             schema: {
             type: "object",
             properties: {
-                title: { type: "string" }
+                Nombre: { type: "string" },
+                Descripción: { type: "string" },
+                Imagen: { type: "string" },
+                Talla: { type: "string" },
+                Precio: { type: "string" }
             },
                 required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"]
             }
@@ -36,7 +40,7 @@ module.exports = {
         },
         }
     },
-    "/dashboard": {
+    "/dashboard": { //GET obtener todos los productos
         get: {
         tags: ["Products"],
         summary: "Get all products",
@@ -61,12 +65,12 @@ module.exports = {
         },
         }
     },
-    "/dashboard/{_id}": {
+    "/dashboard/{_id}": { //GET obtener producto por id
         put: {
         tags: ["Products"],
         summary: "Update a product name",
         description: "Update the name of a specific product without modifying the 'completed' status.",
-        operationId: "updateProcuct",
+        operationId: "updateProduct",
         parameters: [
             {
             name: "_id",
@@ -85,9 +89,13 @@ module.exports = {
                 schema: {
                 type: "object",
                 properties: {
-                    title: { type: "string" }
+                    Nombre: { type: "string" },
+                    Descripción: { type: "string" },
+                    Imagen: { type: "string" },
+                    Talla: { type: "string" },
+                    Precio: { type: "string" }
                 },
-                required: ["title"]
+                required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"]
                 }
             }
             }
@@ -97,8 +105,8 @@ module.exports = {
             500: { description: "Server error" },
         },
         },
-        delete: {
-        tags: ["ProductS"],
+        delete: { //DELETE eliminar un producto
+        tags: ["Products"],
         summary: "Delete a product",
         description: "Deletes a product permanently by its ID.",
         operationId: "deleteProduct",
