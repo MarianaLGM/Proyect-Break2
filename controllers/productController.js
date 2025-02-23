@@ -129,7 +129,6 @@ const getNavBarLogout=
     <header class="header"> 
     <nav>      
         <div class="containerSuperior">       
-                <a href="/buscador" class="lupa"><span class="material-icons"style="font-size:35px">search</span></a>
                 <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>
         <div class="container">
@@ -149,6 +148,12 @@ const getNavBarLogout=
 const formLogout = `
     <form action='/logout' method='post'>
         <button type='submit' class="personaLogout"><span class="material-icons"style="font-size:35px">logout</span></button>
+    </form>
+`
+const searchProductForm = `
+    <form action='/search' method='post'>
+        <input class='searchInput' type='text' name='searchInput'>
+        <button type='submit' class="searchBtn"><span class="material-icons"style="font-size:35px">search</span></button>
     </form>
 `
 
@@ -248,7 +253,7 @@ const showProducts = async (req, res) => {
     try {
         const products = await Product.find();
         const productCards = getProductCards(products);
-        const html = baseHtml + getNavBarLogin + productCards;
+        const html = baseHtml + getNavBarLogin + searchProductForm + productCards;
         res.send(html);
 
     } catch (error) {
@@ -271,7 +276,7 @@ const showProductById = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBarLogin + msg);
         }
         const productCards = getProductCards(product);
-        const html = baseHtml + getNavBarLogin + productCards;
+        const html = baseHtml + getNavBarLogin + searchProductForm + productCards;
         
         res.status(200).send(html);
 
@@ -292,7 +297,7 @@ const showProductsDashboard = async (req, res) => {
     try {
         const products = await Product.find();
         const productCardsDashboard = getProductCardsDashboard(products);
-        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
         res.send(html);
 
     } catch (error) {
@@ -315,7 +320,7 @@ const showProductByIdDashboard = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBar + msg);
         }
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
         
         res.status(200).send(html);
 
@@ -332,7 +337,7 @@ const showProductByIdDashboard = async (req, res) => {
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
     try{         
-        const html = baseHtml + getNavBarLogout + formLogout + formCreateProduct;
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + formCreateProduct;
         
         res.status(200).send(html);
 
@@ -352,7 +357,7 @@ const createProduct = async (req, res) => {
         const product = await Product.create({...req.body});
         
         const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBarLogout + formLogout + productCardsDashboard;
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
         res
         .status(201)
         .send(html);
@@ -376,7 +381,7 @@ const showEditProduct = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBarLogout + msg);
         }
         
-        const html = baseHtml + getNavBarLogout + formLogout + formEditProduct(product);
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + formEditProduct(product);
         
         res.status(200).send(html);
 
@@ -402,7 +407,7 @@ const updateProduct = async (req, res) => {
         if (!product) {
             const msg = 'Product not found';
             // Si no se encuentra el producto, enviamos el mensaje de error
-            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + searchProductForm + msg);
         }
 
         // Si el producto se actualizó correctamente, redirigimos después de 3 segundos al detalle del producto actualizado
@@ -428,7 +433,7 @@ const deleteProduct = async (req, res) => {
         const msg = 'Product not found'
 
         if (!product) {
-            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + msg);
+            return res.status(404).send(baseHtml + getNavBarLogout + formLogout + searchProductForm + msg);
         }
         const html = baseHtml + getNavBarLogout + deletedSuccessfully;
         res
@@ -462,7 +467,7 @@ const showProductByCategory = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBarLogin + getProductCards(productsCategory)
+        const html = baseHtml + getNavBarLogin + searchProductForm + getProductCards(productsCategory)
         res.send(html)
 
     } catch (err) {
@@ -483,7 +488,7 @@ const showProductByCategoryDashboard = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBarLogout + formLogout + getProductCardsDashboard(productsCategory)
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(productsCategory)
         res.send(html)
 
     } catch (err) {
@@ -492,7 +497,24 @@ const showProductByCategoryDashboard = async (req, res) => {
     }
 };
 
+const searchProduct = async (req, res) => {
+    const productName = req.body.searchInput.toLowerCase();
 
+    try {
+        const searchProductName = await Product.find({ Nombre: { $regex: '.*' + productName + '.*', $options: 'i' } });
+
+        if (!searchProductName || searchProductName.length === 0) {
+            return res.status(404).send('Product not found');
+        }
+
+        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(searchProductName)
+        res.send(html)
+
+    } catch (err) {
+        console.error('Error getting products:', err); // Ver detalles del error
+        return res.status(500).json({ message: 'Error getting products', error: err });
+    }
+}
 
 module.exports = { 
     showProducts,
@@ -506,7 +528,7 @@ module.exports = {
     showEditProduct,
     updateProduct,
     deleteProduct,
-
+    searchProduct
 };
 
 

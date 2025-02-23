@@ -28,4 +28,6 @@ router.post("/dashboard/:productId/delete", productController.deleteProduct)
 
 router.get("/dashboard/categoria/:categoria",productController.showProductByCategoryDashboard)////GET /dashboard/categoria/:categoria filtra por categoría
 
+router.post("/search",productController.searchProduct)
+
 module.exports = router;
