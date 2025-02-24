@@ -6,6 +6,9 @@ header {
 .header{
     height: 280px;
 }
+body{
+    background-color: rgb(245, 241, 249); 
+}
 
 /*incono lupa y nuevo producto*/
 .nuevoProducto, .lupa, .persona, .personaLogout {
@@ -137,6 +140,7 @@ nav ul{
     flex-direction: column;
     width: 320px;
     gap: 10px;
+    margin-top: 30px;
 }
 
 /*formulario para editar producto*/
@@ -147,7 +151,7 @@ nav ul{
     flex-direction: column;
     justify-content: center;
     width: 320px;
-    
+    margin-top: 30px;
 }
 
 /*botón enviar y eliminar producto así como registrar*/
