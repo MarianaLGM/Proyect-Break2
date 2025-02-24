@@ -105,10 +105,16 @@ const getNavBarLogin=
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
-                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
-                
-
+            <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
         </div>
+
+        <div class="containerLogo">
+            <video width="200" autoplay muted loop class="background-video">
+                <source src="/image/Logotipo.mp4" type="video/mp4">
+            </video>
+        </div>
+
+
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
@@ -123,14 +129,23 @@ const getNavBarLogin=
     </header>
     `;
 
+
+
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
 const getNavBarLogout= 
 `
     <header class="header"> 
     <nav>      
         <div class="containerSuperior">       
-                <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
+            <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>
+
+        <div class="containerLogo">
+            <video width="200" autoplay muted loop class="background-video">
+                <source src="/image/Logotipo.mp4" type="video/mp4">
+            </video>
+        </div>
+
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/dashboard"class="navigation">Productos</a></li>

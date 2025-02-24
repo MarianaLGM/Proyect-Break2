@@ -306,3 +306,9 @@ Utilizamos Firebase para la autenticación del administrador o administradores d
 
 ## Autores
 [Mariana Lobeto](https://github.com/MarianaLGM) | [Adni Sosa](https://github.com/AdniSosa) 
+
+
+
+                <video width="100" loop id="background-video">
+                    <source src="/image/LogotipoII.mp4" type="video/mp4">
+                </video>

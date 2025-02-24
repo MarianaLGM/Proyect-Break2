@@ -1,6 +1,5 @@
 
-/**********************FORMATO PRODUCTCONTROLLERS.JS***************************
-
+/**********************FORMATO PRODUCTCONTROLLERS.JS****************************/
 
 /*incono lupa y nuevo producto*/
 .nuevoProducto, .lupa, .persona, .personaLogout {
@@ -11,31 +10,31 @@
 
 .nuevoProducto {
     position: absolute;
-    right: 70px;
+    right: 260px;
+    top: 240px;
 }
 
 .personaLogout {
     border: none;
     background-color: white;
     position: absolute;
-    top: 10px;
+    top: 240px;
     cursor: pointer;
 }
 
-.lupa {
-    margin-left: 1300px;
-    position: relative;
-    top: -.5px;
-}
-
-.material-icons {
-    position: relative;
-    top: 5px;
+.persona{
+    position: absolute;
+    top: 240px;
 }
 
 .containerSuperior{
-    width: 1500px;
-    display: flex;
+    width: 60px;
+}
+
+.containerLogo{
+    width: 200px;
+    margin-left: 650px;
+    position: relative;    
 }
 
 .searchInput, .searchBtn {
@@ -91,7 +90,7 @@ nav ul{
 } 
 
 /*formato contenedor detalles producto (imagen, nombre, precio)*/
-.productCard1, .productCard2{
+.productCard1, .productCard2, .productCard{
     background-color: rgb(245, 241, 249); 
 }
 
