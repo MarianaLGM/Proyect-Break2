@@ -4,7 +4,6 @@
 
 const Product = require("../models/Product.js");
 
-
 ////////////////////////////////Funciones para generar el HTML/////////////////////////////////////////
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -58,6 +57,7 @@ function getProductCards(products) {
         for (let product of products) {
             html += `
                 <div class="productCard1">
+                
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
 
@@ -93,22 +93,28 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
+            <link rel="shortcut icon" href="http://localhost:8080/image/logo.png">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>
 `;
 
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
-//getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
 const getNavBarLogin= 
 `
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
-                <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
-                
-
+            <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
         </div>
+
+        <div class="containerLogo">
+            <video width="200" autoplay muted loop class="background-video">
+                <source src="/image/Logotipo.mp4" type="video/mp4">
+            </video>
+        </div>
+
+
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/products"class="navigation">Productos</a></li>
@@ -123,14 +129,23 @@ const getNavBarLogin=
     </header>
     `;
 
+
+
 //getNavBar: Genera la barra de navegación con las categorías. También generará un enlace para subir un nuevo producto.
 const getNavBarLogout= 
 `
     <header class="header"> 
     <nav>      
         <div class="containerSuperior">       
-                <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
+            <a href="/dashboard/new" class="nuevoProducto"><span class="material-icons">add_circle</span>New!</a>
         </div>
+
+        <div class="containerLogo">
+            <video width="200" autoplay muted loop class="background-video">
+                <source src="/image/Logotipo.mp4" type="video/mp4">
+            </video>
+        </div>
+
         <div class="container">
             <ul class="nav1"> 
                 <li><a href="/dashboard"class="navigation">Productos</a></li>
@@ -233,12 +248,11 @@ const formEditProduct = (product) => {
 
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
-
-        </form>
             <form action="/dashboard/${product._id}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
+        </form>
 
     </body>
     `;
@@ -250,10 +264,20 @@ const formEditProduct = (product) => {
 //showProducts: Devuelve la vista con todos los productos
 //GET /products: Devuelve todos los productos.
 const showProducts = async (req, res) => {
+    const { token } = req.cookies;
+    let html;
+
     try {
         const products = await Product.find();
-        const productCards = getProductCards(products);
-        const html = baseHtml + getNavBarLogin + searchProductForm + productCards;
+
+        if(!token) {
+            const productCards = getProductCards(products);
+            html = baseHtml + getNavBarLogin + searchProductForm + productCards;
+        } else {
+            const productCardsDashboard = getProductCardsDashboard(products);
+            html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
+        }
+        
         res.send(html);
 
     } catch (error) {
@@ -268,6 +292,9 @@ const showProducts = async (req, res) => {
 //showProductById: Devuelve la vista con el detalle de un producto
 //GET /products/:productId: Devuelve el detalle de un producto.
 const showProductById = async (req, res) => {
+    const { token } = req.cookies;
+    let html;
+
     try {
         const product = await Product.findById(req.params.productId);
         const msg = 'Product not found'
@@ -275,8 +302,14 @@ const showProductById = async (req, res) => {
         if (!product) {
             return res.status(404).send(baseHtml + getNavBarLogin + msg);
         }
-        const productCards = getProductCards(product);
-        const html = baseHtml + getNavBarLogin + searchProductForm + productCards;
+
+        if(!token) {
+            const productCards = getProductCards(product);
+            html = baseHtml + getNavBarLogin + searchProductForm + productCards;
+        } else {
+            const productCardsDashboard = getProductCardsDashboard(product);
+            html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
+        }
         
         res.status(200).send(html);
 
@@ -289,50 +322,6 @@ const showProductById = async (req, res) => {
 };
 
 /**************************************VISTA DASHBOARD***************************************/
-//
-
-//showProductsDashboard: Devuelve la vista con todos los productos pero incluyendo opción de eliminar y editar
-//GET /dashboard
-const showProductsDashboard = async (req, res) => {
-    try {
-        const products = await Product.find();
-        const productCardsDashboard = getProductCardsDashboard(products);
-        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
-        res.send(html);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting all products'})
-    }
-};
-
-
-//showProductById: Devuelve la vista con el detalle de un producto.
-//GET /dashboard/:productId: Devuelve el detalle de un producto.
-const showProductByIdDashboard = async (req, res) => {    
-    try {
-        const product = await Product.findById(req.params.productId);
-        const msg = 'Product not found'
-
-        if (!product) {
-            return res.status(404).send(baseHtml + getNavBar + msg);
-        }
-        const productCardsDashboard = getProductCardsDashboard(product);
-        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + productCardsDashboard;
-        
-        res.status(200).send(html);
-
-    } catch (error) {
-        console.error(error);
-        res
-        .status(500)
-        .json({ message: 'Error getting a product'})
-    }
-};
-
-
 //showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
 //GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 const showNewProduct = async (req, res) => {
@@ -436,8 +425,7 @@ const deleteProduct = async (req, res) => {
             return res.status(404).send(baseHtml + getNavBarLogout + formLogout + searchProductForm + msg);
         }
         const html = baseHtml + getNavBarLogout + deletedSuccessfully;
-        res
-            .send(html)
+        res.send(html)
 
     setTimeout(() => {
             res.redirect("/dashboard"); // Redirige a los 3seg a todos los productos del dashboard
@@ -453,12 +441,12 @@ const deleteProduct = async (req, res) => {
 };
 
 
-
 //showProductByCategory Clasificar productos por su categoría
-//GET /categoria/:categoria Clasificar productos por su categoría
 //GET /categoria/:categoria Clasificar productos por su categoría
 const showProductByCategory = async (req, res) => {
     const categoria = req.params.categoria; // Obtiene la categoría de la URL
+    const { token } = req.cookies;
+    let html;
 
     try {
         const productsCategory = await Product.find({ Categoría: categoria });
@@ -467,28 +455,11 @@ const showProductByCategory = async (req, res) => {
             return res.status(404).send('Category not found');
         }
 
-        const html = baseHtml + getNavBarLogin + searchProductForm + getProductCards(productsCategory)
-        res.send(html)
-
-    } catch (err) {
-        console.error('Error getting products:', err); // Ver detalles del error
-        return res.status(500).json({ message: 'Error getting products', error: err });
-    }
-};
-
-//showProductByCategory Clasificar productos por su categoría
-//GET /categoria/:categoria Clasificar productos por su categoría
-const showProductByCategoryDashboard = async (req, res) => {
-    const categoria = req.params.categoria; // Obtiene la categoría de la URL
-
-    try {
-        const productsCategory = await Product.find({ Categoría: categoria });
-
-        if (!productsCategory || productsCategory.length === 0) {
-            return res.status(404).send('Category not found');
+        if(!token) {
+            html = baseHtml + getNavBarLogin + searchProductForm + getProductCards(productsCategory)
+        } else {
+            html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(productsCategory)
         }
-
-        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(productsCategory)
         res.send(html)
 
     } catch (err) {
@@ -497,8 +468,12 @@ const showProductByCategoryDashboard = async (req, res) => {
     }
 };
 
+//Buscador de productos
 const searchProduct = async (req, res) => {
     const productName = req.body.searchInput.toLowerCase();
+    const { token } = req.cookies;
+    let html;
+    //console.log(token)
 
     try {
         const searchProductName = await Product.find({ Nombre: { $regex: '.*' + productName + '.*', $options: 'i' } });
@@ -507,7 +482,12 @@ const searchProduct = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        const html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(searchProductName)
+        if(!token) {
+            html = baseHtml + getNavBarLogin + searchProductForm + getProductCards(searchProductName)
+            
+        } else {
+            html = baseHtml + getNavBarLogout + formLogout + searchProductForm + getProductCardsDashboard(searchProductName)
+        }
         res.send(html)
 
     } catch (err) {
@@ -520,9 +500,6 @@ module.exports = {
     showProducts,
     showProductById,
     showProductByCategory,
-    showProductByCategoryDashboard,
-    showProductsDashboard,
-    showProductByIdDashboard,
     showNewProduct,
     createProduct,
     showEditProduct,
