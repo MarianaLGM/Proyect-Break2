@@ -225,10 +225,23 @@ https://proyect-break2.onrender.com/dashboard
 
 ***************TEST************
 ## Test
-Para poder comprobar que el controlador de productos funciona correctamente, vamos a crear tests para las funciones. Para ello, necesitaremos instalar el paquete jest y crear el archivo productController.test.js en la carpeta test. En este archivo, importaremos el controlador y crearemos los tests. Podemos hacer tests tanto para las funciones que devuelven html como para las funciones que crean, actualizan o eliminan productos.
 
-Bonus 2 - API y documentación con Swagger
-Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
+- npm i -D jest (-D hace referencia a que es una dependencia de desarrollo)
+
+- en nuestro package.json creamos un script para ejecutar los tests cada vez que guardamos. ("scripts" ----->"test": "jest" y  "test:watch": "jest --watchAll",)
+
+- Cada vez que queramos ejecutar en consola será:------> npm run test:watch
+
+
+- module.exports = app; exportamos desde index.js app para poder tenerla
+
+
+- crearemos los tests
+
+
+
+
+
 
 
 
