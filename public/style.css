@@ -45,9 +45,11 @@ body{
 
 .containerLogo{
     width: 200px;
+    height: 200px;
     margin-left: 650px;
     position: relative; 
-    top: 50px;   
+    top: 50px;  
+    border-style: groove; 
 }
 
 .searchInput, .searchBtn {
@@ -59,7 +61,7 @@ body{
 
 .searchInput {
     border-radius: 10px;
-    border-color: rgb(80, 79, 79);
+    border-color: rgb(110, 108, 108);
     bottom: 55px;
     width: 120px;
     background-color: rgb(245, 240, 240);
