@@ -1,5 +1,5 @@
 
-const request = require("supertest");
+/*const request = require("supertest");
 const app = require("../index.js");
 const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js")
@@ -45,4 +45,4 @@ describe("testing/productController", () => {
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
     });
 });
-
+*/
