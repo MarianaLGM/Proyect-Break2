@@ -223,7 +223,6 @@ https://proyect-break2.onrender.com/dashboard
 
 *********************************************************BONUS****************************************************************
 
-***************TEST************
 ## Test
 
 - npm i -D jest (-D hace referencia a que es una dependencia de desarrollo)
@@ -245,7 +244,6 @@ https://proyect-break2.onrender.com/dashboard
 
 
 
-***************SWAGGER************
 ## Swagger
 
 - npm i swagger-ui
@@ -268,8 +266,6 @@ importaremos los diferentes archivos y los exportaremos
 - /docs/product: contiene documentación de los diferentes endpoints
 
 
-
-***************FIREBASE************
 ## Firebase
 
 Utilizamos Firebase para la autenticación del administrador o administradores del sitio web. 
