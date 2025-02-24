@@ -17,9 +17,6 @@ describe("testing/productController", () => {
         precio: "55"
     };
     
-    afterAll(() => {//cuando terminan los test vacía toda la colección de Product
-        return Product.deleteMany()
-    });
 
     test("Create a product", async() => {
         
