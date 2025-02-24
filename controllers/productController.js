@@ -231,13 +231,11 @@ const formEditProduct = (product) => {
 
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
-
-        </form>
             <form action="/dashboard/${product._id}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
-
+        </form>
     </body>
     `;
 };
