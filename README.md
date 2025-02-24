@@ -238,11 +238,6 @@ https://proyect-break2.onrender.com/dashboard
 
 
 
-
-
-
-
-
 ## Swagger
 
 - npm i swagger-ui
