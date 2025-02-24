@@ -6,7 +6,7 @@ const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js")
 
 
-describe("testing/productController", () => {
+describe("testing/productRoutes", () => {
     
     const product = {//lo que metemos por el body(postman)
         Nombre:"Camiseta",
@@ -23,13 +23,13 @@ describe("testing/productController", () => {
         let productsCount = await Product.countDocuments({});// contamos prod. que hay en nuestra colección de prod.
         expect(productsCount).toBe(0); //no deberían haber
 
-        const res = await request(app).post("/dashboard").send(product).expect(201);//creamos producto
+        const res = await request(app).productController.post("/dashboard").send(product).expect(201);//creamos producto
         
         productsCount = await Product.countDocuments({});//contamos colección productos
 
         expect(productsCount).toBe(1); // tendríamos que tener 1 producto en nuestra colección
 
-         expect(res.text).toBeDefined(); //comprueba que la respuesta no sea vacía o incorrecta
+        expect(res.text).toBeDefined(); //comprueba que la respuesta no sea vacía o incorrecta
 
     });
 
@@ -42,4 +42,3 @@ describe("testing/productController", () => {
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
     });
 });
-
