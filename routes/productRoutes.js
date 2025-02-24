@@ -4,8 +4,6 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 const authVerification = require('../middlewares/authMiddleware')
 
-
-
 /*****************************************DESDE PRODUCTS********************************************************/
 router.get("/products", productController.showProducts); //GET /products: Devuelve todos los productos.
 router.get("/products/:productId", productController.showProductById);//GET /products/:productId: Devuelve el detalle de un producto.;
