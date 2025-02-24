@@ -8,48 +8,56 @@ Encabezados
 
 
 *********************************************************TIENDA DE ROPA********************************************************
+<em> TIENDA DE ROPA </em>
+:construction: Proyecto en construcción :construction:
 
-ÍNDICE
-- Creación de base de datos
-- Creación del servidor
-- Creación de modelos
-- Creación de rutas
-- Creación de controladores
-- Despliegue
-- Bonus 1 - Tests
-- Bonus 2 - Autenticación con Firebase
-- Bonus 3 - API y documentación con Swagger
-- Recursos
+## ÍNDICE
+*[Descripción del proyecto](#Descripción-del-proyecto)
+*[Características de archivos](#Características-de-los-archivos)
+*[Base de datos](#Base-de-datos)
+*[Servidor](#Servidor)
+*[Modelos](#Modelos)
+*[Rutas](#Rutas)
+*[Controladores](#Controladores)
+*[Despliegue](#Despliegue)
+*[Test](#Test)
+*[Swagger](#Swagger)
+*[Firebase](#Firebase)
+*[Autores](#Autores)
+
+## Descripción del proyecto
+Proyecto realizado como requisito del Bootcamp Full Stack Developer de The Bridge. Tienda online de ropa, donde cualquier persona puede entrar a la web para ver los artículos que tiene disponible la tienda online. A los administradores de la tienda, les permite crear un usuario e iniciar sesión para poder gestionar los productos: crear, editar o borrar cualquier artículo.
+
 
 *****************************************************CARACTERÍSTICAS ARCHIVOS**************************************************
-# CARACTERÍSTICAS DE LOS ARCHIVOS
-## config
+## Características de los archivos
+### config
 - config/db.js: Archivo que contendrá la configuración de la base de datos. Deberá conectarse a la base de datos de mongo en Atlas.
 -config/firebase.js: Archivo donde se guarda la clave privada generada en la configuración del proyecto en la plataforma Firebase.
 
-## controlllers
+### controlllers
 - controllers/authControllers.js: Archivo que contiene la configuración de firebase y la lógica para manejar tanto la creación de usuario, como el registro, inicio y cierre de sesión del administrador utilizando Firebase. Devuelve las respuestas en formato HTML.
 - controllers/productController.js: Archivo que contiene la lógica para manejar las solicitudes CRUD de los productos. Devuelve las respuestas en formato HTML.
 
-## middlewares
+### middlewares
 - middlewares/authMiddleware.js: Archivo que contiene el middleware para comprobar si el usuario está autenticado. Este busca la sesión del usuario y, si no la encuentra, redirige al formulario de login.
 
-## models
+### models
 - models/Product.js: Archivo que contiene la definición del esquema del producto utilizando Mongoose.
 
-## public
+### public
 - public/styles.css: contiene los estilos de la aplicación.
 
-## routes
+### routes
 - routes/productRoutes.js: Archivo que contiene la definición de las rutas CRUD para los productos. Este llama a los métodos del controlador.
 - routes/authRoutes.js: Archivo que contiene la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
 
-## index.js
+### index.js
 - index.js: Archivo principal que inicia el servidor Express. Importa las rutas y las usa. También tiene configurado para servir archivos estáticos y para leer el body de las peticiones de formularios.
 
 - .env: Archivo que contendrá las variables de entorno. 
 
-## package.json
+### package.json
 - package.json: Archivo que contendrá las dependencias del proyecto. Se debe hacer ```npm i``` para instalar todas las dependencias necesarias para que el proyecto funcione. ----->("start": "node --watch index.js") 
 
 //BONUS//
@@ -59,7 +67,7 @@ Encabezados
 - middlewares/authMiddleware.js: Archivo que contendrá el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
 
 ******************************************************BBDD**********************************************************
-# Base de datos
+## Base de datos
 La base de datos se gestiona mediante MongoDB Atlas.
 
 Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env
@@ -67,6 +75,7 @@ Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .e
 MONGO_URI=<uri_bd_atlas>
 
 ****************************************************SERVIDOR*********************************************************
+## Servidor
 - npm install---> dependencias: cloudinary, cookie-parser,dotenv,express,firebase, firebase-admin, method-override, mongodb, mongoose. Nota: aquí indicamos no sólo las necesarias para levantar servidor, sino también aquellas requeridas durante el proyect.
 - Requerimos express
 - Puerto 8080 (http://localhost:8080/)
@@ -79,9 +88,9 @@ MONGO_URI=<uri_bd_atlas>
 - Requerimos methodOverride nos permite hacer solicitudes put y delete, pero no nos funcionó.
 
 *******************************************************MODELOS******************************************************
-# Modelos
-
-## Product
+## Modelos
+////////////PRODUCT////////////
+### Product
 
 - Nombre, tipo STRING
 - Descripción, tipo STRING
@@ -96,10 +105,12 @@ MONGO_URI=<uri_bd_atlas>
 - Contraseña, tipo STRING
 
 *********************************************************RUTAS******************************************************
-# Rutas
+## Rutas
 POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 ## product
+### product
+////////////PRODUCT////////////
 
 - GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 
@@ -126,7 +137,8 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 - GET /dashboard/categoria/:categoria: filtra productos por categoría.
 
 
-## user
+### user
+//////////////USER//////////////
 
 - GET /register: Devuelve formulario para crear usuario.
 
@@ -141,8 +153,8 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 
 *********************************************************CONTROLADORES**************************************************
-# Controladores
-## productController.js
+## Controladores
+### productController.js
 ///////Vista sin inciciar sesión ----> /products//////// 
 
 - showProducts: Devuelve la vista con todos los productos.
@@ -171,7 +183,7 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 - showProductByCategoryDashboard: clasifica los productos por categoría.
 
 
-## authControllers.js
+### authControllers.js
 ///////////////register, login, logout///////////// 
 
 - register: Envío de formulario para realizar el registro de usuario si el administrador no tiene cuenta.
@@ -205,13 +217,14 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 - loginForm: formulario para iniciar sesión.
 
 ***********************************************************DESPLIEGUE******************************************************
-
+## Despliegue
 https://proyect-break2.onrender.com/products
 https://proyect-break2.onrender.com/dashboard
 
 *********************************************************BONUS****************************************************************
 
 ***************TEST************
+## Test
 Para poder comprobar que el controlador de productos funciona correctamente, vamos a crear tests para las funciones. Para ello, necesitaremos instalar el paquete jest y crear el archivo productController.test.js en la carpeta test. En este archivo, importaremos el controlador y crearemos los tests. Podemos hacer tests tanto para las funciones que devuelven html como para las funciones que crean, actualizan o eliminan productos.
 
 Bonus 2 - API y documentación con Swagger
@@ -220,6 +233,7 @@ Documentaremos la API con Swagger, para que sea más fácil de entender y usar.
 
 
 ***************SWAGGER************
+## Swagger
 
 - npm i swagger-ui
 
@@ -243,14 +257,16 @@ importaremos los diferentes archivos y los exportaremos
 
 
 ***************FIREBASE************
+## Firebase
+
 Utilizamos Firebase para la autenticación del administrador o administradores del sitio web. 
 
-## Dependencias
+### Dependencias
 -npm i firebase-admin --> Para administrar usuarios y generar tokens. Nos permite la creación y el inicio de sesión de usuarios. 
 
 -npm i cookie-parser --> Guarda el token generado por Firebase en la auténticación del usuario y permite que el usuario se mantenga en la sesión el tiempo que el token exista, lo que también nos permite dar acceso al dashboard sin la necesidad de volver a iniciar sesión.
 
-## Descripción de archivos
+### Descripción de archivos
 -config/firebase.js --> Contiene todo la clave secreta para acceder al proyecto en la plataforma de Firebase. Se importa en index.js para utilizarlo en la inicialización de Firebase.
 
 -controllers/authControllers.js --> Configuración de Firebase y la lógica para manejar tanto la creación de usuario, como el registro, inicio y cierre de sesión del administrador.
@@ -259,7 +275,11 @@ Utilizamos Firebase para la autenticación del administrador o administradores d
 
 -routes/authRoutes --> Archivo que contiene la definición de las rutas para la autenticación.
 
-## Rutas
+### Rutas
 - /register --> Muestra un formulario para agregar un correo y una contraseña, con mínimo 6 caracteres, para crear el usuario. Una vez creado el usuario, te redirige a /login.
 - /login --> Muestra un formulario para realizar inicio de sesión, utilizando correo electrónico y contraseña. Una vez iniciada la sesión, te redirige a /dashboard.
 - /logout --> Para realizar cierre de sesión, ir a la parte superior izquierda y dar el icono de cierre de sesión. Al cierre de sesión, te redirige a /login.
+
+
+## Autores
+[Mariana Lobeto](https://github.com/MarianaLGM) | [Adni Sosa](https://github.com/AdniSosa) 
