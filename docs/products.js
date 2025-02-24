@@ -69,7 +69,7 @@ module.exports = {
             in: "path",
             required: true,
             schema: {
-                type: "string",
+                type: "objetctId",
             },
             description: "The ID of the product to update.",
             },
@@ -108,7 +108,7 @@ module.exports = {
             in: "path",
             required: true,
             schema: {
-                type: "string",
+                type: "objetctId",
             },
             description: "The ID of the product to delete.",
             },
