@@ -8,7 +8,6 @@ Encabezados
 
 
 *********************************************************TIENDA DE ROPA********************************************************
-<em> TIENDA DE ROPA </em>
 :construction: Proyecto en construcción :construction:
 
 ## ÍNDICE
