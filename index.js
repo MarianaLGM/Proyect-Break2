@@ -47,3 +47,4 @@ app.listen(process.env.PORT, () => console.log(`Server listening on http://local
 
 
 
+module.exports = app;

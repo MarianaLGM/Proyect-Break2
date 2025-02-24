@@ -528,8 +528,10 @@ module.exports = {
     showEditProduct,
     updateProduct,
     deleteProduct,
-    searchProduct
+    searchProduct,
 };
+
+
 
 
 
