@@ -105,7 +105,7 @@ const getNavBarLogin=
     <header class="header"> 
     <nav>
         <div class="containerSuperior">
-            <a href="/login" class="persona"><span class="material-icons"style="font-size:35px">perm_identity</span></a>  
+            <a href="/login" class="persona"><span class="material-icons"style="font-size:40px">perm_identity</span></a>  
         </div>
 
         <div class="containerLogo">

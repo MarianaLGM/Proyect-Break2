@@ -1,17 +1,24 @@
 
 /**********************FORMATO PRODUCTCONTROLLERS.JS****************************/
+header {
+    background-image: linear-gradient(rgba(223, 206, 224, 0.4), rgba(243, 240, 244, 0.94)), url("../image/background.jpg");
+}
+.header{
+    height: 280px;
+}
 
 /*incono lupa y nuevo producto*/
 .nuevoProducto, .lupa, .persona, .personaLogout {
     color: rgb(177, 143, 210);
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
+
 }
 
 .nuevoProducto {
     position: absolute;
-    right: 260px;
-    top: 240px;
+    right: 240px;
+    top: 245px;
 }
 
 .personaLogout {
@@ -20,11 +27,13 @@
     position: absolute;
     top: 240px;
     cursor: pointer;
+    background-color: transparent;
 }
+
 
 .persona{
     position: absolute;
-    top: 240px;
+    top: 245px;
 }
 
 .containerSuperior{
@@ -34,28 +43,30 @@
 .containerLogo{
     width: 200px;
     margin-left: 650px;
-    position: relative;    
+    position: relative; 
+    top: 50px;   
 }
 
 .searchInput, .searchBtn {
     position: relative;
-    left: 1300px;
+    left: 1320px;
     color: rgb(177, 143, 210);
     font-weight: bolder;
 }
 
 .searchInput {
     border-radius: 10px;
-    border-color: rgb(61, 61, 61);
-    bottom: 60px;
+    border-color: rgb(80, 79, 79);
+    bottom: 55px;
     width: 120px;
+    background-color: rgb(245, 240, 240);
 }
 
 .searchBtn {
     border: none;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
-    bottom: 50px;
+    bottom: 40px;
     padding: 0
 }
 
@@ -71,7 +82,7 @@
     color: rgb(61, 61, 61);
     font-family: "Futura", sans-serif;
     text-decoration: none;
-    margin-right: 35px;
+    margin-right: 55px;
 }
 
 /*formato contenedor barra navegador*/
@@ -83,7 +94,7 @@ nav ul{
     margin-bottom: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: rgb(219, 205, 233);   
-    height: 35px;
+    height: 50px;
     position: relative;
     top: 60px;
 
