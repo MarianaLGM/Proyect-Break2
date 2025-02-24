@@ -231,13 +231,9 @@ const formEditProduct = (product) => {
 
             <label for='productPrice'>Precio del producto: </label>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
-
+            
+            <button class="editProductBtn" type="submit">Actualizar producto</button>
         </form>
-            <form action="/dashboard/${product._id}" method="POST">
-                <input type="hidden" name="_method" value="PUT">
-                <button class="editProductBtn" type="submit">Actualizar producto</button>
-            </form>
-
     </body>
     `;
 };
@@ -408,8 +404,6 @@ const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).send(baseHtml + getNavBarLogout + formLogout + searchProductForm + msg);
         }
-        const html = baseHtml + getNavBarLogout + deletedSuccessfully;
-        res.send(html)
 
     setTimeout(() => {
             res.redirect("/dashboard"); // Redirige a los 3seg a todos los productos del dashboard
