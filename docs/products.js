@@ -85,7 +85,7 @@ module.exports = {
                     Descripción: { type: "string" },
                     Imagen: { type: "string" },
                     Talla: { type: "string" },
-                    Precio: { type: "string" }
+                    Precio: { type: "number" }
                 },
                 required: ["Nombre", "Descripción", "Imagen", "Talla", "Precio"]
                 }

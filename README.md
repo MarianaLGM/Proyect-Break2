@@ -80,7 +80,7 @@ MONGO_URI=<uri_bd_atlas>
 
 *******************************************************MODELOS******************************************************
 # Modelos
-////////////PRODUCT////////////
+
 ## Product
 
 - Nombre, tipo STRING
@@ -100,7 +100,6 @@ MONGO_URI=<uri_bd_atlas>
 POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 ## product
-////////////PRODUCT////////////
 
 - GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 
@@ -128,7 +127,6 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 
 
 ## user
-//////////////USER//////////////
 
 - GET /register: Devuelve formulario para crear usuario.
 
