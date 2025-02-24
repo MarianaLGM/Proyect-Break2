@@ -12,6 +12,7 @@ Encabezados
 
 ## ÍNDICE
 *[Descripción del proyecto](#Descripción-del-proyecto)
+*[Funcionalidades del proyecto](#Funcionalidades-del-proyecto)
 *[Características de archivos](#Características-de-los-archivos)
 *[Base de datos](#Base-de-datos)
 *[Servidor](#Servidor)
@@ -27,6 +28,25 @@ Encabezados
 ## Descripción del proyecto
 Proyecto realizado como requisito del Bootcamp Full Stack Developer de The Bridge. Tienda online de ropa, donde cualquier persona puede entrar a la web para ver los artículos que tiene disponible la tienda online. A los administradores de la tienda, les permite crear un usuario e iniciar sesión para poder gestionar los productos: crear, editar o borrar cualquier artículo.
 
+## Funcionalidades del proyecto
+- `Registro de usuarios`: Permite el registro de usuarios para los administradores de la tienda online. Requiere de correo electrónico y contraseña (min. 6 caracteres).
+- `Inicio de sesión de usuarios`: Al iniciar sesión, el administrador podrá realizar funciones, como crear, editar o borrar un artículo.
+- `Búsqueda de artículos`: Posee un input para búsqueda de artículos por nombre, sin distinción de mayúsculas, minúsculas y abreviaturas.
+- `Clasificación de los productos por categoría`: Permite una visión rápida de todos los artículos de la tienda organizados por categorías: pantalones, camisetas, zapatos, accesorios.
+- `Ver detalles del producto`: Permite visualizar todos los detalles del producto haciendo click en "ver".
+- `Creación de nuevo producto`: Permite crear un nuevo producto, introduciendo valores como nombre, descripción, talla, categoría, precio y url de la imágen. Para esta funcionalidad debe haber realizado inicio de sesión.
+- `Editar un producto`: Permite editar todos los campos rellenados en la creación del producto. Para esta funcionalidad debe haber realizado inicio de sesión.
+- `Borrar un producto`: Borra cualquier producto. Para esta funcionalidad debe haber realizado inicio de sesión.
+
+## Tecnologías utilizadas
+- express
+- cookie-parser
+- dotenv
+- firebase 
+- method-override
+- mongoDB
+- mongoose
+- swagger
 
 *****************************************************CARACTERÍSTICAS ARCHIVOS**************************************************
 ## Características de los archivos
