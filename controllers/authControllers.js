@@ -98,7 +98,7 @@ const loginPost = async (req, res) => {
 const logoutPost= (req, res) => {
   res.clearCookie('token', { httpOnly: true, secure: false });   // Limpiar la cookie del token-entorno desarrollo secure: false
     
-  res.redirect('/login')
+  res.redirect('/products')
 };
 
 //Formulario de Register
