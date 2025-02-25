@@ -93,7 +93,7 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
-            <link rel="shortcut icon" href="http://localhost:8080/image/logo.png">
+            <link rel="shortcut icon" href="/image/logo.png">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>
@@ -424,8 +424,6 @@ const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).send(baseHtml + getNavBarLogout + formLogout + searchProductForm + msg);
         }
-        const html = baseHtml + getNavBarLogout + deletedSuccessfully;
-        res.send(html)
 
     setTimeout(() => {
             res.redirect("/dashboard"); // Redirige a los 3seg a todos los productos del dashboard

@@ -1,33 +1,68 @@
 
 
 const request = require("supertest");
+
 const app = require("../index.js");
 const Product = require("../models/Product.js");
-const productController=require ("../controllers/productController.js")
+const productController=require ("../controllers/productController.js");
 
+var session = require('supertest-session');
+var testSession = null;
+let authenticatedSession;
+
+beforeEach(function () {
+  testSession = session(app);
+});
+    
+
+/* beforeEach(function (done) {
+    testSession.post('/login').type('form')
+        .send({email: 'adnisosa@gmail.com', password: '123456'})
+        .expect(302) // get redirected to /dashboard
+        .end(function (err) {
+        if (err) return done(err);
+        authenticatedSession = testSession;
+        return done();
+    });
+});
+ */
+
+
+/* describe('GET /login', function() {
+    test('login user', function(done) {
+      request(app)
+        .get('/login')
+        .auth('adnisosa@gmail.com', '123456')
+        .expect(200, done);
+    });
+  });  */
 
 describe("testing/productRoutes", () => {
     
     const product = {//lo que metemos por el body(postman)
         Nombre:"Camiseta",
-        Descripcion: "Camiseta de algodón orgánico personalizables",
-        Categoria:"Camisetas",
-        Imagen: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.crealo.es%2Fcamisetas-de-futbol-personalizadas%2F12138-camiseta-futbol-sublimada-modelo-rayas-personalizada.html&psig=AOvVaw2ZgnJeHBfBN7QCEg58aP3U&ust=1739631599373000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNi30vC2w4sDFQAAAAAdAAAAABAE",
+        Descripción: "Camiseta de algodón orgánico personalizables",
+        Imagen: "https://img.ltwebstatic.com/images3_pi/2024/04/09/df/1712659748ccb830b59d9da791f1d27a4b934c2d39_wk_1722506854_thumbnail_560x.webp",
+        Categoría:"Camisetas",
         Talla: "M",
         Precio: 55
     };
-    
-
+      
     test("Create a product", async() => {
         
         let productsCount = await Product.countDocuments({});// contamos prod. que hay en nuestra colección de prod.
-        expect(productsCount).toBe(0); //no deberían haber
+        expect(productsCount).toBe(9); //no deberían haber
 
-        const res = await request(app).productController.post("/dashboard").send(product).expect(201);//creamos producto
+        const res = (await request(app)
+        .post("/dashboard")
+        .send(product)
+        .expect(201)
         
+    );//creamos producto
+        //console.log(res)
         productsCount = await Product.countDocuments({});//contamos colección productos
 
-        expect(productsCount).toBe(1); // tendríamos que tener 1 producto en nuestra colección
+        expect(productsCount).toBe(10); // tendríamos que tener 1 producto en nuestra colección
 
         expect(res.text).toBeDefined(); //comprueba que la respuesta no sea vacía o incorrecta
 
@@ -36,7 +71,7 @@ describe("testing/productRoutes", () => {
     test("Get products", async() => {
         
         const res = await request(app)//petición todos GET products, mostrar todos
-            .get("/dashboard")
+            .get("/products")
             .expect(200)
         
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
