@@ -14,7 +14,7 @@ describe("testing/productRoutes", () => {
         Categoria:"Camisetas",
         Imagen: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.crealo.es%2Fcamisetas-de-futbol-personalizadas%2F12138-camiseta-futbol-sublimada-modelo-rayas-personalizada.html&psig=AOvVaw2ZgnJeHBfBN7QCEg58aP3U&ust=1739631599373000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNi30vC2w4sDFQAAAAAdAAAAABAE",
         Talla: "M",
-        Precio: "55"
+        Precio: 55
     };
     
 
