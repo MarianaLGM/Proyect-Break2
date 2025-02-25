@@ -8,6 +8,7 @@ Encabezados
 
 
 *********************************************************TIENDA DE ROPA********************************************************
+![Logo tienda de ropa](public/image/logo.png)
 :construction: Proyecto en construcción :construction:
 
 ## ÍNDICE
