@@ -133,43 +133,43 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 ### product
 ////////////PRODUCT////////////
 
-- GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
+- `GET /products`: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 
-- GET /products/:productId: Devuelve el detalle de un producto.
+- `GET /products/:productId`: Devuelve el detalle de un producto.
 
-- GET /products/categoria/:categoria: filtra productos por categoría.
+- `GET /products/categoria/:categoria`: filtra productos por categoría.
 
-- GET /dashboard: Devuelve el dashboard del administrador con todos los artículos que se hayan subido. Si clickamos en uno de ellos nos permitirá actualizarlo o eliminarlo.
+- `GET /dashboard`: Devuelve el dashboard del administrador con todos los artículos que se hayan subido. Si clickamos en uno de ellos nos permitirá actualizarlo o eliminarlo.
 
-- GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+- `GET /dashboard/new`: Devuelve el formulario para subir un artículo nuevo.
 
-- POST /dashboard: Crea un nuevo producto.
+- `POST /dashboard`: Crea un nuevo producto.
 
-- GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
+- `GET /dashboard/:productId`: Devuelve el detalle de un producto en el dashboard.
 
-- GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+- `GET /dashboard/:productId/edit`: Devuelve el formulario para editar un producto.
 
-- PUT /dashboard/:productId: Actualiza un producto.FUNCIONA EN POSTMAN
-- POST /dashboard/:productId: Actualiza un producto. FUNCIONA EN NAVEGADOR
+- `PUT /dashboard/:productId`: Actualiza un producto.FUNCIONA EN POSTMAN
+- `POST /dashboard/:productId`: Actualiza un producto. FUNCIONA EN NAVEGADOR
 
-- DELETE /dashboard/:productId/delete: Elimina un producto. FUNCIONA EN POSTMAN
-- POST /dashboard/:productId/delete: Elimina un producto. FUNCIONA EN NAVEGADOR
+- `DELETE /dashboard/:productId/delete`: Elimina un producto. FUNCIONA EN POSTMAN
+- `POST /dashboard/:productId/delete`: Elimina un producto. FUNCIONA EN NAVEGADOR
 
-- GET /dashboard/categoria/:categoria: filtra productos por categoría.
+- `GET /dashboard/categoria/:categoria`: filtra productos por categoría.
 
 
 ### user
 //////////////USER//////////////
 
-- GET /register: Devuelve formulario para crear usuario.
+- `GET /register`: Devuelve formulario para crear usuario.
 
-- POST /register: Registro de usuario para continuar al login.
+- `POST /register`: Registro de usuario para continuar al login.
 
-- GET /login: Devuelve formulario para iniciar sesión.
+- `GET /login`: Devuelve formulario para iniciar sesión.
 
-- POST /login: Comprobación de auténticación para continuar al dashboard.
+- `POST /login`: Comprobación de auténticación para continuar al dashboard.
 
-- POST /logout: Cierra sesión.
+- `POST /logout`: Cierra sesión.
 
 
 
@@ -178,64 +178,64 @@ POSTMAN: https://documenter.getpostman.com/view/40898562/2sAYXFhHDT
 ### productController.js
 ///////Vista sin inciciar sesión ----> /products//////// 
 
-- showProducts: Devuelve la vista con todos los productos.
+- `showProducts`: Devuelve la vista con todos los productos.
 
-- showProductById: Devuelve la vista con el detalle de un producto.
+- `showProductById`: Devuelve la vista con el detalle de un producto.
 
-- showProductByCategory: clasifica los productos por categoría.
+- `showProductByCategory`: clasifica los productos por categoría.
 
 
 ///////Vista iniciando sesión ----> /dashboard////////// 
 
-- showProductsDashboard: Devuelve la vista con todos los productos con opciones disponibles solo para el administrador, como agregar, editar o eliminar un producto.
+- `showProductsDashboard`: Devuelve la vista con todos los productos con opciones disponibles solo para el administrador, como agregar, editar o eliminar un producto.
 
-- showProductByIdDashboard: Devuelve la vista con el detalle de un producto, con opciones de editar o eliminar el producto seleccionado.
+- `showProductByIdDashboard`: Devuelve la vista con el detalle de un producto, con opciones de editar o eliminar el producto seleccionado.
 
-- showNewProduct: Devuelve la vista con el formulario para subir un artículo nuevo.
+- `howNewProduct`: Devuelve la vista con el formulario para subir un artículo nuevo.
 
-- createProduct: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
+- `createProduct`: Crea un nuevo producto. Una vez creado, redirige a la vista de detalle del producto o a la vista de todos los productos del dashboard.
 
-- showEditProduct: Devuelve la vista con el formulario para editar un producto.
+- `showEditProduct`: Devuelve la vista con el formulario para editar un producto.
 
-- updateProduct: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto.
+- `updateProduct`: Actualiza un producto. Una vez actualizado, redirige a la vista de detalle del producto.
 
-- deleteProduct: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
+- `deleteProduct`: Elimina un producto. Una vez eliminado, redirige a la vista de todos los productos del dashboard.
 
-- showProductByCategoryDashboard: clasifica los productos por categoría.
+- `showProductByCategoryDashboard`: clasifica los productos por categoría.
 
 
 ### authControllers.js
 ///////////////register, login, logout///////////// 
 
-- register: Envío de formulario para realizar el registro de usuario si el administrador no tiene cuenta.
+- `register`: Envío de formulario para realizar el registro de usuario si el administrador no tiene cuenta.
 
-- registerPost: Envío de datos del administrador para crear una cuenta de usuario.
+- `registerPost`: Envío de datos del administrador para crear una cuenta de usuario.
 
-- login: Envío de formulario para realizar inicio de sesión.
+- `login`: Envío de formulario para realizar inicio de sesión.
 
-- loginPost: Comprobación de auténticación para continuar al dashboard.
+- `loginPost`: Comprobación de auténticación para continuar al dashboard.
 
-- logoutPost: Cierre de sessión.
+- `logoutPost`: Cierre de sessión.
 
 
 
 ///////////////variables y funciones necesarias para introducir HTML en el código///////////// 
 
-- baseHtml: html común a todas las páginas. Contiene la importación de estilos CSS así como biblioteca para íconos.https://fonts.google.com/
+- `baseHtml`: html común a todas las páginas. Contiene la importación de estilos CSS así como biblioteca para íconos.https://fonts.google.com/
 
-- getNavBar:barra de navegación con las categorías 
+- `getNavBar`:barra de navegación con las categorías 
 
-- getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos (sin opción a editar/eliminar) ya que no ha iniciado sesión.
+- `getProductCards`: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos (sin opción a editar/eliminar) ya que no ha iniciado sesión.
 
-- getProductCardsDashboard:  Genera el html de los productos pero con vista administrador (opción editar/eliminar) ya que sí ha iniciado sesión.
+- `getProductCardsDashboard`:  Genera el html de los productos pero con vista administrador (opción editar/eliminar) ya que sí ha iniciado sesión.
 
-- formEditProduct: formulario para actualizar/modificar producto.
+- `formEditProduct`: formulario para actualizar/modificar producto.
 
-- formCreateProduct: formulario para crear producto.
+- `formCreateProduct`: formulario para crear producto.
 
-- registerForm: formulario para registrar usuario.
+- `registerForm`: formulario para registrar usuario.
 
-- loginForm: formulario para iniciar sesión.
+- `loginForm`: formulario para iniciar sesión.
 
 ***********************************************************DESPLIEGUE******************************************************
 ## Despliegue

@@ -11,7 +11,7 @@ var testSession = null;
 let authenticatedSession;
 
 beforeEach(function () {
-  testSession = session(app);
+    testSession = session(app);
 });
     
 
@@ -30,7 +30,7 @@ beforeEach(function () {
 
 /* describe('GET /login', function() {
     test('login user', function(done) {
-      request(app)
+        request(app)
         .get('/login')
         .auth('adnisosa@gmail.com', '123456')
         .expect(200, done);
@@ -47,7 +47,7 @@ describe("testing/productRoutes", () => {
         Talla: "M",
         Precio: 55
     };
-      
+
     test("Create a product", async() => {
         
         let productsCount = await Product.countDocuments({});// contamos prod. que hay en nuestra colección de prod.
