@@ -13,6 +13,7 @@ Encabezados
 ## ÍNDICE
 *[Descripción del proyecto](#Descripción-del-proyecto)
 *[Funcionalidades del proyecto](#Funcionalidades-del-proyecto)
+*[Tecnologías utilizadas](#Tecnologías-utilizadas)
 *[Características de archivos](#Características-de-los-archivos)
 *[Base de datos](#Base-de-datos)
 *[Servidor](#Servidor)
