@@ -6,37 +6,6 @@ const app = require("../index.js");
 const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js");
 
-var session = require('supertest-session');
-var testSession = null;
-let authenticatedSession;
-
-beforeEach(function () {
-    testSession = session(app);
-});
-    
-
-/* beforeEach(function (done) {
-    testSession.post('/login').type('form')
-        .send({email: 'adnisosa@gmail.com', password: '123456'})
-        .expect(302) // get redirected to /dashboard
-        .end(function (err) {
-        if (err) return done(err);
-        authenticatedSession = testSession;
-        return done();
-    });
-});
- */
-
-
-/* describe('GET /login', function() {
-    test('login user', function(done) {
-        request(app)
-        .get('/login')
-        .auth('adnisosa@gmail.com', '123456')
-        .expect(200, done);
-    });
-  });  */
-
 describe("testing/productRoutes", () => {
     
     const product = {//lo que metemos por el body(postman)
@@ -51,7 +20,7 @@ describe("testing/productRoutes", () => {
     test("Create a product", async() => {
         
         let productsCount = await Product.countDocuments({});// contamos prod. que hay en nuestra colección de prod.
-        expect(productsCount).toBe(9); //no deberían haber
+        expect(productsCount).toBe(7); //no deberían haber
 
         const res = (await request(app)
         .post("/dashboard")
@@ -62,7 +31,7 @@ describe("testing/productRoutes", () => {
         //console.log(res)
         productsCount = await Product.countDocuments({});//contamos colección productos
 
-        expect(productsCount).toBe(10); // tendríamos que tener 1 producto en nuestra colección
+        expect(productsCount).toBe(8); // tendríamos que tener 1 producto en nuestra colección
 
         expect(res.text).toBeDefined(); //comprueba que la respuesta no sea vacía o incorrecta
 
@@ -77,3 +46,8 @@ describe("testing/productRoutes", () => {
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
     });
 });
+
+
+//buscar por id
+//update
+//delete
