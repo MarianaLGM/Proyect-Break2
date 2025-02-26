@@ -7,7 +7,7 @@ const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js");
 const mongoose = require('mongoose');
 
-/*
+
 describe("testing/productRoutes", () => {
     
     const product = {//lo que metemos por el body(postman)
@@ -48,7 +48,7 @@ describe("testing/productRoutes", () => {
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
     });
 });
-*/
+
 
 //buscar por id
 describe("testing/productRoutes", () => {
@@ -74,6 +74,7 @@ describe("testing/productRoutes", () => {
 
         productId = res.body._id; // aquí guardo en productId el id del producto que acabo de crear en res.body._id
 
+    test("Get product by id", async() => {
         const getProductId = await request(app) //obtener producto por el id
             .get(`/products/${productId}`)
             .expect(200);
@@ -82,10 +83,11 @@ describe("testing/productRoutes", () => {
     });
 
 });
-
-
-afterAll(() => {//cuando terminan los test vacía toda la colección de Product
-    return Product.deleteOne({ Nombre: "Camiseta flor" })
 });
+
+
+/*afterAll(() => {//cuando terminan los test vacía toda la colección de Product
+    return Product.deleteOne({ Nombre: "Camiseta flor" })
+});*/
 //update
 //delete
