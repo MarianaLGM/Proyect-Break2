@@ -14,6 +14,10 @@ La talla será un string que podrá ser "XS", "S", "M", "L", "XL". */
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
+    _id: {
+        type: new mongoose.Schema.Types.ObjectId, 
+        required: true
+    },
     Nombre: {
         type: String,
         required: true
