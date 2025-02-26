@@ -54,7 +54,7 @@ describe("testing/productRoutes", () => {
 describe("testing/productRoutes", () => {
 
     const product = { 
-        _id: new mongoose.Types.ObjectId(),
+        _id: mongoose.Schema.Types.ObjectId,
         Nombre: "Camiseta flor",
         Descripción: "Camiseta de algodón orgánico personalizables",
         Imagen: "https://img.ltwebstatic.com/images3_pi/2024/04/09/df/1712659748ccb830b59d9da791f1d27a4b934c2d39_wk_1722506854_thumbnail_560x.webp",
