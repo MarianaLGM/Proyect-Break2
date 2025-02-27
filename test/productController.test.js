@@ -4,14 +4,15 @@ const request = require("supertest");
 const app = require("../index.js");
 const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js");
+const { showProducts,  createProduct, updateProduct, deleteProduct} = require('../controllers/productController.js')
 const mongoose = require('mongoose');
 
 const SECONDS = 1000;
 
 
-/*afterAll(() => {//cuando terminan los test vacía toda la colección de Product
+/* afterAll(() => {//cuando terminan los test vacía toda la colección de Product
     return Product.deleteOne({ Nombre: "Camiseta flor" })
-});*/
+}); */
 
 describe("testing/productRoutes", () => {
     
