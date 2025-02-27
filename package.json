@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "start": "node --watch index.js"
   },
   "keywords": [],
@@ -22,6 +23,11 @@
     "firebase-admin": "13.1.0",
     "method-override": "3.0.0",
     "mongodb": "6.13.0",
-    "mongoose": "8.10.0"
+    "mongoose": "8.10.0",
+    "swagger-ui-express": "5.0.1"
+  },
+  "devDependencies": {
+    "jest": "29.7.0",
+    "supertest": "7.0.0"
   }
 }
