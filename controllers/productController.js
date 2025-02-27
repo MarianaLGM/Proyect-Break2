@@ -8,7 +8,7 @@ const Product = require("../models/Product.js");
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
 function getProductCardsDashboard(products) {
-    let html = '';
+    let html = '<div class="container">';
 
     if(products.length > 0) { 
         for (let product of products) {
@@ -51,7 +51,7 @@ Con esto, el formulario envía un POST, pero methodOverride lo convierte en un D
 
 //VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
-    let html = '';
+    let html = '<div class="container">';
 
     if(products.length > 0) { 
         for (let product of products) {

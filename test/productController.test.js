@@ -54,7 +54,7 @@ describe("testing/productRoutes", () => {
         expect(typeof res.text).toBe("string");//comprueba que la rspuesta sea string
     }, 70 * SECONDS);
 
-     test("Get a product by id", async() => {
+    test("Get a product by id", async() => {
         const productExist = await Product.findOne({Nombre: "Cinturón"});
         const id = productExist._id.toHexString()
 
@@ -95,7 +95,7 @@ describe("testing/productRoutes", () => {
                 Talla: 'L',
                 Precio: 55
             })
-           
+
     }, 70 * SECONDS);
 
     test("Delete a product", async() => {
