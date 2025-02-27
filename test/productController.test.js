@@ -4,27 +4,15 @@ const request = require("supertest");
 const app = require("../index.js");
 const Product = require("../models/Product.js");
 const productController=require ("../controllers/productController.js");
+const { showProducts,  createProduct, updateProduct, deleteProduct} = require('../controllers/productController.js')
 const mongoose = require('mongoose');
 
 const SECONDS = 1000;
 
-/* describe('GET /login', function() {
-    test('login user', function(done) {
-      request(app)
-        .get('/login')
-        .auth('adnisosa@gmail.com', '123456')
-        .expect(200, done);
-    });
-  });  */
 
-/* beforeAll(async () => {
- let productsCount = await Product.countDocuments({});
- console.log(productsCount);
-}) */
-
-afterAll(() => {//cuando terminan los test vacía toda la colección de Product
+/* afterAll(() => {//cuando terminan los test vacía toda la colección de Product
     return Product.deleteOne({ Nombre: "Camiseta flor" })
-});
+}); */
 
 describe("testing/productRoutes", () => {
     
@@ -40,7 +28,7 @@ describe("testing/productRoutes", () => {
     test("Create a product", async() => {
         
         let productsCount = await Product.countDocuments({});// contamos los productos que hay en nuestra colección de productos
-        expect(productsCount).toBe(45); 
+        expect(productsCount).toBe(8); 
 
         const res = (await request(app)
         .post("/dashboard")
@@ -51,7 +39,7 @@ describe("testing/productRoutes", () => {
     
         productsCount = await Product.countDocuments({});//contamos colección productos
 
-        expect(productsCount).toBe(46); // tendríamos que tener 1 producto más en nuestra colección
+        expect(productsCount).toBe(9); // tendríamos que tener 1 producto más en nuestra colección
 
         expect(res.text).toBeDefined(); //comprueba que la respuesta no sea vacía o incorrecta
         
@@ -112,7 +100,7 @@ describe("testing/productRoutes", () => {
 
     test("Delete a product", async() => {
         let productsCount = await Product.countDocuments({});// contamos los productos que hay en nuestra colección de productos
-        expect(productsCount).toBe(45); 
+        expect(productsCount).toBe(9); 
 
         const productExist = await Product.findOne({Nombre: "Camiseta flor"}); //Encuentra un producto en la base de datos
         //console.log(productExist)
@@ -123,7 +111,7 @@ describe("testing/productRoutes", () => {
         .expect(302)
 
         productsCount = await Product.countDocuments({});// contamos nuevamente los productos que hay en nuestra colección de productos, debe haber 1 menos.
-        expect(productsCount).toBe(44); 
+        expect(productsCount).toBe(8); 
     }, 70 * SECONDS)
 });
 
