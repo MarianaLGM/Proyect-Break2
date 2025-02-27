@@ -256,7 +256,12 @@ https://proyect-break2.onrender.com/dashboard
 - module.exports = app; exportamos desde index.js app para poder tenerla
 
 
-- crearemos los tests
+- crearemos los tests:
+`Create a product`
+`Get all the products`
+`Get a product by id`
+`Update a product`
+`Delete a product`
 
 
 
