@@ -15,7 +15,14 @@ body{
     color: rgb(177, 143, 210);
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
+}
 
+img{
+    border-radius: 7px;
+    margin-bottom: 20px;
+    margin-left: 8px;
+    width: 40px;
+    height: 50px;
 }
 
 .nuevoProducto {
@@ -171,9 +178,9 @@ nav ul{
 }
 
 /*botón enviar y eliminar producto así como registrar*/
-.newProductBtn,.editProductBtn, .btnEliminar, .btnEditar { 
+.newProductBtn,.editProductBtn, .btnEditar { 
     border-radius: 7px;
-    background-color: rgb(219, 205, 233); 
+    background-color: rgb(160, 131, 188); 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
     margin-bottom: 20px;
@@ -182,10 +189,22 @@ nav ul{
     height:30px;
 }
 
+.btnEliminar{ 
+    border-radius: 7px;
+    background-color: rgb(160, 131, 188); 
+    font-family: "Futura", sans-serif;
+    font-size: 13px; 
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 230px;
+    height:30px;
+}
+
+
 .verDetalle{
     font-family: "Futura", sans-serif;
     font-size: 15px; 
-    margin-left: 80px;
+    margin-left: 60px;
     width: 200px;
     color: rgb(173, 116, 231);
 }
@@ -194,6 +213,9 @@ nav ul{
 .editar{ 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
+    color: rgb(81, 9, 149); 
+45444444444444444444444444444444444444444444444444
+
 }
 
 /**********************FORMATO AUTHCONTROLLERS.JS****************************
@@ -206,8 +228,6 @@ nav ul{
     width: 320px;
     margin-left: 600px;
     margin-top: 100px;
-
-
 }
 
 /*formato campo para introducir mail y contraseña*/

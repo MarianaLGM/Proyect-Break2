@@ -17,7 +17,7 @@ function getProductCardsDashboard(products) {
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
 
-                    <a class="verDetalle" href="/dashboard/${product._id}">Ver</a>
+                    <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
 
                 </div>
                 `
@@ -25,7 +25,7 @@ function getProductCardsDashboard(products) {
         
         return html;
     } else {
-        html =  `
+        html +=  `
             <div class="productCard">
                 <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
@@ -33,7 +33,7 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
+                <a class="editar" href="/dashboard/${products._id}/edit">Editar producto</a>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
@@ -42,6 +42,7 @@ function getProductCardsDashboard(products) {
                 
             </div> 
             `;
+        html += '</div>' //cierre contenedor
         return html;
     }
 }
@@ -61,14 +62,14 @@ function getProductCards(products) {
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
 
-                    <a class="verDetalle" href="/products/${product._id}">Ver</a>
+                    <a class="verDetalle" href="/products/${product._id}">Ver detalle</a>
                 </div>
 
                 `
         }
         return html;
     } else {
-        html = `
+        html += `
             <div class="productCard2">
                 <img class="productImagen" src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
@@ -78,11 +79,10 @@ function getProductCards(products) {
             </div>
 
         `;
-        
+        html += '</div>' 
         return html;
     }
 }
-
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =

@@ -151,6 +151,7 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
+            <link rel="shortcut icon" href="/image/logo.png">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>
