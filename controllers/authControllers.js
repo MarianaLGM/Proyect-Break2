@@ -135,7 +135,7 @@ const loginForm = `
         <button type='submit' class='loginButton'>Iniciar sesión</button>
 
         <h3>¿Todavía no tienes una cuenta?</h3>
-        <a href="/register" class='register' >¡Regístrate!</a>
+        <a href="/register" class='registerLink' >¡Regístrate!</a>
         
       </div>
   </body>
@@ -151,6 +151,7 @@ const baseHtml =
             <meta charset="UTF-8">
             <title>Tienda de ropa online</title>
             <link rel="stylesheet" href="/style.css">
+            <link rel="shortcut icon" href="/image/logo.png">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         </head>
     </html>

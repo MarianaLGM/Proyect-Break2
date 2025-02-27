@@ -246,7 +246,7 @@ https://proyect-break2.onrender.com/dashboard
 
 ## Test
 
-- npm i -D jest (-D hace referencia a que es una dependencia de desarrollo)
+- npm i -D jest supertest(-D hace referencia a que es una dependencia de desarrollo)
 
 - en nuestro package.json creamos un script para ejecutar los tests cada vez que guardamos. ("scripts" ----->"test": "jest" y  "test:watch": "jest --watchAll",)
 
@@ -256,7 +256,12 @@ https://proyect-break2.onrender.com/dashboard
 - module.exports = app; exportamos desde index.js app para poder tenerla
 
 
-- crearemos los tests
+- crearemos los tests:
+`Create a product`
+`Get all the products`
+`Get a product by id`
+`Update a product`
+`Delete a product`
 
 
 

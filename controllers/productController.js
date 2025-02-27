@@ -8,7 +8,7 @@ const Product = require("../models/Product.js");
 
 // VISTA DASHBOARD getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
 function getProductCardsDashboard(products) {
-    let html = '';
+    let html = '<div class="container">';
 
     if(products.length > 0) { 
         for (let product of products) {
@@ -17,7 +17,7 @@ function getProductCardsDashboard(products) {
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
 
-                    <a class="verDetalle" href="/dashboard/${product._id}">Ver</a>
+                    <a class="verDetalle" href="/dashboard/${product._id}">Ver detalle</a>
 
                 </div>
                 `
@@ -25,7 +25,7 @@ function getProductCardsDashboard(products) {
         
         return html;
     } else {
-        html = `
+        html +=  `
             <div class="productCard">
                 <img class="productImagen"src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
@@ -33,7 +33,7 @@ function getProductCardsDashboard(products) {
                 <p class="productTalla">Talla: ${products.Talla}</p>
                 <p class="productPrecio">Precio: ${products.Precio}€</p>
 
-                <a class="editar" href="/dashboard/${products._id}/edit">Editar</a>
+                <a class="editar" href="/dashboard/${products._id}/edit">Editar producto</a>
 
                 <form action="/dashboard/${products._id}/delete" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
@@ -42,6 +42,7 @@ function getProductCardsDashboard(products) {
                 
             </div> 
             `;
+        html += '</div>' //cierre contenedor
         return html;
     }
 }
@@ -51,7 +52,7 @@ Con esto, el formulario envía un POST, pero methodOverride lo convierte en un D
 
 //VISTA GENERAL getProductCardsClient Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos
 function getProductCards(products) {
-    let html = '';
+    let html = '<div class="container">';
 
     if(products.length > 0) { 
         for (let product of products) {
@@ -61,14 +62,14 @@ function getProductCards(products) {
                     <img class="productImagen"src="${product.Imagen}" alt="${product.Nombre}">
                     <h2 class="productNombre">${product.Nombre}</h2>
 
-                    <a class="verDetalle" href="/products/${product._id}">Ver</a>
+                    <a class="verDetalle" href="/products/${product._id}">Ver detalle</a>
                 </div>
 
                 `
         }
         return html;
     } else {
-        html = `
+        html += `
             <div class="productCard2">
                 <img class="productImagen" src="${products.Imagen}" alt="${products.Nombre}">
                 <h2 class="productNombre">${products.Nombre}</h2>
@@ -78,11 +79,10 @@ function getProductCards(products) {
             </div>
 
         `;
-        
+        html += '</div>' 
         return html;
     }
 }
-
 
 //baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 const baseHtml =
@@ -176,17 +176,19 @@ const searchProductForm = `
 const formCreateProduct = 
 `
     <body>
+    <div class= "containerCreate"> 
+
         <form class="formCreateProduct" action='/dashboard' method="POST">
             <label for="productImg">Enlace de la imagen:</label>
-            <input type="text" id="productImg" name="Imagen"><br>
+            <input type="text" id="productImg" name="Imagen">
                     
             <label for='productName'>Nombre del producto: </label>
             <input class='productName' type='text' name='Nombre' required>
                     
-            <label for='productDescription'>Descripción del producto: </label>
+            <label for='productDescription'>Descripción: </label>
             <input class='productDescription' type='text' name='Descripción' required>
                     
-            <label for='productCategory'>Categoría del producto: </label>
+            <label for='productCategory'>Categoría: </label>
             <select class="productCategory" name="Categoría" required>
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
@@ -194,7 +196,7 @@ const formCreateProduct =
                 <option value="Accesorios">Accesorios</option>
             </select>
                     
-            <label for='productSize'>Talla del producto: </label>
+            <label for='productSize'>Talla: </label>
             <select class="productSize" name="Talla" required>
                 <option value="XS">XS</option>
                 <option value="S">S</option>
@@ -203,12 +205,13 @@ const formCreateProduct =
                 <option value="XL">XL</option>
             </select>
 
-            <label for='productPrice'>Precio del producto: </label>
+            <label for='productPrice'>Precio: </label>
             <input class='productPrice' type='number' name='Precio' min='0' required>
 
             <button class="newProductBtn" type='submit'>Subir nuevo producto</button>
 
             </form>
+        </div>    
         </body>
     `;
 
@@ -218,6 +221,7 @@ const formCreateProduct =
 const formEditProduct = (product) => {
     return `
     <body>
+    <div class= "containerUpdate"> 
         <form class="formEditProduct" action='/dashboard/${product._id}' method='post'>
 
             <label for="productImg">Enlace de la imagen:</label>
@@ -226,10 +230,10 @@ const formEditProduct = (product) => {
             <label for='productName'>Nombre del producto: </label>
             <input class='productName' type='text' name='Nombre' value='${product.Nombre}'><br>
                 
-            <label for='productDescription'>Descripción del producto: </label>
+            <label for='productDescription'>Descripción: </label>
             <textarea class='productDescription' type='text' name='Descripción'>${product.Descripción}</textarea><br>
 
-            <label for='productCategory'>Categoría del producto: </label>
+            <label for='productCategory'>Categoría: </label>
             <select class="productCategory" name="Categoría">
                 <option value="Camisetas">Camisetas</option>
                 <option value="Pantalones">Pantalones</option>
@@ -237,7 +241,7 @@ const formEditProduct = (product) => {
                 <option value="Accesorios">Accesorios</option>
             </select><br>
                 
-            <label for='productSize'>Talla del producto: </label>
+            <label for='productSize'>Talla: </label>
             <select class="productSize" name="Talla">
                 <option value="XS">XS</option>
                 <option value="S">S</option>
@@ -246,14 +250,14 @@ const formEditProduct = (product) => {
                 <option value="XL">XL</option>
             </select><br>
 
-            <label for='productPrice'>Precio del producto: </label>
+            <label for='productPrice'>Precio: </label>
             <input class='productPrice' type='number' name='Precio' min='0' value='${product.Precio}'><br>
             <form action="/dashboard/${product._id}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <button class="editProductBtn" type="submit">Actualizar producto</button>
             </form>
         </form>
-
+        </div>  
     </body>
     `;
 };
