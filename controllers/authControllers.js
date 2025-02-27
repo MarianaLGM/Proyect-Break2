@@ -135,7 +135,7 @@ const loginForm = `
         <button type='submit' class='loginButton'>Iniciar sesión</button>
 
         <h3>¿Todavía no tienes una cuenta?</h3>
-        <a href="/register" class='register' >¡Regístrate!</a>
+        <a href="/register" class='registerLink' >¡Regístrate!</a>
         
       </div>
   </body>

@@ -103,8 +103,8 @@ nav ul{
     width: 1500px;
     position: relative;
     top: 60px;
+}
 
-} 
 
 /*formato contenedor detalles producto (imagen, nombre, precio)*/
 .productCard1, .productCard2, .productCard{
@@ -117,10 +117,10 @@ nav ul{
     margin-top: 60px;
 }
 
-/*contenedores de las tarjetas de producto*/
-.container{
+/*contenedores de las tarjetas de producto, contenedor crear producto y contenedor actualizar producto*/
+.container, .containerCreate, .containerUpdate{
     display: flex;
-    flex-wrap: wrap; /* Para que las tarjetas se ajusten a varias líneas si es necesario */
+    flex-wrap: wrap; 
     justify-content: space-around; 
 }
 
@@ -172,12 +172,14 @@ nav ul{
 
 /*botón enviar y eliminar producto así como registrar*/
 .newProductBtn,.editProductBtn, .btnEliminar, .btnEditar { 
-    border-radius: 5px;
+    border-radius: 7px;
     background-color: rgb(219, 205, 233); 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
     margin-bottom: 20px;
-    width: 200px;
+    margin-top: 20px;
+    width: 330px;
+    height:30px;
 }
 
 .verDetalle{
@@ -196,15 +198,16 @@ nav ul{
 
 /**********************FORMATO AUTHCONTROLLERS.JS****************************
 
-/*formato contenedor formulario registro, login y logout*/
-.register, .login, .logout{
+/*formato contenedor formulario login y register*/
+.login, .register{
     font-family: "Futura", sans-serif;
     font-size: 15px;
     color: rgb(61, 61, 61);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 320px;
+    margin-left: 600px;
+    margin-top: 100px;
+
+
 }
 
 /*formato campo para introducir mail y contraseña*/
@@ -219,14 +222,15 @@ nav ul{
     background-color: rgb(219, 205, 233); 
     font-family: "Futura", sans-serif;
     font-size: 13px; 
-    width: 120px;
+    width: 230px;
 }
 
 /*Título iniciar sesión*/
 h2{
     font-family: "Futura", sans-serif;
-    font-size: 17px;
+    font-size: 22px;
     color: rgb(84, 84, 84);
+    margin-left: 40px;
 }
 
 /*¿todavía no tienes una cuenta?*/
@@ -237,10 +241,11 @@ h3{
 }
 
 /*formato ¡regístrate!*/
-.register{
+.registerLink{
     font-family: "Futura", sans-serif;
     font-size: 14px; 
     color: rgb(81, 9, 149); 
+    margin-left: 70px;
 }
 
 
