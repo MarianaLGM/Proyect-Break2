@@ -7,7 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const methodOverride = require('method-override');//methodOverride nos permite hacer solicitudes put y delete 
 const dbConnection = require('./config/db');
 const admin = require('firebase-admin');
-const serviceAccount = require('./config/firebase');
+const serviceAccount = require('./config/firebase.js');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const path = require('path');// configura el servidor para que sirva archivos estáticos
@@ -43,7 +43,7 @@ app.use("*", (req, res, next) => {
 
 dbConnection();
 
-app.listen(process.env.PORT, () => console.log(`Server listening on http://localhost:${process.env.PORT}`));
+app.listen(process.env.PORT, () => console.log(`Server listening on http://localhost:${process.env.PORT}/products`));
 
 
 module.exports = app;
